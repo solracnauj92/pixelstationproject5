@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import styles from "../../styles/SignInUpForm.module.css";
@@ -20,7 +20,7 @@ const SignUpForm = () => {
 
   const history = useHistory();
 
-  const handleChange = (event) => {
+   const handleChange = (event) => {
     setSignUpData({
       ...signUpData,
       [event.target.name]: event.target.value,
@@ -29,13 +29,17 @@ const SignUpForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Form submitted with data:", signUpData); // Debugging line
+    setErrors({}); 
+
+    if (password1 !== password2) {
+      setErrors({ password2: ["Passwords do not match"] });
+      return;
+    }
+
     try {
       const response = await axios.post("/dj-rest-auth/registration/", signUpData);
-      console.log("Response:", response); // Debugging line
       history.push("/signin");
     } catch (err) {
-      console.error("Error response:", err.response); // Debugging line
       setErrors(err.response?.data || {});
     }
   };
