@@ -38,8 +38,11 @@ const SignUpForm = () => {
 
     try {
       const response = await axios.post("/dj-rest-auth/registration/", signUpData);
+      console.log("Response:", response);
       history.push("/signin");
+      console.log("Redirecting to sign in");
     } catch (err) {
+      console.error("Error response:", err.response);
       setErrors(err.response?.data || {});
     }
   };
