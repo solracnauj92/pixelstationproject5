@@ -41,6 +41,7 @@ const SignUpForm = () => {
       console.log("Response:", response);
       history.push("/signin");
       console.log("Redirecting to sign in");
+      
     } catch (err) {
       console.error("Error response:", err.response);
       setErrors(err.response?.data || {});
@@ -114,6 +115,7 @@ const SignUpForm = () => {
             >
               Sign Up
             </Button>
+
             {errors.non_field_errors && errors.non_field_errors.map((message, idx) => (
               <Alert key={idx} variant="warning" className="mt-3">
                 {message}
