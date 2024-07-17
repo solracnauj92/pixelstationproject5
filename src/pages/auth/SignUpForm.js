@@ -1,11 +1,28 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 
-import { Form, Button, Image, Col, Row, Container, Alert } from "react-bootstrap";
+import {
+
+  Form,
+
+  Button,
+
+  Image,
+
+  Col,
+
+  Row,
+
+  Container,
+
+  Alert,
+
+} from "react-bootstrap";
+
 import axios from "axios";
 
 const SignUpForm = () => {
@@ -37,13 +54,13 @@ const SignUpForm = () => {
     }
 
     try {
+      console.log("Submitting form with data: ", signUpData); // Log form data
       const response = await axios.post("/dj-rest-auth/registration/", signUpData);
-      console.log("Response:", response);
+      console.log("Response:", response); // Log response
       history.push("/signin");
-      console.log("Redirecting to sign in");
-      
+      console.log("Redirecting to sign in"); // Log redirection
     } catch (err) {
-      console.error("Error response:", err.response);
+      console.error("Error response:", err.response); // Log error
       setErrors(err.response?.data || {});
     }
   };
