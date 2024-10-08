@@ -84,27 +84,27 @@ const Post = (props) => {
               placement="top"
               overlay={<Tooltip>You can't like your own post!</Tooltip>}
             >
-              <i class="bi bi-heart"></i>
+              <i class="bi bi-heart-fill"></i>
             </OverlayTrigger>
           ) : like_id ? (
             <span onClick={handleUnlike}>
-              <i className={`bi bi-heart ${styles.Heart}`} />
+              <i className={`bi bi-heart-fill ${styles.Heart}`} />
             </span>
           ) : currentUser ? (
             <span onClick={handleLike}>
-              <i className={`bi bi-heart ${styles.HeartOutline}`} />
+              <i className={`bi bi-heart-fill ${styles.HeartOutline}`} />
             </span>
           ) : (
             <OverlayTrigger
               placement="top"
               overlay={<Tooltip>Log in to like posts!</Tooltip>}
             >
-              <i class="bi bi-heart"></i>
+              <i class="bi bi-heart-fill"></i>
             </OverlayTrigger>
           )}
           {likes_count}
           <Link to={`/posts/${id}`}>
-            <i className="bi bi-chat-left-text"></i>
+            <i className="bi bi-chat-left-text" />
           </Link>
           {comments_count}
         </div>

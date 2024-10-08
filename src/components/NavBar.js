@@ -33,7 +33,7 @@ const NavBar = () => {
       activeClassName={styles.Active}
       to="/posts/create"
     >
-      <i class="bi bi-pencil-square"></i>Add post
+      <i className="bi bi-pencil-square"></i>Add post
     </NavLink>
   );
   const loggedInIcons = (
@@ -43,17 +43,17 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/feed"
       >
-        <i class="bi bi-list"></i>Feed
+        <i className="bi bi-list"></i>Feed
       </NavLink>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/liked"
       >
-        <i class="bi bi-heart"></i>Liked
+        <i className="bi bi-heart"></i>Liked
       </NavLink>
       <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
-       <i class="bi bi-door-open"></i>Sign out
+       <i className="bi bi-door-open"></i>Sign out
       </NavLink>
       <NavLink
         className={styles.NavLink}
@@ -70,14 +70,14 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/signin"
       >
-        <i class="bi bi-box-arrow-in-right"></i>Sign in
+        <i className="bi bi-box-arrow-in-right"></i>Sign in
       </NavLink>
       <NavLink
         to="/signup"
         className={styles.NavLink}
         activeClassName={styles.Active}
       >
-        <i class="bi bi-person-add"></i>Sign up
+        <i className="bi bi-person-add"></i>Sign up
       </NavLink>
     </>
   );
@@ -109,7 +109,7 @@ const NavBar = () => {
               activeClassName={styles.Active}
               to="/"
             >
-               <i class="bi bi-house"></i>Home
+               <i className="bi bi-house"></i>Home
             </NavLink>
 
             {currentUser ? loggedInIcons : loggedOutIcons}
