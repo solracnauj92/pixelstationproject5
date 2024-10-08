@@ -10,6 +10,7 @@ import PostPage from "./pages/posts/PostPage";
 import PostsPage from "./pages/posts/PostsPage";
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 
+
 function App() {
   const currentUser = useCurrentUser();
   const profile_id = currentUser?.profile_id || "";
