@@ -9,6 +9,7 @@ import { useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 import Post from "./Post";
 
+import Comment from "../comments/Comment";
 
 import CommentCreateForm from "../comments/CommentCreateForm";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -26,10 +27,12 @@ function PostPage() {
   useEffect(() => {
     const handleMount = async () => {
       try {
-        const [{ data: post }] = await Promise.all([
+        const [{ data: post }, { data: comments }] = await Promise.all([
           axiosReq.get(`/posts/${id}`),
+          axiosReq.get(`/comments/?post=${id}`),
         ]);
         setPost({ results: [post] });
+        setComments(comments);
         console.log(post);
       } catch (err) {
         console.log(err);
@@ -46,29 +49,48 @@ function PostPage() {
         <Post {...post.results[0]} setPosts={setPost} postPage />
         <Container className={appStyles.Content}>
 
-{currentUser ? (
+          {currentUser ? (
 
-  <CommentCreateForm
+            <CommentCreateForm
 
-    profile_id={currentUser.profile_id}
+              profile_id={currentUser.profile_id}
 
-    profileImage={profile_image}
+              profileImage={profile_image}
 
-    post={id}
+              post={id}
 
-    setPost={setPost}
+              setPost={setPost}
 
-    setComments={setComments}
+              setComments={setComments}
 
-  />
+            />
 
-) : comments.results.length ? (
+          ) : comments.results.length ? (
 
-  "Comments"
+            "Comments"
 
-) : null}
+          ) : null}
 
-</Container>
+          {comments.results.length ? (
+
+            comments.results.map((comment) => (
+
+              <Comment key={comment.id} {...comment} />
+
+            ))
+
+          ) : currentUser ? (
+
+            <span>No comments yet, be the first to comment!</span>
+
+          ) : (
+
+            <span>No comments... yet</span>
+
+          )}
+
+        </Container>
+
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
         Popular profiles for desktop
