@@ -121,7 +121,7 @@ const Post = (props) => {
               placement="top"
               overlay={<Tooltip>You can't like your own post!</Tooltip>}
             >
-              <i class="bi bi-heart-fill"></i>
+              <i className="bi bi-heart-fill"></i>
             </OverlayTrigger>
           ) : like_id ? (
             <span onClick={handleUnlike}>
@@ -136,7 +136,7 @@ const Post = (props) => {
               placement="top"
               overlay={<Tooltip>Log in to like posts!</Tooltip>}
             >
-              <i class="bi bi-heart-fill"></i>
+              <i className="bi bi-heart-fill"></i>
             </OverlayTrigger>
           )}
           {likes_count}
