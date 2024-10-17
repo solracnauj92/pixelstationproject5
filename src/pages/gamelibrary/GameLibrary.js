@@ -10,11 +10,20 @@ const GameLibrary = () => {
     useEffect(() => {
         // Fetch the games and game collections when the component loads
         const fetchData = async () => {
-            const gamesData = await getGames();
-            const collectionsData = await getGameCollections();
-            setGames(gamesData);
-            setCollections(collectionsData);
+            try {
+                const gamesData = await getGames();
+                console.log("Fetched Games Data:", gamesData); // Log the games data
+
+                const collectionsData = await getGameCollections();
+                console.log("Fetched Game Collections Data:", collectionsData); // Log the collections data
+
+                setGames(gamesData);
+                setCollections(collectionsData);
+            } catch (error) {
+                console.error("Error fetching data:", error); // Log any errors that occur during fetching
+            }
         };
+
         fetchData();
     }, []);
 
@@ -53,6 +62,7 @@ const GameLibrary = () => {
         </div>
     );
 };
+
 
 export default GameLibrary;
 
