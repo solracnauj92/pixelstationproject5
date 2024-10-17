@@ -82,3 +82,25 @@ export const unfollowHelper = (profile, clickedProfile) => {
       profile;
 
 };
+
+// Function to get the list of games
+export const getGames = async () => {
+  try {
+      const { data } = await axiosReq.get('/games/');
+      return data;
+  } catch (error) {
+      console.error("Error fetching games:", error);
+      return [];
+  }
+};
+
+// Function to get the list of game collections
+export const getGameCollections = async () => {
+  try {
+      const { data } = await axiosReq.get('/collections/');
+      return data;
+  } catch (error) {
+      console.error("Error fetching game collections:", error);
+      return [];
+  }
+};

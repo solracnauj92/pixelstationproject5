@@ -52,6 +52,13 @@ const NavBar = () => {
       >
         <i className="bi bi-heart"></i>Liked
       </NavLink>
+      <NavLink
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/game-library" // Link to your GameLibrary page
+      >
+        <i className="bi bi-controller"></i>Game Library
+      </NavLink>
       <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
        <i className="bi bi-door-open"></i>Sign out
       </NavLink>
