@@ -8,21 +8,21 @@ const GameLibrary = () => {
 
   useEffect(() => {
     const fetchGames = async () => {
-      try {
-        const response = await axios.get('/games/');
-        setGames(response.data);
-      } catch (err) {
-        console.error('Error fetching games:', err);
-      }
+        try {
+            const response = await axios.get('/game_library/games/');
+            setGames(response.data);
+        } catch (err) {
+            console.error('Error fetching games:', err.response ? err.response.data : err);
+        }
     };
-
+    
     const fetchCollections = async () => {
-      try {
-        const response = await axios.get('/collections/');
-        setCollections(response.data);
-      } catch (err) {
-        console.error('Error fetching collections:', err);
-      }
+        try {
+            const response = await axios.get('/game_library/collections/');
+            setCollections(response.data);
+        } catch (err) {
+            console.error('Error fetching collections:', err.response ? err.response.data : err);
+        }
     };
 
     fetchGames();

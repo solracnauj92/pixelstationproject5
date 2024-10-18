@@ -1,0 +1,15 @@
+.messagingContainer {
+    padding: 20px;
+  }
+  
+  .header {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .noMessages {
+    color: gray;
+    font-style: italic;
+    margin-top: 20px;
+  }
+  
