@@ -3,12 +3,12 @@ import axios from 'axios';
 import styles from '../../styles/Forum.ThreadList.module.css';
 
 const ThreadList = ({ forumId, onSelectThread }) => {
-  const [threads, setThreads] = useState([]);
+  const [threads, setThreads] = useState([]); // Store the list of threads
 
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const response = await axios.get(`/forums/${forumId}/threads/`);
+        const response = await axios.get(`/forums/${forumId}/threads/`); // Fetch threads for forum
         setThreads(response.data);
       } catch (err) {
         console.error(err);
@@ -16,7 +16,7 @@ const ThreadList = ({ forumId, onSelectThread }) => {
     };
 
     if (forumId) {
-      fetchThreads();
+      fetchThreads(); // Fetch threads only if a forum is selected
     }
   }, [forumId]);
 
@@ -24,15 +24,19 @@ const ThreadList = ({ forumId, onSelectThread }) => {
     <div className={styles.threadList}>
       <h2>Threads</h2>
       <ul>
-        {threads.map((thread) => (
-          <li
-            key={thread.id}
-            className={styles.threadItem} // Apply the thread item style
-            onClick={() => onSelectThread(thread.id)}
-          >
-            <span className={styles.threadTitle}>{thread.title}</span>
-          </li>
-        ))}
+        {threads.length > 0 ? (
+          threads.map((thread) => (
+            <li
+              key={thread.id}
+              className={styles.threadItem}
+              onClick={() => onSelectThread(thread.id)} // Select thread on click
+            >
+              <span className={styles.threadTitle}>{thread.title}</span>
+            </li>
+          ))
+        ) : (
+          <li>No threads available.</li> // Show message if no threads found
+        )}
       </ul>
     </div>
   );
