@@ -28,7 +28,6 @@ const NavBar = () => {
     }
   };
 
-
   const addPostIcon = (
     <NavLink
       className={styles.NavLink}
@@ -38,6 +37,7 @@ const NavBar = () => {
       <i className="bi bi-pencil-square"></i>Add post
     </NavLink>
   );
+
   const loggedInIcons = (
     <>
       <NavLink
@@ -57,12 +57,20 @@ const NavBar = () => {
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
-        to="/game-library" // Link to your GameLibrary page
+        to="/game-library"
       >
         <i className="bi bi-controller"></i>Game Library
       </NavLink>
+      {/* Add Forum Link Here */}
+      <NavLink
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/forum"
+      >
+        <i className="bi bi-chat-dots"></i>Forum
+      </NavLink>
       <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
-       <i className="bi bi-door-open"></i>Sign out
+        <i className="bi bi-door-open"></i>Sign out
       </NavLink>
       <NavLink
         className={styles.NavLink}
@@ -72,6 +80,7 @@ const NavBar = () => {
       </NavLink>
     </>
   );
+
   const loggedOutIcons = (
     <>
       <NavLink
@@ -118,9 +127,8 @@ const NavBar = () => {
               activeClassName={styles.Active}
               to="/"
             >
-               <i className="bi bi-house"></i>Home
+              <i className="bi bi-house"></i>Home
             </NavLink>
-
             {currentUser ? loggedInIcons : loggedOutIcons}
           </Nav>
         </Navbar.Collapse>
