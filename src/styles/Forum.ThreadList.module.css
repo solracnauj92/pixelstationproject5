@@ -1,0 +1,24 @@
+/* Forum.ThreadList.module.css */
+
+.threadList {
+    margin-top: 20px;
+  }
+  
+  .threadItem {
+    padding: 10px;
+    border: 1px solid #dee2e6; /* Light border */
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #ffffff; /* White background for items */
+    cursor: pointer; /* Indicate clickable items */
+    transition: background-color 0.3s; /* Smooth transition */
+  }
+  
+  .threadItem:hover {
+    background-color: #e9ecef; /* Change background on hover */
+  }
+  
+  .threadTitle {
+    font-weight: bold;
+  }
+  

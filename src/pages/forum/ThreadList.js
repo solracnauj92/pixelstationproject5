@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import styles from '../../styles/Forum.ThreadList.module.css';
 
 const ThreadList = ({ forumId, onSelectThread }) => {
   const [threads, setThreads] = useState([]);
@@ -20,12 +21,16 @@ const ThreadList = ({ forumId, onSelectThread }) => {
   }, [forumId]);
 
   return (
-    <div>
+    <div className={styles.threadList}>
       <h2>Threads</h2>
       <ul>
         {threads.map((thread) => (
-          <li key={thread.id} onClick={() => onSelectThread(thread.id)}>
-            {thread.title}
+          <li
+            key={thread.id}
+            className={styles.threadItem} // Apply the thread item style
+            onClick={() => onSelectThread(thread.id)}
+          >
+            <span className={styles.threadTitle}>{thread.title}</span>
           </li>
         ))}
       </ul>

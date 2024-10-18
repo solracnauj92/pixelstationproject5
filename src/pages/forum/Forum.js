@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import ForumList from './ForumList';
 import ThreadList from './ThreadList';
 import PostList from './PostList';
+import styles from '../../styles/Forum.module.css';
 
 const Forum = () => {
   const [selectedForum, setSelectedForum] = useState(null);
@@ -18,8 +19,8 @@ const Forum = () => {
   };
 
   return (
-    <div>
-      <h1>Forum Page</h1>
+    <div className={styles.forumContainer}> {/* Apply styles from the CSS module */}
+      <h1 className={styles.forumHeading}>Forum Page</h1>
       <ForumList onSelectForum={handleForumSelect} />
       {selectedForum && <ThreadList forumId={selectedForum} onSelectThread={handleThreadSelect} />}
       {selectedThread && <PostList threadId={selectedThread} />}

@@ -1,0 +1,49 @@
+/* Forum.module.css */
+.forumContainer {
+    padding: 20px;
+    background-color: #f8f9fa; /* Light background for contrast */
+    border-radius: 5px;
+  }
+  
+  .forumHeading {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #343a40; /* Dark color for headings */
+  }
+  
+  .threadList, .postList {
+    margin-top: 20px;
+  }
+  
+  .threadItem, .postItem {
+    padding: 10px;
+    border: 1px solid #dee2e6; /* Light border */
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #ffffff; /* White background for items */
+    cursor: pointer; /* Indicate clickable items */
+    transition: background-color 0.3s; /* Smooth transition */
+  }
+  
+  .threadItem:hover, .postItem:hover {
+    background-color: #e9ecef; /* Change background on hover */
+  }
+  
+  .threadTitle {
+    font-weight: bold;
+  }
+  
+  .postAuthor {
+    font-weight: bold;
+  }
+  
+  .postContent {
+    margin-top: 5px;
+    color: #495057; /* Dark gray for post content */
+  }
+  
+  .datePosted {
+    font-size: 0.85rem;
+    color: #6c757d; /* Muted text color for date */
+  }
+  
