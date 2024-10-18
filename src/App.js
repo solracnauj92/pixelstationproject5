@@ -14,8 +14,9 @@ import ProfilePage from "./pages/profiles/ProfilePage";
 import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
-import GameLibrary from './pages/gamelibrary/GameLibrary'
+import GameLibrary from './pages/gamelibrary/GameLibrary';
 import NotFound from "./components/NotFound";
+import Forum from './pages/forum/Forum'; 
 
 function App() {
   const currentUser = useCurrentUser();
@@ -75,13 +76,12 @@ function App() {
             render={() => <ProfileEditForm />}
           />
 
-           {/* Game Library Route */}
-           <Route path="/game-library" element={<GameLibrary />} />
-           <Route path="*">
-  <NotFound />
-</Route>
+          {/* Add the Forum Route */}
+          <Route exact path="/forum" render={() => <Forum />} />
 
-       
+          {/* Game Library Route */}
+          <Route path="/game-library" element={<GameLibrary />} />
+
           {/* Not Found Route */}
           <Route path="*">
             <NotFound />
