@@ -14,10 +14,9 @@ import ProfilePage from "./pages/profiles/ProfilePage";
 import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
-import GameList from './pages/gamelibrary/GameList';
-import GameCollectionList from './pages/gamelibrary/GameCollectionList';
 import NotFound from "./components/NotFound";
 import Forum from './pages/forum/Forum'; 
+import GameLibrary from './pages/gamelibrary/GameLibrary';
 
 function App() {
   const currentUser = useCurrentUser();
@@ -81,7 +80,7 @@ function App() {
           <Route exact path="/forum" render={() => <Forum />} />
 
           {/* Game Library Route */}
-          <Route path="/game-library" element={<GameLibrary />} />
+          <Route exact path="/game-library" render={() => <GameLibrary />} />
 
           {/* Not Found Route */}
           <Route path="*">
@@ -91,16 +90,6 @@ function App() {
       </Container>
     </div>
   );
-function App() {
-  return (
-    <div>
-      <h1>Game Library</h1>
-      <GameList />
-      <GameCollectionList />
-    </div>
-  );
-}
-    
 }
 
 export default App;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styles from './GameList.module.css';
+import styles from '../../styles/GameList.module.css';
 
 const GameList = () => {
   const [games, setGames] = useState([]);
