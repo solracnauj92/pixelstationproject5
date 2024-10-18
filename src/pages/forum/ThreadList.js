@@ -8,7 +8,7 @@ const ThreadList = ({ forumId, onSelectThread }) => {
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const response = await axios.get(`/api/threads/?forum=${forumId}`); // Adjust the API URL as necessary
+        const response = await axios.get(`/forums/${forumId}/threads/`);
         setThreads(response.data);
       } catch (err) {
         console.error(err);

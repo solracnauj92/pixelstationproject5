@@ -8,7 +8,7 @@ const ForumList = ({ onSelectForum }) => {
   useEffect(() => {
     const fetchForums = async () => {
       try {
-        const response = await axios.get('/api/forums/'); // Adjust the URL based on your backend
+        const response = await axios.get('/forums/');
         setForums(response.data);
       } catch (err) {
         console.error(err);

@@ -1,7 +1,7 @@
 // src/pages/forum/PostList.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styles from '../../styles/Forum.module.css';
+import styles from '../../styles/ForumPost.module.css';
 
 const PostList = ({ threadId }) => {
   const [posts, setPosts] = useState([]);
@@ -9,7 +9,7 @@ const PostList = ({ threadId }) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(`/api/posts/?thread=${threadId}`); // Adjust the API URL as necessary
+        const response = await axios.get(`/forums/${forumId}/threads/${threadId}/posts/`); 
         setPosts(response.data);
       } catch (err) {
         console.error(err);

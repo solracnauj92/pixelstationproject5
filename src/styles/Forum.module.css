@@ -32,18 +32,3 @@
   .threadTitle {
     font-weight: bold;
   }
-  
-  .postAuthor {
-    font-weight: bold;
-  }
-  
-  .postContent {
-    margin-top: 5px;
-    color: #495057; /* Dark gray for post content */
-  }
-  
-  .datePosted {
-    font-size: 0.85rem;
-    color: #6c757d; /* Muted text color for date */
-  }
-  

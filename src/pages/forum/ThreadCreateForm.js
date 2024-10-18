@@ -1,35 +1,36 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Import axios for making API calls
+import axios from 'axios'; 
 import styles from '../../styles/Forum.ThreadCreateForm.module.css';
 
-const ThreadCreateForm = ({ forumId, onThreadCreated }) => { // Added onThreadCreated prop
+const ThreadCreateForm = ({ forumId, onThreadCreated }) => { 
   const [title, setTitle] = useState('');
-  const [error, setError] = useState(null); // State for error handling
-  const [isSubmitting, setIsSubmitting] = useState(false); // State to manage loading
+  const [error, setError] = useState(null); 
+  const [isSubmitting, setIsSubmitting] = useState(false); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true); // Set loading state
-    setError(null); // Reset error state
+    setIsSubmitting(true); 
+    setError(null); 
 
     try {
-      const response = await axios.post('/api/threads/', {
+    
+      const response = await axios.post(`/forums/${forumId}/threads/`, { 
         title: title,
-        forum: forumId, // Associate the thread with the selected forum
+        forum: forumId, 
       });
       
-      // Call onThreadCreated if provided to inform parent component of new thread
+      
       if (onThreadCreated) {
         onThreadCreated(response.data);
       }
       
-      // Clear the title after successful submission
+      
       setTitle('');
     } catch (err) {
-      setError('Error creating thread. Please try again.'); // Set error message
+      setError('Error creating thread. Please try again.'); 
       console.error(err);
     } finally {
-      setIsSubmitting(false); // Reset loading state
+      setIsSubmitting(false); 
     }
   };
 
