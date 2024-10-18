@@ -14,7 +14,8 @@ import ProfilePage from "./pages/profiles/ProfilePage";
 import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
-import GameLibrary from './pages/gamelibrary/GameLibrary';
+import GameList from './pages/gamelibrary/GameList';
+import GameCollectionList from './pages/gamelibrary/GameCollectionList';
 import NotFound from "./components/NotFound";
 import Forum from './pages/forum/Forum'; 
 
@@ -90,6 +91,16 @@ function App() {
       </Container>
     </div>
   );
+function App() {
+  return (
+    <div>
+      <h1>Game Library</h1>
+      <GameList />
+      <GameCollectionList />
+    </div>
+  );
+}
+    
 }
 
 export default App;

@@ -1,0 +1,34 @@
+.collectionList {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+  
+  .collectionList h2 {
+    color: #343a40;
+    margin-bottom: 15px;
+  }
+  
+  .collectionList ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .collectionList li {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    background-color: #ffffff;
+    transition: background-color 0.3s;
+  }
+  
+  .collectionList li:hover {
+    background-color: #e9ecef;
+  }
+  
+  .collectionList p {
+    margin: 5px 0;
+  }
+  
