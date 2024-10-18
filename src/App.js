@@ -15,6 +15,7 @@ import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import GameLibrary from './pages/gamelibrary/GameLibrary'
+import NotFound from "./components/NotFound";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -76,9 +77,15 @@ function App() {
 
            {/* Game Library Route */}
            <Route path="/game-library" element={<GameLibrary />} />
-          
+           <Route path="*">
+  <NotFound />
+</Route>
 
-          <Route render={() => <p>Page not found!</p>} />
+       
+          {/* Not Found Route */}
+          <Route path="*">
+            <NotFound />
+          </Route>
         </Switch>
       </Container>
     </div>
