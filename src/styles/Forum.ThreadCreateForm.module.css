@@ -1,0 +1,30 @@
+/* src/styles/Forum.ThreadCreateForm.module.css */
+.threadCreateForm {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ffffff; /* White background for the form */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow */
+  }
+  
+  .threadCreateForm h2 {
+    margin-bottom: 15px;
+    font-size: 1.5rem; /* Slightly smaller heading for the form */
+    color: #555; /* Darker gray color for form heading */
+  }
+  
+  .threadCreateForm button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #007bff; /* Primary button color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .threadCreateForm button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
