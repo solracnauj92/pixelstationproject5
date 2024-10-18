@@ -25,11 +25,16 @@ function PostPage() {
   const { id } = useParams();
   const [post, setPost] = useState({ results: [] });
 
+  
+  // Import and call useCurrentUser
+
   const currentUser = useCurrentUser();
 
   const profile_image = currentUser?.profile_image;
 
   const [comments, setComments] = useState({ results: [] });
+
+  // Add currentUser to the dependency array
 
   useEffect(() => {
     const handleMount = async () => {
@@ -47,7 +52,7 @@ function PostPage() {
     };
 
     handleMount();
-  }, [id]);
+   }, [id, currentUser]); 
 
   return (
     <Row className="h-100">
