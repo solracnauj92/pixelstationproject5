@@ -64,6 +64,7 @@ function SignInForm() {
                 className={styles.Input}
                 value={username}
                 onChange={handleChange}
+                aria-label="Username" // Added aria-label for accessibility
               />
             </Form.Group>
             {errors.username?.map((message, idx) => (
@@ -81,6 +82,7 @@ function SignInForm() {
                 className={styles.Input}
                 value={password}
                 onChange={handleChange}
+                aria-label="Password" // Added aria-label for accessibility
               />
             </Form.Group>
             {errors.password?.map((message, idx) => (
@@ -114,6 +116,7 @@ function SignInForm() {
         <Image
           className={`${appStyles.FillerImage}`}
           src={"https://codeinstitute.s3.amazonaws.com/AdvancedReact/hero.jpg"}
+          alt="A visual representation related to sign in" // Added alt text for accessibility
         />
       </Col>
     </Row>

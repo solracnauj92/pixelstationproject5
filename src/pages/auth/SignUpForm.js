@@ -82,6 +82,7 @@ const SignUpForm = () => {
                 value={username}
                 onChange={handleChange}
                 required
+                aria-label="Username" // Added aria-label for accessibility
               />
             </Form.Group>
             {errors.username && errors.username.map((message, idx) => (
@@ -100,6 +101,7 @@ const SignUpForm = () => {
                 value={password1}
                 onChange={handleChange}
                 required
+                aria-label="Password" // Added aria-label for accessibility
               />
             </Form.Group>
             {errors.password1 && errors.password1.map((message, idx) => (
@@ -118,6 +120,7 @@ const SignUpForm = () => {
                 value={password2}
                 onChange={handleChange}
                 required
+                aria-label="Confirm Password" // Added aria-label for accessibility
               />
             </Form.Group>
             {errors.password2 && errors.password2.map((message, idx) => (
