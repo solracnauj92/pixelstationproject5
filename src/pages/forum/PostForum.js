@@ -1,9 +1,8 @@
-// src/pages/forum/PostList.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from '../../styles/ForumPost.module.css';
 
-const PostList = ({ threadId }) => {
+const PostForum = ({ forumId, threadId }) => { 
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -16,10 +15,10 @@ const PostList = ({ threadId }) => {
       }
     };
 
-    if (threadId) {
+    if (threadId && forumId) { 
       fetchPosts();
     }
-  }, [threadId]);
+  }, [threadId, forumId]);
 
   return (
     <div>
@@ -39,4 +38,4 @@ const PostList = ({ threadId }) => {
   );
 };
 
-export default PostList;
+export default PostForum;
