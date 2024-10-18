@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from './MessageForm.module.css';
+import styles from '../../styles/MessageForm.module.css';
 
-const MessageForm = ({ userId }) => {
+const MessageForm = ({ receiverId, onMessageSent }) => {
   const [content, setContent] = useState('');
   const [error, setError] = useState(null);
 
@@ -10,11 +10,12 @@ const MessageForm = ({ userId }) => {
     e.preventDefault();
     try {
       await axios.post('http://127.0.0.1:8000/api/messages/', {
-        receiver: userId,
+        receiver: receiverId,  // Use receiverId instead of userId
         content: content,
       });
-      setContent('');
+      setContent(''); // Clear the input
       setError(null);
+      if (onMessageSent) onMessageSent(); // Call the callback to refresh the message list
     } catch (err) {
       setError('Error sending message');
     }

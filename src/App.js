@@ -17,6 +17,7 @@ import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import NotFound from "./components/NotFound";
 import Forum from './pages/forum/Forum'; 
 import GameLibrary from './pages/gamelibrary/GameLibrary';
+import Messaging from './pages/messages/Messaging';
 
 function App() {
   const currentUser = useCurrentUser();
@@ -54,6 +55,9 @@ function App() {
           <Route exact path="/profiles/:id/edit/username" component={UsernameForm} />
           <Route exact path="/profiles/:id/edit/password" component={UserPasswordForm} />
           <Route exact path="/profiles/:id/edit" component={ProfileEditForm} />
+
+          {/* Add the Messaging Route */}
+          <Route exact path="/messages/:receiverId" component={Messaging} />
 
           {/* Add the Forum Route */}
           <Route exact path="/forum" component={Forum} />
