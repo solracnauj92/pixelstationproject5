@@ -1,0 +1,24 @@
+.forumList {
+    margin: 20px 0;
+    padding: 0;
+    list-style-type: none; /* Remove default list styling */
+  }
+  
+  .forumItem {
+    padding: 15px; /* Add padding around each forum item */
+    border: 1px solid #ccc; /* Light border around each item */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 10px; /* Space between items */
+    cursor: pointer; /* Change cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+  }
+  
+  .forumItem:hover {
+    background-color: #f0f0f0; /* Light gray background on hover */
+  }
+  
+  .forumHeading {
+    font-size: 24px; /* Larger font size for heading */
+    margin-bottom: 10px; /* Space below heading */
+  }
+  

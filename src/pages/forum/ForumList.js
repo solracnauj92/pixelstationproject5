@@ -1,47 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import styles from '../../styles/ForumList.module.css'; // Import the CSS module
 
 const ForumList = ({ onSelectForum }) => {
   const [forums, setForums] = useState([]);
-  const [loading, setLoading] = useState(true); 
-  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const fetchForums = async () => {
       try {
         const response = await axios.get('/forums/');
-        setForums(response.data); 
+        setForums(response.data.results); // Access results array
       } catch (err) {
-        setError('Failed to fetch forums. Please try again later.'); 
         console.error(err);
-      } finally {
-        setLoading(false); 
       }
     };
 
     fetchForums();
   }, []);
 
-  if (loading) {
-    return <div>Loading forums...</div>; 
-  }
-
-  if (error) {
-    return <div>{error}</div>; 
-  }
-
   return (
     <div>
-      <h2>Forums</h2>
-      <ul>
-        {Array.isArray(forums) && forums.length > 0 ? ( 
+      <h2 className={styles.forumHeading}>Forums</h2> {/* Apply styles to the heading */}
+      <ul className={styles.forumList}> {/* Apply styles to the list */}
+        {forums.length > 0 ? (
           forums.map((forum) => (
-            <li key={forum.id} onClick={() => onSelectForum(forum.id)}>
+            <li 
+              key={forum.id} 
+              className={styles.forumItem} 
+              onClick={() => onSelectForum(forum.id)}
+            >
               {forum.name}
             </li>
           ))
         ) : (
-          <li>No forums available.</li> 
+          <li className={styles.forumItem}>No forums available.</li>
         )}
       </ul>
     </div>

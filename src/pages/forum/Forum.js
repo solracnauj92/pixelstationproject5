@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import ForumList from './ForumList';
 import ThreadList from './ThreadList';
-import PostForum from './PostForum';  // Renamed to PostForum
+import PostForum from './PostForum';  
 import ThreadCreateForm from './ThreadCreateForm';
 import styles from '../../styles/Forum.module.css';
 

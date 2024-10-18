@@ -8,7 +8,7 @@ const PostForum = ({ forumId, threadId }) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(`/forums/${forumId}/threads/${threadId}/posts/`);
+        const response = await axios.get(`/forums/${forumId}/threads/${threadId}/posts/`); 
         setPosts(response.data);
       } catch (err) {
         console.error(err);
