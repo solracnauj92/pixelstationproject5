@@ -1,0 +1,16 @@
+/* footer.css */
+.Footer {
+  background-color: #ffffff; 
+  text-align: center; 
+  padding: 20px;
+}
+
+.Footer a {
+  color: #555555; 
+  text-decoration: none; 
+  transition: color ease-in-out 0.3s; 
+}
+
+.Footer a:hover {
+  color: #2142b2; 
+}

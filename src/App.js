@@ -18,6 +18,7 @@ import NotFound from "./components/NotFound";
 import Forum from './pages/forum/Forum'; 
 import GameLibrary from './pages/gamelibrary/GameLibrary';
 import Messaging from './pages/messages/Messaging';
+import Footer from "./components/Footer";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -69,6 +70,7 @@ function App() {
           <Route path="*" component={NotFound} />
         </Switch>
       </Container>
+      <Footer />
     </div>
   );
 }
