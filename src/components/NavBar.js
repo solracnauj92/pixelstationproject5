@@ -34,7 +34,7 @@ const NavBar = () => {
       activeClassName={styles.Active}
       to="/posts/create"
     >
-      <i className="bi bi-pencil-square"></i>Add post
+      <i className="bi bi-pencil-square"></i>Post
     </NavLink>
   );
 
@@ -59,7 +59,7 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/game-library"
       >
-        <i className="bi bi-controller"></i>Game Library
+        <i className="bi bi-controller"></i>Library
       </NavLink>
       {/* Add Forum Link Here */}
       <NavLink
