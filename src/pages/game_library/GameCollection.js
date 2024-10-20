@@ -1,38 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { axiosReq } from "../../api/axiosDefaults"; 
-import Asset from "../../components/Asset"; 
+import React, { useState, useEffect } from "react";
+import { axiosReq } from "../../api/axiosDefaults";
+import Asset from "../../components/Asset";
 import NoResults from "../../assets/no-results.png";
-import styles from "../../styles/GameCollection.module.css"; 
+import styles from "../../styles/GameCollection.module.css";
 
 const GameCollection = () => {
-  const [collections, setCollections] = useState({ results: [] });
+  const [collection, setCollection] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
 
   useEffect(() => {
-    const fetchCollections = async () => {
+    const fetchCollection = async () => {
       try {
-        const { data } = await axiosReq.get("/game_library/collections/"); 
-        setCollections(data);
+        const { data } = await axiosReq.get("/game_library/collections/");
+        setCollection(data);
         setHasLoaded(true);
       } catch (err) {
         console.log(err);
       }
     };
 
-    fetchCollections();
+    fetchCollection();
   }, []);
 
   return (
     <div className={styles.GameCollection}>
       {hasLoaded ? (
-        collections.results.length ? (
-          collections.results.map((collection) => (
-            <div key={collection.id}>
-              <h2>{collection.name}</h2>
-            </div>
-          ))
+        collection.results.length ? (
+          <>
+            <h1>My Collection</h1>
+            {collection.results.map((game) => (
+              <div key={game.id}>
+                <h2>{game.title}</h2>
+                {/* Additional game info here */}
+              </div>
+            ))}
+          </>
         ) : (
-          <Asset src={NoResults} message="No collections found." />
+          <Asset src={NoResults} message="No games in your collection." />
         )
       ) : (
         <Asset spinner />
