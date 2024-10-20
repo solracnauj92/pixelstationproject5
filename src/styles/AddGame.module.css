@@ -1,0 +1,29 @@
+.add-game-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.add-game-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-game-container input {
+  margin: 10px 0;
+  padding: 10px;
+  width: 200px;
+}
+
+.add-game-container button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-game-container button:hover {
+  background-color: #218838;
+}

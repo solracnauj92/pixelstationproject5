@@ -1,19 +1,29 @@
-.gameList {
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-  }
-  
-  .gameList ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .gameList li {
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    background-color: #ffffff;
-  }
-  
+.game-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+.game-item {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  width: 200px;
+  transition: transform 0.3s;
+}
+
+.game-item:hover {
+  transform: scale(1.05);
+}
+
+.game-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+h2 {
+  margin-top: 20px;
+}
