@@ -1,29 +1,5 @@
-.game-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-around;
-}
-
-.game-item {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px;
-  text-align: center;
-  width: 200px;
-  transition: transform 0.3s;
-}
-
-.game-item:hover {
-  transform: scale(1.05);
-}
-
-.game-item img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
-
-h2 {
-  margin-top: 20px;
-}
+.GameList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }

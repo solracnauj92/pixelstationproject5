@@ -1,14 +1,5 @@
-.collection-container {
-  margin-top: 20px;
-}
-
-.collection-item {
-  margin: 10px 0;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-}
-
-h2 {
-  margin-top: 20px;
-  text-align: center;
+.GameCollection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

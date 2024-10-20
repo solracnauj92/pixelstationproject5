@@ -57,7 +57,7 @@ const NavBar = () => {
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
-        to="/game-library"
+        to="/game_library"
       >
         <i className="bi bi-controller"></i>Library
       </NavLink>

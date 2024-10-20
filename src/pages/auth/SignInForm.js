@@ -35,6 +35,7 @@ function SignInForm() {
 
     try {
       const { data } = await axios.post("/dj-rest-auth/login/", signInData);
+      localStorage.setItem("token", data.key);
       setCurrentUser(data.user);
       history.goBack();
     } catch (err) {
@@ -109,10 +110,8 @@ function SignInForm() {
           </Link>
         </Container>
       </Col>
-      <Col
-        md={6}
-        className={`my-auto d-none d-md-block p-2 ${styles.SignInCol}`}
-      >
+      <Col md={6} className={`my-auto d-none d-md-block p-2 ${styles.SignInCol}`}>
+      
         <Image
           className={`${appStyles.FillerImage}`}
           src={"https://res.cloudinary.com/dvcs5hl0c/image/upload/v1729391156/gamepad_qd50oo.jpg"}
