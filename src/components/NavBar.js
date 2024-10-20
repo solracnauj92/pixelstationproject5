@@ -54,12 +54,8 @@ const NavBar = () => {
       >
         <i className="bi bi-heart"></i>Liked
       </NavLink>
-      <NavLink
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/game_library"
-      >
-        <i className="bi bi-controller"></i>Library
+      <NavLink className={styles.NavLink} activeClassName={styles.Active} to="/game_library/games">
+        <i className="bi bi-controller"></i>Games
       </NavLink>
       {/* Add Forum Link Here */}
       <NavLink
@@ -118,7 +114,7 @@ const NavBar = () => {
       <Container>
         <NavLink to="/">
           <Navbar.Brand>
-          <img src={logo} alt="logo" className={styles.Logo} />
+            <img src={logo} alt="logo" className={styles.Logo} />
           </Navbar.Brand>
         </NavLink>
         {currentUser && addPostIcon}

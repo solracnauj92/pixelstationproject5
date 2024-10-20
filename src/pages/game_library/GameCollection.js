@@ -28,9 +28,7 @@ const GameCollection = () => {
         collections.results.length ? (
           collections.results.map((collection) => (
             <div key={collection.id}>
-              {/* Display collection details here, for example: */}
               <h2>{collection.name}</h2>
-              {/* Add any other collection details you want to display */}
             </div>
           ))
         ) : (
