@@ -115,7 +115,7 @@ function SignInForm() {
       >
         <Image
           className={`${appStyles.FillerImage}`}
-          src={"https://codeinstitute.s3.amazonaws.com/AdvancedReact/hero.jpg"}
+          src={"https://res.cloudinary.com/dvcs5hl0c/image/upload/v1729391156/gamepad_qd50oo.jpg"}
           alt="A visual representation related to sign in" // Added alt text for accessibility
         />
       </Col>
