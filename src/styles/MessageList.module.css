@@ -1,26 +1,28 @@
-.messageListContainer {
-    margin: 20px 0;
-  }
-  
-  .messageItem {
-    padding: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-  }
-  
-  .messageSender {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .messageContent {
-    margin: 5px 0;
-  }
-  
-  .messageTimestamp {
-    font-size: 12px;
-    color: gray;
-  }
-  
+.messageList {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.messageItem {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.messageItem:last-child {
+  border-bottom: none; /* Remove border for the last item */
+}
+
+.sender {
+  font-weight: bold;
+  color: #007bff; /* Bootstrap primary color for sender */
+}
+
+.errorFetching {
+  color: red;
+  text-align: center;
+  font-size: 16px;
+}

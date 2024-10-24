@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../styles/MessageForm.module.css';
+import { API_BASE_URL } from '../../config'; 
 
 const MessageForm = ({ receiverId, onMessageSent }) => {
   const [content, setContent] = useState('');
@@ -9,21 +10,20 @@ const MessageForm = ({ receiverId, onMessageSent }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/messages/', {
+      await axios.post(`${API_BASE_URL}api/messages/`, { 
         receiver: receiverId,
         content: content,
       }, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
+          Authorization: `Token ${localStorage.getItem('token')}`
+        }
       });
-      if (response.status === 201) { 
-        setContent(''); 
-        setError(null);
-        if (onMessageSent) onMessageSent(); 
-      }
+      setContent(''); 
+      setError(null);
+      if (onMessageSent) onMessageSent(); 
     } catch (err) {
-      setError('Error sending message: ' + (err.response ? err.response.data.detail : err.message));
+      console.error('Error sending message:', err); 
+      setError('Error sending message: ' + (err.response ? err.response.data.detail || err.message : err.message));
     }
   };
 

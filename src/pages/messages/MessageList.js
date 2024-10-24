@@ -1,54 +1,48 @@
-import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { API_BASE_URL } from '../../config';
+import styles from '../../styles/MessageList.module.css'; 
 
-const MessageList = ({ userId }) => {
-  const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const MessageList = ({ receiverId }) => {
+    const [messages, setMessages] = useState([]);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true); 
 
-  const fetchMessages = useCallback(async () => {
-    try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/messages/?receiver=${userId}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`, // Assuming you're storing the token in local storage
-        },
-      });
-      setMessages(response.data);
-    } catch (err) {
-      setError('Error fetching messages');
-      console.error('Error fetching messages:', err.response ? err.response.data : err.message);
-    } finally {
-      setLoading(false);
-    }
-  }, [userId]);
+    useEffect(() => {
+        const fetchMessages = async () => {
+            setLoading(true); // Start loading
+            try {
+                // Construct the URL for fetching messages
+                const response = await axios.get(`${API_BASE_URL}messaging/messages/?receiver=${receiverId}`);
+                console.log("Fetched Messages:", response.data); // Log fetched messages
+                setMessages(response.data.results); // Set messages based on the API response
+            } catch (error) {
+                setError(error);
+                console.error("Error fetching messages:", error);
+            } finally {
+                setLoading(false); // Stop loading
+            }
+        };
 
-  useEffect(() => {
-    if (userId) {
-      fetchMessages();
-    }
-  }, [userId, fetchMessages]);
+        if (receiverId) {
+            fetchMessages(); // Fetch messages if receiverId is available
+        } else {
+            console.error("Receiver ID is not defined."); // Log error if receiverId is missing
+        }
+    }, [receiverId]);
 
-  if (loading) return <p>Loading messages...</p>;
-  if (error) return <p>{error}</p>;
+    if (loading) return <div>Loading messages...</div>; // Loading state
+    if (error) return <div>Error fetching messages: {error.message}</div>; // Error state
 
-  return (
-    <div>
-      <h2>Messages</h2>
-      <ul>
-        {messages.length > 0 ? (
-          messages.map((message) => (
-            <li key={message.id}>
-              <p><strong>From:</strong> {message.sender.username}</p>
-              <p><strong>Message:</strong> {message.content}</p>
-              <p><strong>Sent at:</strong> {new Date(message.timestamp).toLocaleString()}</p>
-            </li>
-          ))
-        ) : (
-          <p>No messages found.</p>
-        )}
-      </ul>
-    </div>
-  );
+    return (
+        <ul className={styles.messageList}>
+            {messages.map((message) => (
+                <li key={message.id} className={styles.messageItem}>
+                    {message.content} (from {message.sender}) {/* Adjust this if necessary */}
+                </li>
+            ))}
+        </ul>
+    );
 };
 
 export default MessageList;

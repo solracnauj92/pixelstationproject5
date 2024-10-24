@@ -4,11 +4,11 @@ import MessageList from './MessageList';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 
 const Messaging = ({ match }) => {
-  const currentUser = useCurrentUser(); // Use the current user information if needed
-  const { receiverId } = match.params; // Assuming you're getting receiverId from route params
+  const currentUser = useCurrentUser();
+  const { receiverId } = match.params; // Get receiverId from route params
 
   const fetchMessages = useCallback(async () => {
-    // Implement your fetch messages logic here if needed
+    // Fetch logic if needed
   }, []);
 
   useEffect(() => {
@@ -18,9 +18,9 @@ const Messaging = ({ match }) => {
   return (
     <div>
       <h1>Messaging with User ID: {receiverId}</h1>
-      <MessageForm userId={receiverId} />
-      <MessageList userId={receiverId} />
-      {/* You could display currentUser info if needed */}
+      {/* Pass receiverId instead of userId */}
+      <MessageForm receiverId={receiverId} />
+      <MessageList receiverId={receiverId} />
       {currentUser && <p>Current User: {currentUser.username}</p>}
     </div>
   );
