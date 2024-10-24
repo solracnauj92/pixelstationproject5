@@ -28,19 +28,31 @@ const Post = (props) => {
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
 
+
+
   const handleEdit = () => {
+
     history.push(`/posts/${id}/edit`);
+
   };
+
+
 
   const handleDelete = async () => {
-    try {
-      await axiosRes.delete(`/posts/${id}/`);
-      history.goBack();
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
+    try {
+
+      await axiosRes.delete(`/posts/${id}/`);
+
+      history.goBack();
+
+    } catch (err) {
+
+      console.log(err);
+
+    }
+
+  };
   const handleLike = async () => {
     try {
       const { data } = await axiosRes.post("/likes/", { post: id });
@@ -84,8 +96,16 @@ const Post = (props) => {
           <div className="d-flex align-items-center">
             <span>{updated_at}</span>
             {is_owner && postPage && (
-              <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete} />
-            )}
+
+<MoreDropdown
+
+  handleEdit={handleEdit}
+
+  handleDelete={handleDelete}
+
+/>
+
+)}
           </div>
         </Media>
       </Card.Body>
@@ -119,12 +139,11 @@ const Post = (props) => {
               <i className="bi bi-heart-fill"></i>
             </OverlayTrigger>
           )}
-          {/* Ensuring likes_count and comments_count are numbers */}
-          {likes_count ?? 0}
+          {likes_count}
           <Link to={`/posts/${id}`}>
             <i className="bi bi-chat-left-text" />
           </Link>
-          {comments_count ?? 0}
+          {comments_count}
         </div>
       </Card.Body>
     </Card>
