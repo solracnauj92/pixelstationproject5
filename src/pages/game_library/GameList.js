@@ -39,11 +39,16 @@ const GameList = () => {
         games.results.length ? (
           <>
             <h1>Games List</h1>
-            {/* See My Collection Button */}
             <button onClick={() => window.location.href = "/game_library/collections"}>
               See My Collection
             </button>
-  
+            {/* Display collection size or content if needed */}
+            {collection.length > 0 && (
+              <div>
+                <h2>My Collection ({collection.length} games)</h2>
+                {/* Optional: You can map through collection here to display it */}
+              </div>
+            )}
             {games.results.map((game) => (
               <Game key={game.id} {...game} handleAddToCollection={handleAddToCollection} />
             ))}

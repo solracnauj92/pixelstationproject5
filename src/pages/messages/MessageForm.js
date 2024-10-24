@@ -9,15 +9,21 @@ const MessageForm = ({ receiverId, onMessageSent }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://127.0.0.1:8000/api/messages/', {
-        receiver: receiverId,  // Use receiverId instead of userId
+      const response = await axios.post('http://127.0.0.1:8000/api/messages/', {
+        receiver: receiverId,
         content: content,
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
-      setContent(''); // Clear the input
-      setError(null);
-      if (onMessageSent) onMessageSent(); // Call the callback to refresh the message list
+      if (response.status === 201) { 
+        setContent(''); 
+        setError(null);
+        if (onMessageSent) onMessageSent(); 
+      }
     } catch (err) {
-      setError('Error sending message');
+      setError('Error sending message: ' + (err.response ? err.response.data.detail : err.message));
     }
   };
 
