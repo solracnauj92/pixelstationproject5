@@ -8,7 +8,7 @@ import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import PopularProfiles from "./PopularProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { useParams, Link } from "react-router-dom"; // Import Link
+import { useParams, Link } from "react-router-dom"; 
 import { axiosReq } from "../../api/axiosDefaults";
 import { useProfileData, useSetProfileData } from "../../contexts/ProfileDataContext";
 import { Button, Image } from "react-bootstrap";
@@ -32,9 +32,14 @@ function ProfilePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [{ data: pageProfile }, { data: profilePosts }] = await Promise.all([
+        const [{ data: pageProfile }, { data: profilePosts }] =
+
+        await Promise.all([
+
           axiosReq.get(`/profiles/${id}/`),
+
           axiosReq.get(`/posts/?owner__profile=${id}`),
+
         ]);
         setProfileData((prevState) => ({
           ...prevState,

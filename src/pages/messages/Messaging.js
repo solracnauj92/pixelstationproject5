@@ -1,26 +1,25 @@
-import React, { useEffect, useCallback } from 'react';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 
-const Messaging = ({ match }) => {
-  const currentUser = useCurrentUser();
-  const { receiverId } = match.params; // Get receiverId from route params
-
-  const fetchMessages = useCallback(async () => {
-    // Fetch logic if needed
-  }, []);
-
-  useEffect(() => {
-    fetchMessages();
-  }, [fetchMessages]);
+const Messaging = () => {
+  const { receiverId } = useParams(); // Get the receiverId from the URL parameters
+  const currentUser = useCurrentUser(); // Get the current logged-in user
 
   return (
     <div>
       <h1>Messaging with User ID: {receiverId}</h1>
-      {/* Pass receiverId instead of userId */}
-      <MessageForm receiverId={receiverId} />
-      <MessageList receiverId={receiverId} />
+      {receiverId ? (
+        <>
+          {/* Pass the receiverId and current user to MessageForm and MessageList */}
+          <MessageForm receiverId={receiverId} currentUser={currentUser} />
+          <MessageList receiverId={receiverId} currentUser={currentUser} />
+        </>
+      ) : (
+        <p>No receiver selected.</p>
+      )}
       {currentUser && <p>Current User: {currentUser.username}</p>}
     </div>
   );

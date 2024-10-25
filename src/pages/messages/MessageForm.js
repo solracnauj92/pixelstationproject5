@@ -1,29 +1,37 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../styles/MessageForm.module.css';
-import { API_BASE_URL } from '../../config'; 
+import { API_BASE_URL } from '../../config';
 
-const MessageForm = ({ receiverId, onMessageSent }) => {
+const MessageForm = ({ receiverId, currentUser, onMessageSent }) => {
   const [content, setContent] = useState('');
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
+
     try {
-      await axios.post(`${API_BASE_URL}api/messages/`, { 
-        receiver: receiverId,
+      const token = localStorage.getItem('token'); // Get the token for authenticated request
+
+      await axios.post(`${API_BASE_URL}/messages/`, {
+        receiver: receiverId,  // Set the receiverId from props
         content: content,
       }, {
         headers: {
-          Authorization: `Token ${localStorage.getItem('token')}`
-        }
+          Authorization: `Token ${token}`, // Send the auth token in the headers
+        },
       });
-      setContent(''); 
-      setError(null);
-      if (onMessageSent) onMessageSent(); 
+
+      setContent(''); // Clear the message content
+      if (onMessageSent) onMessageSent(); // Callback after message is sent
     } catch (err) {
-      console.error('Error sending message:', err); 
+      console.error('Error sending message:', err);
       setError('Error sending message: ' + (err.response ? err.response.data.detail || err.message : err.message));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -37,7 +45,9 @@ const MessageForm = ({ receiverId, onMessageSent }) => {
           required
           placeholder="Type your message"
         />
-        <button type="submit" className={styles.button}>Send Message</button>
+        <button type="submit" className={styles.button} disabled={loading}>
+          {loading ? 'Sending...' : 'Send Message'}
+        </button>
         {error && <p className={styles.error}>{error}</p>}
       </form>
     </div>

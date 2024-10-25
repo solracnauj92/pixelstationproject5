@@ -45,22 +45,5 @@
   height: 375px;
 }
 
-.Testimonial {
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 5px;
-  padding: 15px;
-  margin-bottom: 15px;
-  text-align: center; 
-}
 
-.TestimonialMessage {
-  font-style: italic;
-  color: #495057;
-}
 
-.TestimonialName {
-  text-align: right;
-  font-weight: bold;
-  color: #2142b2;
-}

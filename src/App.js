@@ -59,7 +59,8 @@ function App() {
           <Route exact path="/profiles/:id/edit" component={ProfileEditForm} />
 
           {/* Add the Messaging Route */}
-          <Route exact path="/messages/:receiverId" component={Messaging} />
+          <Route exact path="/messages/" component={Messaging} />
+
 
           {/* Add the Forum Route */}
           <Route exact path="/forum" component={Forum} />

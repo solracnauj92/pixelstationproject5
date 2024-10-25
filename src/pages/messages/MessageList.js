@@ -1,48 +1,55 @@
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import styles from '../../styles/MessageList.module.css';
 import { API_BASE_URL } from '../../config';
-import styles from '../../styles/MessageList.module.css'; 
 
 const MessageList = ({ receiverId }) => {
-    const [messages, setMessages] = useState([]);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true); 
+  const [messages, setMessages] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchMessages = async () => {
-            setLoading(true); // Start loading
-            try {
-                // Construct the URL for fetching messages
-                const response = await axios.get(`${API_BASE_URL}messaging/messages/?receiver=${receiverId}`);
-                console.log("Fetched Messages:", response.data); // Log fetched messages
-                setMessages(response.data.results); // Set messages based on the API response
-            } catch (error) {
-                setError(error);
-                console.error("Error fetching messages:", error);
-            } finally {
-                setLoading(false); // Stop loading
-            }
-        };
+  useEffect(() => {
+    const fetchMessages = async () => {
+      setLoading(true);
+      setError(null);
 
-        if (receiverId) {
-            fetchMessages(); // Fetch messages if receiverId is available
-        } else {
-            console.error("Receiver ID is not defined."); // Log error if receiverId is missing
+      try {
+        if (!receiverId) {
+          throw new Error("Receiver ID is not defined.");
         }
-    }, [receiverId]);
 
-    if (loading) return <div>Loading messages...</div>; // Loading state
-    if (error) return <div>Error fetching messages: {error.message}</div>; // Error state
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${API_BASE_URL}/messages/?receiver=${receiverId}`, {
+          headers: {
+            Authorization: `Token ${token}`, // Ensure the token is sent
+          },
+        });
 
-    return (
-        <ul className={styles.messageList}>
-            {messages.map((message) => (
-                <li key={message.id} className={styles.messageItem}>
-                    {message.content} (from {message.sender}) {/* Adjust this if necessary */}
-                </li>
-            ))}
-        </ul>
-    );
+        setMessages(response.data); // Assuming that response.data contains the list of messages
+      } catch (err) {
+        setError(err);
+        console.error("Error fetching messages:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMessages();
+  }, [receiverId]);
+
+  if (loading) return <div>Loading messages...</div>;
+  if (error) return <div>Error fetching messages: {error.message}</div>;
+
+  return (
+    <ul className={styles.messageList}>
+      {messages.map((message) => (
+        <li key={message.id} className={styles.messageItem}>
+          <strong>{message.sender.username}:</strong> {message.content} 
+          <span className={styles.timestamp}>{new Date(message.timestamp).toLocaleString()}</span>
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default MessageList;
