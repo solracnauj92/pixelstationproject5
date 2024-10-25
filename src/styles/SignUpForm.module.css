@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  height: 100vh;  
+}
+
+.container {
+  max-width: 600px; 
+  width: 90%; 
+  margin: 20px auto; 
+}
+
+.signInContainer {
+  max-width: 400px; 
+  margin: 0 auto;
+}
+
+.contentSection {
+  background-color: rgba(255, 255, 255, 0.9); 
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  padding: 2rem; 
+  margin-bottom: 20px; 
+  margin-top: 20px; 
+  text-align: center; /* Center text within the section */
+}
+
+.Header {
+  font-size: 2rem; 
+  text-align: center; 
+  margin-bottom: 1.5rem; 
+}
+
+.Input {
+  border: 2px solid #007bff; 
+  border-radius: 5px; 
+  padding: 20px; 
+  font-size: 1rem; 
+  transition: border-color 0.3s; 
+}
+
+.aboutPixelStation {
+  text-align: center; 
+}
+
+.imageContainer {
+  max-width: 100%; 
+  margin-top: 50px; 
+  margin-bottom: 100px; 
+  display: flex; 
+  justify-content: center; 
+}
+
+.Link {
+  text-align: center;
+  display: block; 
+  margin-top: 10px; 
+}
+
+.TestimonialImage {
+  width: 100px; /* Consistent image size */
+  height: 100px; 
+  object-fit: cover; 
+}
+
+.testimonial {
+  text-align: center; /* Center align testimonials text */
+}
