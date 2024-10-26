@@ -2,7 +2,8 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
-import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+
 
 const Messaging = () => {
   const { receiverId } = useParams(); // Get the receiverId from the URL parameters
@@ -14,7 +15,7 @@ const Messaging = () => {
       {receiverId ? (
         <>
           <MessageForm receiverId={receiverId} currentUser={currentUser} />
-          <MessageList receiverId={receiverId} />
+          <MessageList receiverId={receiverId} currentUser={currentUser} />
         </>
       ) : (
         <p>No receiver selected.</p>

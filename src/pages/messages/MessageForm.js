@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../styles/MessageForm.module.css';
 import { API_BASE_URL } from '../../config';
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
-const MessageForm = ({ receiverId, currentUser, onMessageSent }) => {
+
+const MessageForm = ({ receiverId, onMessageSent }) => {
+  const currentUser = useCurrentUser();
   const [content, setContent] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -13,22 +16,29 @@ const MessageForm = ({ receiverId, currentUser, onMessageSent }) => {
     setLoading(true);
     setError(null);
 
-    try {
-      const token = localStorage.getItem('token'); // Get the token for authenticated request
+    const token = localStorage.getItem('token');
+    console.log("Auth Token:", token);
 
+    if (!token) {
+      setError('You must be logged in to send messages.');
+      setLoading(false);
+      return;
+    }
+
+    try {
       await axios.post(`${API_BASE_URL}/messages/`, {
-        receiver: receiverId,  // Set the receiverId from props
+        receiver: receiverId,
         content: content,
       }, {
         headers: {
-          Authorization: `Token ${token}`, // Send the auth token in the headers
+          Authorization: `Token ${token}`, // or `Bearer ${token}`
         },
       });
 
-      setContent(''); // Clear the message content
-      if (onMessageSent) onMessageSent(); // Callback after message is sent
+      setContent('');
+      if (onMessageSent) onMessageSent();
     } catch (err) {
-      console.error('Error sending message:', err);
+      console.error('Error sending message:', err.response ? err.response.data : err);
       setError('Error sending message: ' + (err.response ? err.response.data.detail || err.message : err.message));
     } finally {
       setLoading(false);
@@ -37,6 +47,7 @@ const MessageForm = ({ receiverId, currentUser, onMessageSent }) => {
 
   return (
     <div className={styles.formContainer}>
+      {currentUser && <p>Logged in as: {currentUser.username}</p>} {/* Use currentUser */}
       <form onSubmit={handleSubmit}>
         <textarea
           className={styles.textarea}
