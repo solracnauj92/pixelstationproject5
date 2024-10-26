@@ -139,7 +139,15 @@ function PostCreateForm() {
         <Row>
 
           <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
+            <Container className={styles.contentSection}>
 
+              {textFields}
+
+            </Container>
+
+          </Col>
+
+          <Col className="py-2 p-0 p-md-2" md={5} lg={4}>
             <div className={styles.imageContainer}>
 
               <Form.Group className="text-center">
@@ -182,13 +190,7 @@ function PostCreateForm() {
 
                   >
 
-                    <Asset
-
-                      src={Upload}
-
-                      message="Click or tap to upload an image"
-
-                    />
+                    <Asset src={Upload} message="Click or tap to upload an image" />
 
                   </Form.Label>
 
@@ -221,16 +223,6 @@ function PostCreateForm() {
               <div className="d-md-none">{textFields}</div>
 
             </div>
-
-          </Col>
-
-          <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2">
-
-            <Container className={styles.contentSection}>
-
-              {textFields}
-
-            </Container>
 
           </Col>
 
