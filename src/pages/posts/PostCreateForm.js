@@ -22,7 +22,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 import { useRedirect } from "../../hooks/useRedirect";
 
 function PostCreateForm() {
-  
+
   useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
 
@@ -81,6 +81,7 @@ function PostCreateForm() {
           name="title"
           value={title}
           onChange={handleChange}
+          className={styles.Input}
         />
       </Form.Group>
       {errors?.title?.map((message, idx) => (
@@ -97,6 +98,7 @@ function PostCreateForm() {
           name="content"
           value={content}
           onChange={handleChange}
+          className={styles.Input}
         />
       </Form.Group>
       {errors?.content?.map((message, idx) => (
@@ -105,73 +107,156 @@ function PostCreateForm() {
         </Alert>
       ))}
 
-      <Button
-        className={`${btnStyles.Button} ${btnStyles.Blue}`}
-        onClick={() => history.goBack()}
-      >
-        cancel
-      </Button>
-      <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
-        create
-      </Button>
+      <div className="d-flex justify-content-between">
+
+        <Button
+
+          className={`${btnStyles.Button} ${btnStyles.Blue}`}
+
+          onClick={() => history.goBack()}
+
+        >
+
+          Cancel
+
+        </Button>
+
+        <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
+
+          Create
+
+        </Button>
+
+      </div>
     </div>
   );
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Row>
-        <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
-          <Container
-            className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
-          >
-            <Form.Group className="text-center">
-              {image ? (
-                <>
-                  <figure>
-                    <Image className={appStyles.Image} src={image} rounded />
-                  </figure>
-                  <div>
-                    <Form.Label
-                      className={`${btnStyles.Button} ${btnStyles.Blue} btn`}
-                      htmlFor="image-upload"
-                    >
-                      Change the image
-                    </Form.Label>
-                  </div>
-                </>
-              ) : (
-                <Form.Label
-                  className="d-flex justify-content-center"
-                  htmlFor="image-upload"
-                >
-                  <Asset
-                    src={Upload}
-                    message="Click or tap to upload an image"
-                  />
-                </Form.Label>
-              )}
+    <Container className={`${styles.contentSection} ${styles.Container}`}>
 
-              <Form.File
-                id="image-upload"
-                accept="image/*"
-                onChange={handleChangeImage}
-                ref={imageInput}
-              />
-            </Form.Group>
-            {errors?.image?.map((message, idx) => (
-              <Alert variant="warning" key={idx}>
-                {message}
-              </Alert>
-            ))}
+      <Form onSubmit={handleSubmit}>
 
-            <div className="d-md-none">{textFields}</div>
-          </Container>
-        </Col>
-        <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2">
-          <Container className={appStyles.Content}>{textFields}</Container>
-        </Col>
-      </Row>
-    </Form>
+        <Row>
+
+          <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
+
+            <div className={styles.imageContainer}>
+
+              <Form.Group className="text-center">
+
+                {image ? (
+
+                  <>
+
+                    <figure>
+
+                      <Image className={appStyles.Image} src={image} rounded />
+
+                    </figure>
+
+                    <div>
+
+                      <Form.Label
+
+                        className={`${btnStyles.Button} ${btnStyles.Blue} btn`}
+
+                        htmlFor="image-upload"
+
+                      >
+
+                        Change the image
+
+                      </Form.Label>
+
+                    </div>
+
+                  </>
+
+                ) : (
+
+                  <Form.Label
+
+                    className="d-flex justify-content-center"
+
+                    htmlFor="image-upload"
+
+                  >
+
+                    <Asset
+
+                      src={Upload}
+
+                      message="Click or tap to upload an image"
+
+                    />
+
+                  </Form.Label>
+
+                )}
+
+                <Form.File
+
+                  id="image-upload"
+
+                  accept="image/*"
+
+                  onChange={handleChangeImage}
+
+                  ref={imageInput}
+
+                />
+
+              </Form.Group>
+
+              {errors?.image?.map((message, idx) => (
+
+                <Alert variant="warning" key={idx}>
+
+                  {message}
+
+                </Alert>
+
+              ))}
+
+              <div className="d-md-none">{textFields}</div>
+
+            </div>
+
+          </Col>
+
+          <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2">
+
+            <Container className={styles.contentSection}>
+
+              {textFields}
+
+            </Container>
+
+          </Col>
+
+        </Row>
+
+      </Form>
+
+
+
+      {/* Background Image Section */}
+
+      <div className={styles.imageContainer}>
+
+        <img
+
+          src="https://res.cloudinary.com/dvcs5hl0c/image/upload/v1729902048/share_u5b05a.jpg"
+
+          alt="Gaming Background"
+
+          style={{ maxWidth: '100%', borderRadius: '8px' }}
+
+        />
+
+      </div>
+
+    </Container>
   );
 }
 

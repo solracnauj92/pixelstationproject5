@@ -1,3 +1,23 @@
-.Container {
-    min-height: 343px;
-  }
+
+.contentSection {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.Header {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.Input {
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
