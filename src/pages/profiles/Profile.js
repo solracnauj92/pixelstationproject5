@@ -7,7 +7,7 @@ import Avatar from "../../components/Avatar";
 import { Button } from "react-bootstrap";
 import { useSetProfileData } from "../../contexts/ProfileDataContext";
 
-const Profile = (props) => {
+const Profile = React.memo((props) => {  // Memoize Profile component
   const { profile, mobile, imageSize = 55 } = props;
   const { id, following_id, image, owner } = profile;
 
@@ -49,6 +49,6 @@ const Profile = (props) => {
       </div>
     </div>
   );
-};
+});
 
 export default Profile;
