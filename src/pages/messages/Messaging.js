@@ -13,9 +13,8 @@ const Messaging = () => {
       <h1>Messaging with User ID: {receiverId}</h1>
       {receiverId ? (
         <>
-          {/* Pass the receiverId and current user to MessageForm and MessageList */}
           <MessageForm receiverId={receiverId} currentUser={currentUser} />
-          <MessageList receiverId={receiverId} currentUser={currentUser} />
+          <MessageList receiverId={receiverId} />
         </>
       ) : (
         <p>No receiver selected.</p>
