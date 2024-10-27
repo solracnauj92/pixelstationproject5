@@ -25,14 +25,30 @@ function SignInForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+    
         try {
-            const { data } = await axios.post("/dj-rest-auth/login/", signInData);
-            localStorage.setItem("token", data.key);
-            setCurrentUser(data.user);
+            const response = await axios.post("/dj-rest-auth/login/", signInData);
+            console.log("Login response:", response.data); // Log the entire response to verify structure
+    
+            // Update to match the response keys (access_token and refresh_token)
+            const { access_token, refresh_token, user } = response.data;
+    
+            if (!access_token || !refresh_token) {
+                throw new Error("Missing tokens in response");
+            }
+    
+            // Store the tokens in local storage
+            localStorage.setItem("token", access_token); // Store the access token
+            localStorage.setItem("refresh_token", refresh_token); // Store the refresh token
+    
+            // Set the current user if available in response
+            setCurrentUser(user);
+    
+            // Redirect or navigate as necessary
             history.goBack();
         } catch (err) {
-            setErrors(err.response?.data);
+            console.error("Error during login:", err); // Log error details
+            setErrors(err.response?.data || { non_field_errors: ['An error occurred during login.'] }); // Handle errors gracefully
         }
     };
 
@@ -100,7 +116,6 @@ function SignInForm() {
                     Don't have an account? <span>Sign up now!</span>
                 </Link>
             </Container>
-
 
             {/* Background Image Section */}
             <div className={styles.imageContainer}>
