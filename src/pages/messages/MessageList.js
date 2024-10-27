@@ -1,64 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import styles from '../../styles/MessageList.module.css';
-import { API_BASE_URL } from '../../config';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import MessageForm from './MessageForm';
+import MessageList from './MessageList';
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
-const MessageList = ({ receiverId }) => {
-  const [messages, setMessages] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchMessages = async () => {
-      setLoading(true);
-      setError(null);
-
-      const token = localStorage.getItem('token');
-      console.log("Auth Token:", token); // Log token
-
-      if (!token) {
-        setError("You must be logged in to fetch messages.");
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const response = await axios.get(`${API_BASE_URL}/messages/?receiver=${receiverId}`, {
-          headers: {
-            Authorization: `Token ${token}`, // Ensure correct token type
-          },
-        });
-        setMessages(response.data.messages);
-      } catch (err) {
-        console.error("Error fetching messages:", err);
-        setError(new Error("An error occurred while fetching messages."));
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMessages();
-  }, [receiverId]);
-
-  if (loading) return <div>Loading messages...</div>;
-  if (error) return <div>Error fetching messages: {error.message}</div>;
+const Messaging = () => {
+  const { receiverId } = useParams(); // Get the receiverId from the URL parameters
+  const currentUser = useCurrentUser(); // Get the current logged-in user
 
   return (
-    <ul className={styles.messageList}>
-      {messages.length > 0 ? (
-        messages.map((message) => (
-          <li key={message.id} className={styles.messageItem}>
-            <strong>{message.sender.username}:</strong> {message.content}
-            <span className={styles.timestamp}>
-              {new Date(message.timestamp).toLocaleString()}
-            </span>
-          </li>
-        ))
+    <div>
+      <h1>Messaging with User ID: {receiverId}</h1>
+      {receiverId ? (
+        <>
+          <MessageForm receiverId={receiverId} currentUser={currentUser} />
+          <MessageList receiverId={receiverId} currentUser={currentUser} />
+        </>
       ) : (
-        <li>No messages to display.</li>
+        <p>No receiver selected.</p>
       )}
-    </ul>
+      {currentUser && <p>Current User: {currentUser.username}</p>}
+    </div>
   );
 };
 
-export default MessageList;
+export default Messaging;

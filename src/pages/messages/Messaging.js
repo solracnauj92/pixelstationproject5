@@ -4,18 +4,17 @@ import MessageForm from './MessageForm';
 import MessageList from './MessageList';
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
-
 const Messaging = () => {
-  const { receiverId } = useParams(); // Get the receiverId from the URL parameters
-  const currentUser = useCurrentUser(); // Get the current logged-in user
+  const { receiverId } = useParams(); 
+  const currentUser = useCurrentUser(); 
 
   return (
     <div>
       <h1>Messaging with User ID: {receiverId}</h1>
       {receiverId ? (
         <>
-          <MessageForm receiverId={receiverId} currentUser={currentUser} />
-          <MessageList receiverId={receiverId} currentUser={currentUser} />
+          <MessageForm receiverId={receiverId} onMessageSent={() => {}} />
+          <MessageList receiverId={receiverId} />
         </>
       ) : (
         <p>No receiver selected.</p>

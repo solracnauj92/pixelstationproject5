@@ -25,33 +25,33 @@ axiosReq.interceptors.request.use(attachAuthHeader, (error) => Promise.reject(er
 axiosRes.interceptors.request.use(attachAuthHeader, (error) => Promise.reject(error));
 
 // Interceptor for handling 401 errors
-const handle401Error = async (error) => {
-  if (error.response?.status === 401) {
-    // Attempt to refresh token
-    try {
-      const refreshResponse = await axios.post('/auth/refresh/'); // Change to your refresh endpoint
-      const { access_token } = refreshResponse.data;
+// const handle401Error = async (error) => {
+//   if (error.response?.status === 401) {
+//     // Attempt to refresh token
+//     try {
+//       const refreshResponse = await axios.post('/auth/refresh/'); // Change to your refresh endpoint
+//       const { access_token } = refreshResponse.data;
 
-      // Store the new access token
-      localStorage.setItem("access_token", access_token);
+//       // Store the new access token
+//       localStorage.setItem("access_token", access_token);
       
-      // Retry the original request with the new token
-      error.config.headers["Authorization"] = `Bearer ${access_token}`;
-      return axios(error.config);
-    } catch (refreshError) {
-      // If refresh fails, redirect to login
-      window.location.href = "/login";
-    }
-  }
-  return Promise.reject(error);
-};
+//       // Retry the original request with the new token
+//       error.config.headers["Authorization"] = `Bearer ${access_token}`;
+//       return axios(error.config);
+//     } catch (refreshError) {
+//       // If refresh fails, redirect to login
+//       window.location.href = "/login";
+//     }
+//   }
+//   return Promise.reject(error);
+// };
 
-axiosReq.interceptors.response.use(
-  (response) => response,
-  handle401Error
-);
+// axiosReq.interceptors.response.use(
+//   (response) => response,
+//   handle401Error
+// );
 
-axiosRes.interceptors.response.use(
-  (response) => response,
-  handle401Error
-);
+// axiosRes.interceptors.response.use(
+//   (response) => response,
+//   handle401Error
+// );
