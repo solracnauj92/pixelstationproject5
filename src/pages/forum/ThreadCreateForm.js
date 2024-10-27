@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../styles/Forum.ThreadCreateForm.module.css';
+import { getAuthToken } from '../../utils/utils';
 
 const ThreadCreateForm = ({ forumId, onThreadCreated }) => {
   const [title, setTitle] = useState('');
@@ -21,13 +22,22 @@ const ThreadCreateForm = ({ forumId, onThreadCreated }) => {
 
     const formData = new FormData();
     formData.append('title', title);
-    formData.append('forum', forumId);  // Ensure forum ID is sent
-    if (image) formData.append('image', image);  // Add image if selected
+    formData.append('forum', forumId);  
+    if (image) formData.append('image', image); 
+
+    const token = getAuthToken(); 
+    console.log('Access Token:', token); 
+    if (!token) {
+      setError('No valid token found. Please log in again.');
+      setIsSubmitting(false);
+      return; 
+    }
 
     try {
       const response = await axios.post(`/forums/${forumId}/threads/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`, 
         },
       });
       if (onThreadCreated) onThreadCreated(response.data);
@@ -35,6 +45,7 @@ const ThreadCreateForm = ({ forumId, onThreadCreated }) => {
       setImage(null);
       setSuccess(true);
     } catch (err) {
+      console.error('Error creating thread:', err.response ? err.response.data : err.message);
       setError(err.response?.data?.detail || 'Error creating thread.');
     } finally {
       setIsSubmitting(false);
