@@ -3,21 +3,19 @@ import axios from 'axios';
 import styles from '../../styles/Forum.ThreadList.module.css';
 
 const ThreadList = ({ forumId, onSelectThread }) => {
-  const [threads, setThreads] = useState([]); // Store the list of threads
+  const [threads, setThreads] = useState([]);
 
   useEffect(() => {
     const fetchThreads = async () => {
       try {
-        const response = await axios.get(`/forums/${forumId}/threads/`); // Fetch threads for forum
+        const response = await axios.get(`/forums/${forumId}/threads/`);
         setThreads(response.data);
       } catch (err) {
         console.error(err);
       }
     };
 
-    if (forumId) {
-      fetchThreads(); // Fetch threads only if a forum is selected
-    }
+    if (forumId) fetchThreads();
   }, [forumId]);
 
   return (
@@ -29,13 +27,20 @@ const ThreadList = ({ forumId, onSelectThread }) => {
             <li
               key={thread.id}
               className={styles.threadItem}
-              onClick={() => onSelectThread(thread.id)} // Select thread on click
+              onClick={() => onSelectThread(thread.id)}
             >
               <span className={styles.threadTitle}>{thread.title}</span>
+              {thread.image && (
+                <img 
+                  src={thread.image} 
+                  alt={thread.title}  
+                  className={styles.threadImage} 
+                />
+              )}
             </li>
           ))
         ) : (
-          <li>No threads available.</li> // Show message if no threads found
+          <li>No threads available.</li>
         )}
       </ul>
     </div>
