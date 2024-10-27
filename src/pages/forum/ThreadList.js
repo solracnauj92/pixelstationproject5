@@ -1,31 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from '../../styles/Forum.ThreadList.module.css';
-import { getAuthToken } from '../../utils/utils'; 
+import { getAuthToken, refreshAuthToken, isTokenExpired } from '../../utils/utils';
 
 const ThreadList = ({ forumId, onSelectThread }) => {
   const [threads, setThreads] = useState([]);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchThreads = async () => {
-      const token = getAuthToken(); 
-      if (!token) {
-        setError('No valid token found. Please log in again.');
-        return;
+      let token = getAuthToken();
+
+      // Check if token is present and valid, refresh if needed
+      if (!token || isTokenExpired(token)) {
+        token = await refreshAuthToken();
+        if (!token) {
+          setError('Session expired. Please log in again.');
+          return;
+        }
       }
 
+      console.log('Token used in request:', token);
+
       try {
-        const response = await axios.get(`/forums/${forumId}/threads/`, {
-          headers: {
-            'Authorization': `Bearer ${token}`, 
-          },
-        });
+        const response = await axios.get(
+          `https://pixelstationproject5-api-1a9dadf46f0b.herokuapp.com/forums/${forumId}/threads/`,
+          {
+            headers: { 'Authorization': `Bearer ${token}` },
+          }
+        );
         setThreads(response.data);
-        setError(null); 
+        setError(null);
       } catch (err) {
         console.error('Error fetching threads:', err.response ? err.response.data : err.message);
-        setError('Failed to load threads.'); 
+        if (err.response && err.response.status === 401) {
+          setError('Session expired. Please log in again.');
+        } else {
+          setError('Failed to load threads.');
+        }
       }
     };
 
