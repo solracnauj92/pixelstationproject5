@@ -1,97 +1,51 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { axiosReq } from "../../api/axiosDefaults";
-import ForumThread from "./ForumThreadPage"; 
-import Asset from "../../components/Asset";
-import PopularProfiles from "../profiles/PopularProfiles";
-import NoResults from "../../assets/no-results.png";
-import appStyles from "../../App.module.css";
-import styles from "../../styles/Forum.module.css"; 
-import { fetchMoreData } from "../../utils/utils";
+import { axiosReq } from "../../api/axiosDefaults"; // Adjust import as necessary
+import { Link } from "react-router-dom";
+import CreateForum from "./CreateForum"; // Ensure this is imported
+import Asset from "../../components/Asset"; // Optional: for loading spinner
 
-function ForumsPage({ message, filter = "" }) {
-  const [forums, setForums] = useState({ results: [] });
-  const [hasLoaded, setHasLoaded] = useState(false);
-  const { pathname } = useLocation();
-  const [query, setQuery] = useState("");
+const ForumsPage = () => {
+  const [forums, setForums] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchForums = async () => {
       try {
-        const { data } = await axiosReq.get(`/forums/?${filter}search=${query}`);
-        setForums(data);
-        setHasLoaded(true);
+        const { data } = await axiosReq.get("/forums/");
+        setForums(data.results || []);
       } catch (err) {
-        console.log("Error fetching forums:", err);
+        console.error(err);
+        setError("Failed to load forums.");
+      } finally {
+        setLoading(false);
       }
     };
 
-    setHasLoaded(false);
-    const timer = setTimeout(() => {
-      fetchForums();
-    }, 1000);
+    fetchForums();
+  }, []);
 
-    return () => clearTimeout(timer);
-  }, [filter, query, pathname]);
+  if (loading) return <Asset spinner />; // Optional: use a spinner for loading state
+  if (error) return <div>{error}</div>; // You could enhance this with a retry button
 
   return (
-    <Row className="h-100">
-      <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <PopularProfiles mobile />
-
-        {/* Search Bar */}
-        <Form
-          className={styles.SearchBar}
-          onSubmit={(event) => event.preventDefault()}
-        >
-          <Form.Control
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            type="text"
-            placeholder="Search threads"
-          />
-        </Form>
-
-        {/* Button to create a new forum */}
-        <Link to="/forums/create" className="btn btn-primary mb-3">
-          Create New Forum
-        </Link>
-
-        {hasLoaded ? (
-          <>
-            {forums.results.length ? (
-              <InfiniteScroll
-                dataLength={forums.results.length}
-                loader={<Asset spinner />}
-                hasMore={!!forums.next}
-                next={() => fetchMoreData(forums, setForums)}
-              >
-                {forums.results.map((forum) => (
-                  <ForumThread key={forum.id} {...forum} setForums={setForums} />
-                ))}
-              </InfiniteScroll>
-            ) : (
-              <Container className={appStyles.Content}>
-                <Asset src={NoResults} message={message} />
-              </Container>
-            )}
-          </>
-        ) : (
-          <Container className={appStyles.Content}>
-            <Asset spinner />
-          </Container>
-        )}
-      </Col>
-      <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
-        <PopularProfiles />
-      </Col>
-    </Row>
+    <div>
+      <h1>Available Forums</h1>
+      {forums.length > 0 ? (
+        <ul>
+          {forums.map((forum) => (
+            <li key={forum.id}>
+              <Link to={`/forums/${forum.id}`}>{forum.name}</Link>
+              <p>{forum.description}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No forums available.</p>
+      )}
+      <CreateForum /> {/* Component for creating a new forum */}
+    </div>
   );
-}
+};
 
 export default ForumsPage;

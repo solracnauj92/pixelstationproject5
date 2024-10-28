@@ -1,23 +1,26 @@
-// src/pages/forum/ForumThreadPage.js
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { axiosRes } from "../../api/axiosDefaults";
-import Thread from "./Thread"; // Ensure you have a Thread component
+import Thread from "./ThreadDetail"; // Ensure you have a Thread component
 import ThreadCreateForm from "./ThreadCreateForm"; // Create this component for new threads
 import Asset from "../../components/Asset"; // For loading spinner or error messages
-import styles from "../../styles/Forum.module.css"; // Optional: for styling
 
 const ForumThreadPage = () => {
-  const { forumId } = useParams(); // Changed to forumId for clarity
+  const { forumId } = useParams(); // Get forumId from URL params
   const [threads, setThreads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    console.log("Forum ID:", forumId); // Debugging line to check forumId
     const fetchThreads = async () => {
       setLoading(true); // Set loading state to true
       setError(null); // Reset error state
       try {
+        // Check if forumId is defined before making the request
+        if (!forumId) {
+          throw new Error("Forum ID is undefined");
+        }
         const { data } = await axiosRes.get(`/forums/${forumId}/threads/`);
         setThreads(data.results || []); // Assuming the response has a 'results' array
       } catch (err) {
@@ -31,7 +34,7 @@ const ForumThreadPage = () => {
   }, [forumId]);
 
   return (
-    <div className={styles.ForumThreadContainer}> {/* Optional styling */}
+    <div>
       <h1>Forum Threads</h1>
       <ThreadCreateForm forumId={forumId} setThreads={setThreads} />
       

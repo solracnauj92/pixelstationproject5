@@ -1,0 +1,20 @@
+/* src/pages/forum/ForumPage.module.css */
+
+.forumPage {
+    padding: 20px; /* Add padding around the forum page */
+    background-color: #f8f9fa; /* Light background for better contrast */
+  }
+  
+  .forumPost {
+    border: 1px solid #ddd; /* Border for individual posts */
+    padding: 10px; /* Padding inside the posts */
+    margin: 10px 0; /* Margin between posts */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #ffffff; /* White background for posts */
+  }
+  
+  .noPostsMessage {
+    text-align: center; /* Center the "No posts available" message */
+    font-style: italic; /* Italicize the message for style */
+  }
+  

@@ -1,46 +1,60 @@
-// src/pages/forum/ThreadCreateForm.js
+// CreateThreadForm.js
 import React, { useState } from "react";
-import { axiosRes } from "../../api/axiosDefaults";
+import { Form, Button, Alert } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import { axiosReq } from "../../api/axiosDefaults";
 
-const ThreadCreateForm = ({ forumId, setThreads }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+const CreateThreadForm = ({ forumId, setThreads }) => {
+  const [formData, setFormData] = useState({ title: "", content: "" });
+  const [errors, setErrors] = useState({});
+  const history = useHistory();
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axiosRes.post(`/forums/${forumId}/threads/`, {
-        title,
-        content,
-      });
-      setThreads((prevThreads) => [data, ...prevThreads]); // Add the new thread to the list
+      const { data } = await axiosReq.post(`/forums/${forumId}/threads/`, formData);
+      setThreads((prevThreads) => ({
+        results: [data, ...prevThreads.results],
+      }));
+      history.push(`/forums/${forumId}/threads/${data.id}`);
     } catch (err) {
-      console.log(err);
+      setErrors(err.response?.data || {});
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Title:</label>
-        <input
+    <Form onSubmit={handleSubmit}>
+      <Form.Group>
+        <Form.Label>Title</Form.Label>
+        <Form.Control
           type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
+          name="title"
+          value={formData.title}
+          onChange={handleChange}
+          isInvalid={!!errors.title}
         />
-      </div>
-      <div>
-        <label>Content:</label>
-        <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          required
+        <Form.Control.Feedback type="invalid">{errors.title}</Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Content</Form.Label>
+        <Form.Control
+          as="textarea"
+          name="content"
+          value={formData.content}
+          onChange={handleChange}
+          isInvalid={!!errors.content}
         />
-      </div>
-      <button type="submit">Create Thread</button>
-    </form>
+        <Form.Control.Feedback type="invalid">{errors.content}</Form.Control.Feedback>
+      </Form.Group>
+      <Button type="submit">Create Thread</Button>
+      {errors.non_field_errors && <Alert variant="danger">{errors.non_field_errors.join(", ")}</Alert>}
+    </Form>
   );
 };
 
-export default ThreadCreateForm;
+export default CreateThreadForm;

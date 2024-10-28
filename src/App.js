@@ -15,10 +15,10 @@ import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import NotFound from "./components/NotFound";
-import ForumPage from './pages/forum/ForumPage';
+import ForumPage from './pages/forum/ForumPage'; 
 import ForumsPage from './pages/forum/ForumsPage'; 
-import ForumCreateForm from './pages/forum/ForumCreateForm'; 
-import ForumThreadPage from './pages/forum/ForumThreadPage'; // Importing ForumThreadPage
+import CreateForum from './pages/forum/CreateForum'; 
+import ForumThreadPage from './pages/forum/ForumThreadPage';
 import Messaging from './pages/messages/Messaging';
 import GameLibrary from './pages/game_library/GameLibrary'; 
 import GameCollection from './pages/game_library/GameCollection'; 
@@ -60,15 +60,15 @@ function App() {
           <Route exact path="/profiles/:id/edit/password" component={UserPasswordForm} />
           <Route exact path="/profiles/:id/edit" component={ProfileEditForm} />
 
-          {/* Add the Messaging Route */}
+          {/* Messaging Route */}
           <Route exact path="/messages/:receiverId?" component={Messaging} />
 
           {/* Forum Routes */}
-          <Route exact path="/forum" component={ForumsPage} /> {/* List of forums */}
-          <Route exact path="/forum/create" component={ForumCreateForm} /> {/* Create forum */}
-          <Route exact path="/forum/:id" component={ForumPage} /> {/* Individual forum page */}
-          <Route exact path="/forum/:forumId/threads" component={ForumThreadPage} /> {/* Forum threads page */}
-
+          <Route exact path="/forum" component={ForumsPage} /> {/* Lists all forums */}
+          <Route exact path="/forum/create" component={CreateForum} /> {/* Create a new forum */}
+          <Route exact path="/forum/:id" component={ForumPage} /> {/* Display a specific forum */}
+          <Route exact path="/forum/:forumId/threads" component={ForumThreadPage} /> {/* Display threads within a specific forum */}
+          
           {/* Game Library Routes */}
           <Route exact path="/game_library" component={GameLibrary} />
           <Route path="/game_library/games" component={GameCollection} />

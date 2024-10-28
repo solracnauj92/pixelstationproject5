@@ -1,105 +1,48 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom"; // Ensure Link is imported
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { useParams } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import ForumThread from "./ForumThreadPage"; // This should likely be a single thread view, change as necessary
-import Comment from "../comments/Comment";
-import CommentCreateForm from "../comments/CommentCreateForm";
+import ForumPost from "./ForumPost";
 import Asset from "../../components/Asset";
-import { fetchMoreData } from "../../utils/utils";
-import PopularProfiles from "../profiles/PopularProfiles";
-import styles from "../../styles/Forum.module.css";
 
 function ForumPage() {
-  const { id } = useParams();
-  const [forumThread, setForumThread] = useState({ results: [] });
-  const [comments, setComments] = useState({ results: [] });
-  const currentUser = useCurrentUser();
-  const profile_image = currentUser?.profile_image;
+  const { id } = useParams(); // Extract forum ID from URL
+  const [posts, setPosts] = useState([]); // State for posts
+  const [loading, setLoading] = useState(true); // State for loading status
+  const [error, setError] = useState(null); // State for error handling
 
   useEffect(() => {
-    const fetchForumData = async () => {
+    console.log("Forum ID:", id); // Debugging line
+    const fetchPosts = async () => {
       try {
-        // Fetching forum thread and its comments
-        const [{ data: thread }, { data: threadComments }] = await Promise.all([
-          axiosReq.get(`/forums/${id}/`),
-          axiosReq.get(`/comments/?forum=${id}`),
-        ]);
-        setForumThread({ results: [thread] });
-        setComments(threadComments);
+        setLoading(true); // Set loading to true before fetching
+        const { data } = await axiosReq.get(`/forums/${id}/posts/`); // API call
+        setPosts(data.results || []); // Set posts or an empty array
       } catch (err) {
-        console.log("Error fetching forum data:", err);
+        setError(err); // Set error state
+        console.log(err); // Log the error
+      } finally {
+        setLoading(false); // Set loading to false after fetching
       }
     };
 
-    fetchForumData();
-  }, [id]);
+    fetchPosts(); // Invoke the fetch function
+  }, [id]); // Dependency on forum ID
+
+  // Render loading spinner or error message
+  if (loading) return <Asset spinner />;
+  if (error) return <p>Error fetching posts: {error.message}</p>;
 
   return (
-    <Row className={`h-100 ${styles.ForumPageContainer}`}>
-      <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <PopularProfiles mobile />
-
-        {/* Display the main forum thread */}
-        {forumThread.results.length ? (
-          <ForumThread {...forumThread.results[0]} setForumThread={setForumThread} threadPage />
-        ) : (
-          <Asset spinner />
-        )}
-
-        <Container>
-          {/* Link to create a new thread */}
-          {currentUser && (
-            <Link to={`/forum/${id}/threads`}>
-              <button className="btn btn-primary mb-3">Create a New Thread</button>
-            </Link>
-          )}
-
-          {/* Show comment creation form if user is logged in */}
-          {currentUser ? (
-            <CommentCreateForm
-              profile_id={currentUser.profile_id}
-              profileImage={profile_image}
-              forum={id}
-              setForumThread={setForumThread}
-              setComments={setComments}
-            />
-          ) : comments.results.length ? (
-            <h5>Comments</h5> // Improved user feedback when there are comments
-          ) : null}
-
-          {/* Display comments */}
-          {comments.results.length ? (
-            <InfiniteScroll
-              dataLength={comments.results.length}
-              loader={<Asset spinner />}
-              hasMore={!!comments.next}
-              next={() => fetchMoreData(comments, setComments)}
-            >
-              {comments.results.map((comment) => (
-                <Comment
-                  key={comment.id}
-                  {...comment}
-                  setForumThread={setForumThread}
-                  setComments={setComments}
-                />
-              ))}
-            </InfiniteScroll>
-          ) : currentUser ? (
-            <span>No comments yet, be the first to comment!</span>
-          ) : (
-            <span>No comments... yet</span>
-          )}
-        </Container>
-      </Col>
-      <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
-        <PopularProfiles />
-      </Col>
-    </Row>
+    <div className="container mt-4">
+      <h1 className="mb-4">Forum Posts</h1>
+      {posts.length ? (
+        posts.map(post => (
+          <ForumPost key={post.id} {...post} />
+        ))
+      ) : (
+        <p>No posts available.</p>
+      )}
+    </div>
   );
 }
 
