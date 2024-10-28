@@ -1,48 +1,56 @@
-import React, { useState, useEffect } from "react";
-import { axiosReq } from "../../api/axiosDefaults";
-import Asset from "../../components/Asset";
-import NoResults from "../../assets/no-results.png";
-import styles from "../../styles/GameCollection.module.css";
+// src/pages/game_library/GameCollection.js
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import GameCard from './GameCard';
 
 const GameCollection = () => {
-  const [collection, setCollection] = useState({ results: [] });
-  const [hasLoaded, setHasLoaded] = useState(false);
+    const [games, setGames] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchCollection = async () => {
-      try {
-        const { data } = await axiosReq.get("/game_library/collections/");
-        setCollection(data);
-        setHasLoaded(true);
-      } catch (err) {
-        console.log(err);
-      }
+    // Fetch games from API
+    useEffect(() => {
+        const fetchGames = async () => {
+            try {
+                const response = await axios.get('/game_library/games/'); 
+                setGames(response.data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchGames();
+    }, []);
+
+    const handleAddToLibrary = async (gameId) => {
+        // Logic to add the game to the user's library
+        try {
+            await axios.post('/game_library/user-games/', { game: gameId }); 
+            console.log(`Game with ID ${gameId} added to library!`);
+        } catch (error) {
+            console.error("Error adding game to library", error);
+        }
     };
 
-    fetchCollection();
-  }, []);
+    if (loading) return <p>Loading games...</p>;
+    if (error) return <p>Error fetching games: {error}</p>;
 
-  return (
-    <div className={styles.GameCollection}>
-      {hasLoaded ? (
-        collection.results.length ? (
-          <>
-            <h1>My Collection</h1>
-            {collection.results.map((game) => (
-              <div key={game.id}>
-                <h2>{game.title}</h2>
-                {/* Additional game info here */}
-              </div>
-            ))}
-          </>
-        ) : (
-          <Asset src={NoResults} message="No games in your collection." />
-        )
-      ) : (
-        <Asset spinner />
-      )}
-    </div>
-  );
+    return (
+        <div className="game-collection">
+            <h2>Game Collection</h2>
+            <div className="game-list">
+                {games.map(game => (
+                    <GameCard 
+                        key={game.id} 
+                        game={game} 
+                        onAddToLibrary={handleAddToLibrary} 
+                    />
+                ))}
+            </div>
+        </div>
+    );
 };
 
 export default GameCollection;

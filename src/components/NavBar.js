@@ -55,7 +55,7 @@ const NavBar = () => {
         <i className="bi bi-heart"></i>Liked
       </NavLink>
       <NavLink className={styles.NavLink} activeClassName={styles.Active} to="/game_library">
-        <i className="bi bi-controller"></i>Games
+        <i className="bi bi-controller"></i>Game Library
       </NavLink>
       {/* Add Forum Link Here */}
       <NavLink

@@ -18,6 +18,7 @@ import NotFound from "./components/NotFound";
 import Forum from './pages/forum/Forum'; 
 import GameList from './pages/game_library/GameList';
 import GameCollection from './pages/game_library/GameCollection';
+import GameLibrary from './pages/game_library/GameLibrary';
 import Messaging from './pages/messages/Messaging';
 import Footer from "./components/Footer";
 
@@ -65,8 +66,9 @@ function App() {
           <Route exact path="/forum" component={Forum} />
 
           {/* Game Library Route */}
+          <Route exact path="/game_library" component={GameLibrary} />
           <Route exact path="/game_library/games" component={GameList} />
-          <Route exact path="/game_library/collections" component={GameCollection} />
+          <Route exact path="/game_library/user-games" component={GameCollection} />
 
           {/* Not Found Route */}
           <Route path="*" component={NotFound} />
