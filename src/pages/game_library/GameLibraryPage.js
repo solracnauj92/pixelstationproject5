@@ -1,44 +1,52 @@
-import React, { useState } from "react";
-import GameList from "./GameList";
-import GameCreateForm from "./GameCreateForm";
-import UserGameLibrary from "./UserGameLibrary";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import styles from '../../styles/GameLibraryPage.module.css';
+import React, { useEffect, useState } from "react";
+import { Container, Spinner, Alert } from "react-bootstrap"; // Import necessary components
+import GameList from "./GameList"; 
+import GameCreateForm from "./GameCreateForm"; // Import your create form component
+import { axiosReq } from "../../api/axiosDefaults"; // Ensure you have this
 
 const GameLibraryPage = () => {
-  const currentUser = useCurrentUser();
-  const [userGames, setUserGames] = useState([]);
+    const [games, setGames] = useState([]); // State for storing game data
+    const [loading, setLoading] = useState(true); // State for loading status
+    const [error, setError] = useState(null); // State for error messages
 
-  return (
-    <div className={styles.gameLibraryPage}>
-      <h1 className={styles.title}>Your Game Library</h1>
+    useEffect(() => {
+        const fetchGames = async () => {
+            try {
+                const { data } = await axiosReq.get("/game_library/games/");
+                setGames(data.results || []); // Ensure to set games data
+            } catch (err) {
+                console.error("Error fetching games:", err);
+                setError("Failed to fetch games. Please try again."); // Set error message
+            } finally {
+                setLoading(false); // Set loading to false after fetch
+            }
+        };
 
-      {/* User Game Library */}
-      <UserGameLibrary currentUser={currentUser} />
+        fetchGames(); // Fetch games on component mount
+    }, []); // Empty dependency array to run once
 
-      {/* Form to Create New Games */}
-      <GameCreateForm setGames={setUserGames} />
+    // Render loading spinner if still loading
+    if (loading) return (
+        <Container className="text-center mt-5">
+            <Spinner animation="border" />
+            <p>Loading games...</p>
+        </Container>
+    );
 
-      {/* List of Available Games */}
-      <GameList currentUser={currentUser} setUserGames={setUserGames} />
+    // Render error alert if there's an error
+    if (error) return (
+        <Container>
+            <Alert variant="danger">{error}</Alert>
+        </Container>
+    );
 
-      {/* Optional: Display User's Added Games */}
-      {userGames.length > 0 ? (
-        <div className={styles.userGames}>
-          <h2 className={styles.userGamesTitle}>Your Added Games</h2>
-          <ul className={styles.userGamesList}>
-            {userGames.map(game => (
-              <li key={game.id} className={styles.userGameItem}>
-                {game.title}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <p className={styles.noGamesMessage}>No games in your library yet.</p>
-      )}
-    </div>
-  );
+    return (
+        <Container>
+            <h1>All Games</h1>
+            <GameList games={games} /> {/* Pass the games data to GameList */}
+            <GameCreateForm setGames={setGames} /> {/* Pass the setGames function to create form */}
+        </Container>
+    );
 };
 
 export default GameLibraryPage;
