@@ -1,53 +1,67 @@
-import React, { useState } from 'react';
-import ForumList from './ForumList';
-import ThreadList from './ThreadList';
-import PostForum from './PostForum'; 
-import ThreadCreateForm from './ThreadCreateForm';
-import styles from '../../styles/Forum.module.css';
+// Forum.js
+import React from "react";
+import styles from "../../styles/Forum.module.css";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { Card, Media, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
+import Avatar from "../../components/Avatar";
+import { axiosRes } from "../../api/axiosDefaults";
+import { MoreDropdown } from "../../components/MoreDropdown";
 
-const Forum = () => {
-  const [selectedForum, setSelectedForum] = useState(null); // Store selected forum
-  const [selectedThread, setSelectedThread] = useState(null); // Store selected thread
-  const [showThreadCreateForm, setShowThreadCreateForm] = useState(false); 
+const Forum = (props) => {
+  const {
+    id,
+    owner,
+    profile_id,
+    profile_image,
+    replies_count,
+    title,
+    content,
+    updated_at,
+    forumPage,
+    setForums,
+  } = props;
 
-  const handleForumSelect = (forumId) => {
-    setSelectedForum(forumId);  // Set selected forum
-    setSelectedThread(null);    // Reset selected thread
-    setShowThreadCreateForm(true);
+  const currentUser = useCurrentUser();
+  const is_owner = currentUser?.username === owner;
+  const history = useHistory();
+
+  const handleEdit = () => {
+    history.push(`/forums/${id}/edit`);
   };
 
-  const handleThreadSelect = (threadId) => {
-    setSelectedThread(threadId);  // Set selected thread when clicked
-    setShowThreadCreateForm(false); 
-  };
-
-  const handleCloseThreadCreateForm = () => {
-    setShowThreadCreateForm(false); 
+  const handleDelete = async () => {
+    try {
+      await axiosRes.delete(`/forums/${id}/`);
+      history.goBack();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
-    <div className={styles.forumContainer}>
-      <h1 className={styles.forumHeading}>Forum Page</h1>
-      
-      {/* Render Forum List */}
-      <ForumList onSelectForum={handleForumSelect} />
-      
-      {selectedForum && (
-        <>
-          {/* Render ThreadList only when a forum is selected */}
-          <ThreadList forumId={selectedForum} onSelectThread={handleThreadSelect} />
-          
-          {showThreadCreateForm && (
-            <div className={styles.threadCreateForm}>
-              <ThreadCreateForm forumId={selectedForum} onClose={handleCloseThreadCreateForm} />
-            </div>
-          )}
-        </>
-      )}
-      
-      {/* Render PostForum only when a thread is selected */}
-      {selectedThread && <PostForum threadId={selectedThread} />}
-    </div>
+    <Card className={styles.Forum}>
+      <Card.Body>
+        <Media className="align-items-center justify-content-between">
+          <Link to={`/profiles/${profile_id}`}>
+            <Avatar src={profile_image} height={55} />
+            {owner}
+          </Link>
+          <div className="d-flex align-items-center">
+            <span>{updated_at}</span>
+            {is_owner && forumPage && (
+              <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete} />
+            )}
+          </div>
+        </Media>
+      </Card.Body>
+      <Link to={`/forums/${id}`}>
+        <Card.Body>
+          {title && <Card.Title className="text-center">{title}</Card.Title>}
+          {content && <Card.Text>{content}</Card.Text>}
+        </Card.Body>
+      </Link>
+    </Card>
   );
 };
 
