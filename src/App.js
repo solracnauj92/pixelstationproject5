@@ -15,11 +15,12 @@ import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import NotFound from "./components/NotFound";
-import Forum from './pages/forum/Forum'; 
-import GameList from './pages/game_library/GameList';
-import GameCollection from './pages/game_library/GameCollection';
-import GameLibrary from './pages/game_library/GameLibrary';
+import Forum from './pages/forum/Forum';
 import Messaging from './pages/messages/Messaging';
+import GameLibrary from './pages/game_library/GameLibrary'; // Landing page
+import GameCollection from './pages/game_library/GameCollection'; // For viewing games
+import GameDetail from './pages/game_library/GameDetail'; // For viewing game details
+import GameLibraryPage from './pages/game_library/GameLibraryPage'; // User game library
 import Footer from "./components/Footer";
 
 function App() {
@@ -32,22 +33,22 @@ function App() {
       <Container className={styles.Main}>
         <Switch>
           <Route exact path="/" render={() => (
-              <PostsPage message="No results found. Adjust the search keyword." />
-            )}
+            <PostsPage message="No results found. Adjust the search keyword." />
+          )}
           />
           <Route exact path="/feed" render={() => (
-              <PostsPage
-                message="No results found. Adjust the search keyword or follow a user."
-                filter={`owner__followed__owner__profile=${profile_id}&`}
-              />
-            )}
+            <PostsPage
+              message="No results found. Adjust the search keyword or follow a user."
+              filter={`owner__followed__owner__profile=${profile_id}&`}
+            />
+          )}
           />
           <Route exact path="/liked" render={() => (
-              <PostsPage
-                message="No results found. Adjust the search keyword or like a post."
-                filter={`likes__owner__profile=${profile_id}&ordering=-likes__created_at&`}
-              />
-            )}
+            <PostsPage
+              message="No results found. Adjust the search keyword or like a post."
+              filter={`likes__owner__profile=${profile_id}&ordering=-likes__created_at&`}
+            />
+          )}
           />
           <Route exact path="/signin" component={SignInForm} />
           <Route exact path="/signup" component={SignUpForm} />
@@ -67,8 +68,9 @@ function App() {
 
           {/* Game Library Route */}
           <Route exact path="/game_library" component={GameLibrary} />
-          <Route exact path="/game_library/games" component={GameList} />
-          <Route exact path="/game_library/user-games" component={GameCollection} />
+          <Route path="/game_library/games" component={GameCollection} />
+          <Route path="/game_library/user-games" component={GameLibraryPage} />
+          <Route path="/game_library/games/:gameId" component={GameDetail} />
 
           {/* Not Found Route */}
           <Route path="*" component={NotFound} />

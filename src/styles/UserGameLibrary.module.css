@@ -1,0 +1,22 @@
+.userGameLibrary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between cards */
+    padding: 20px;
+}
+
+.gameCard {
+    flex: 1 1 calc(25% - 20px); /* Responsive card sizing */
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.cardTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.cardText {
+    font-size: 16px;
+    color: #666;}

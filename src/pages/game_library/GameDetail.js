@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import styles from '../../styles/GameDetail.module.css';
 
 const GameDetail = () => {
     const { gameId } = useParams(); 
@@ -28,12 +29,12 @@ const GameDetail = () => {
     if (error) return <p>Error fetching game details: {error}</p>;
 
     return (
-        <div className="game-detail">
-            <h2>{game.title}</h2>
-            {game.image && <img src={game.image} alt={game.title} />} {/* Display image if available */}
-            <p><strong>Description:</strong> {game.description}</p>
-            <p><strong>Genre:</strong> {game.genre}</p>
-            <p><strong>Release Date:</strong> {game.release_date}</p>
+        <div className={styles.gameDetail}>
+            <h2 className={styles.title}>{game.title}</h2>
+            {game.image && <img className={styles.image} src={game.image} alt={game.title} />} {/* Display image if available */}
+            <p className={styles.description}><strong>Description:</strong> {game.description}</p>
+            <p className={styles.genre}><strong>Genre:</strong> {game.genre}</p>
+            <p className={styles.releaseDate}><strong>Release Date:</strong> {game.release_date}</p>
             {/* You can add more details as needed */}
         </div>
     );

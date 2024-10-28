@@ -1,16 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styles from '../../styles/GameLibrary.module.css';
 
 const GameLibrary = () => {
   return (
-    <div>
-      <h1>Game Library</h1>
-      <ul>
-        <li>
-          <Link to="/game_library/games">View Games</Link>
+    <div className={styles.gameLibrary}>
+      <h1 className={styles.title}>Game Library</h1>
+      <ul className={styles.linkList}>
+        <li className={styles.linkItem}>
+          <Link to="/game_library/games" className={styles.link}>View Games</Link>
         </li>
-        <li>
-          <Link to="/game_library/user-games">View User Games</Link>
+        <li className={styles.linkItem}>
+          <Link to="/game_library/user-games" className={styles.link}>View User Games</Link>
         </li>
       </ul>
     </div>

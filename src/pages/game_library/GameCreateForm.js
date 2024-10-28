@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { axiosReq } from "../../api/axiosDefaults";
+import styles from '../../styles/GameCreateForm.module.css';
+
 
 const GameCreateForm = ({ setGames }) => {
   const [gameData, setGameData] = useState({
@@ -45,8 +47,8 @@ const GameCreateForm = ({ setGames }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group>
+    <Form onSubmit={handleSubmit} className={styles.form}>
+      <Form.Group className={styles.formGroup}>
         <Form.Label>Title</Form.Label>
         <Form.Control
           type="text"
@@ -56,7 +58,7 @@ const GameCreateForm = ({ setGames }) => {
           required
         />
       </Form.Group>
-      <Form.Group>
+      <Form.Group className={styles.formGroup}>
         <Form.Label>Description</Form.Label>
         <Form.Control
           as="textarea"
@@ -66,7 +68,7 @@ const GameCreateForm = ({ setGames }) => {
           required
         />
       </Form.Group>
-      <Form.Group>
+      <Form.Group className={styles.formGroup}>
         <Form.Label>Genre</Form.Label> {/* Added Genre input */}
         <Form.Control
           type="text"
@@ -76,12 +78,12 @@ const GameCreateForm = ({ setGames }) => {
           required
         />
       </Form.Group>
-      <Form.Group>
+      <Form.Group className={styles.formGroup}>
         <Form.Label>Image</Form.Label>
         <Form.File onChange={handleImageChange} />
       </Form.Group>
-      {errors?.title && <Alert variant="danger">{errors.title[0]}</Alert>}
-      <Button type="submit">Create Game</Button>
+      {errors?.title && <Alert variant="danger" className={styles.errorAlert}>{errors.title[0]}</Alert>}
+      <Button type="submit" className={styles.submitButton}>Create Game</Button>
     </Form>
   );
 };

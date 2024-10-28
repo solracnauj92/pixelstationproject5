@@ -1,5 +1,17 @@
-.GameCollection {
+.game-collection {
+  padding: 20px;
+  background-color: #f0f2f5;
+  border-radius: 8px;
+}
+
+.game-collection h2 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.game-list {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
 }

@@ -1,15 +1,15 @@
-// src/pages/game_library/GameCard.js
-
 import React from 'react';
+import styles from '../../styles/GameCard.module.css';
+
 
 const GameCard = ({ game, onAddToLibrary }) => {
     return (
-        <div className="game-card">
-            <h3>{game.title}</h3>
-            <p>{game.description}</p>
+        <div className={styles.gameCard}>
+            <h3 className={styles.title}>{game.title}</h3>
+            <p className={styles.description}>{game.description}</p>
             <p><strong>Genre:</strong> {game.genre}</p>
             <p><strong>Release Date:</strong> {game.releaseDate}</p>
-            <button onClick={() => onAddToLibrary(game.id)}>Add to Library</button>
+            <button className={styles.button} onClick={() => onAddToLibrary(game.id)}>Add to Library</button>
         </div>
     );
 };

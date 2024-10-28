@@ -1,7 +1,7 @@
-// src/pages/game_library/GameCollection.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import GameCard from './GameCard';
+import styles from '../../styles/GameCollection.module.css';
 
 const GameCollection = () => {
     const [games, setGames] = useState([]);
@@ -38,9 +38,9 @@ const GameCollection = () => {
     if (error) return <p>Error fetching games: {error}</p>;
 
     return (
-        <div className="game-collection">
-            <h2>Game Collection</h2>
-            <div className="game-list">
+        <div className={styles.gameCollection}>
+            <h2 className={styles.heading}>Game Collection</h2>
+            <div className={styles.gameList}>
                 {games.map(game => (
                     <GameCard 
                         key={game.id} 
