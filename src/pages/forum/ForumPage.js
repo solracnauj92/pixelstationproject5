@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom"; // Ensure Link is imported
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import ForumThread from "./ForumThreadPage";
+import ForumThread from "./ForumThreadPage"; // This should likely be a single thread view, change as necessary
 import Comment from "../comments/Comment";
 import CommentCreateForm from "../comments/CommentCreateForm";
 import Asset from "../../components/Asset";
@@ -32,10 +32,10 @@ function ForumPage() {
         setForumThread({ results: [thread] });
         setComments(threadComments);
       } catch (err) {
-        console.log(err);
+        console.log("Error fetching forum data:", err);
       }
     };
-    
+
     fetchForumData();
   }, [id]);
 
@@ -52,6 +52,13 @@ function ForumPage() {
         )}
 
         <Container>
+          {/* Link to create a new thread */}
+          {currentUser && (
+            <Link to={`/forum/${id}/threads`}>
+              <button className="btn btn-primary mb-3">Create a New Thread</button>
+            </Link>
+          )}
+
           {/* Show comment creation form if user is logged in */}
           {currentUser ? (
             <CommentCreateForm
