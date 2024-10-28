@@ -1,12 +1,12 @@
-// src/pages/forums/CreateForum.js
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 
 const CreateForum = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [errors, setErrors] = useState(null); // State for errors
   const history = useHistory();
 
   const handleSubmit = async (event) => {
@@ -15,6 +15,7 @@ const CreateForum = () => {
       await axiosReq.post(`/forums/`, { title, content });
       history.push("/forums"); // Redirect to forums page after creating
     } catch (err) {
+      setErrors(err.response?.data); // Set errors from the response
       console.log(err);
     }
   };
@@ -22,6 +23,7 @@ const CreateForum = () => {
   return (
     <Form onSubmit={handleSubmit}>
       <h2>Create New Forum</h2>
+      {errors && <Alert variant="danger">{errors.title || errors.content}</Alert>}
       <Form.Group>
         <Form.Label>Title</Form.Label>
         <Form.Control

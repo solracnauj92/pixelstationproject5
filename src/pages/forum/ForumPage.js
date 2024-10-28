@@ -43,7 +43,7 @@ function ForumPage() {
     <Row className={`h-100 ${styles.ForumPageContainer}`}>
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <PopularProfiles mobile />
-        
+
         {/* Display the main forum thread */}
         {forumThread.results.length ? (
           <ForumThread {...forumThread.results[0]} setForumThread={setForumThread} threadPage />
@@ -68,7 +68,12 @@ function ForumPage() {
           {/* Display comments */}
           {comments.results.length ? (
             <InfiniteScroll
-              children={comments.results.map((comment) => (
+              dataLength={comments.results.length}
+              loader={<Asset spinner />}
+              hasMore={!!comments.next}
+              next={() => fetchMoreData(comments, setComments)}
+            >
+              {comments.results.map((comment) => (
                 <Comment
                   key={comment.id}
                   {...comment}
@@ -76,11 +81,7 @@ function ForumPage() {
                   setComments={setComments}
                 />
               ))}
-              dataLength={comments.results.length}
-              loader={<Asset spinner />}
-              hasMore={!!comments.next}
-              next={() => fetchMoreData(comments, setComments)}
-            />
+            </InfiniteScroll>
           ) : currentUser ? (
             <span>No comments yet, be the first to comment!</span>
           ) : (

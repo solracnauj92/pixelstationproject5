@@ -1,4 +1,3 @@
-// ForumCreateForm.js
 import React, { useRef, useState, useEffect } from "react";
 import { Form, Button, Container, Alert } from "react-bootstrap";
 import { useHistory } from "react-router";
@@ -12,7 +11,6 @@ function ForumCreateForm() {
   const titleInputRef = useRef(null); 
 
   useEffect(() => {
-    
     titleInputRef.current?.focus();
   }, []);
 

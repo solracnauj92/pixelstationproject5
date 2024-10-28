@@ -1,4 +1,3 @@
-// src/pages/forums/ForumsPage.js
 import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
@@ -67,14 +66,15 @@ function ForumsPage({ message, filter = "" }) {
           <>
             {forums.results.length ? (
               <InfiniteScroll
-                children={forums.results.map((forum) => (
-                  <ForumThread key={forum.id} {...forum} setForums={setForums} />
-                ))}
                 dataLength={forums.results.length}
                 loader={<Asset spinner />}
                 hasMore={!!forums.next}
                 next={() => fetchMoreData(forums, setForums)}
-              />
+              >
+                {forums.results.map((forum) => (
+                  <ForumThread key={forum.id} {...forum} setForums={setForums} />
+                ))}
+              </InfiniteScroll>
             ) : (
               <Container className={appStyles.Content}>
                 <Asset src={NoResults} message={message} />

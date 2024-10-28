@@ -1,4 +1,3 @@
-// ForumEditForm.js
 import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Alert } from "react-bootstrap";
 import { useHistory, useParams } from "react-router";

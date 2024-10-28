@@ -1,4 +1,3 @@
-// Forum.js
 import React from "react";
 import styles from "../../styles/Forum.module.css"; 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -34,7 +33,7 @@ const Forum = (props) => {
     if (window.confirm("Are you sure you want to delete this forum?")) {
       try {
         await axiosRes.delete(`/forums/${id}/`);
-        setForums((prevForums) => prevForums.filter((forum) => forum.id !== id)); // Update forum list
+        setForums((prevForums) => prevForums.filter((forum) => forum.id !== id));
         history.goBack(); // Navigate back after deletion
       } catch (err) {
         console.log(err);
@@ -51,7 +50,7 @@ const Forum = (props) => {
             <span>{owner}</span>
           </Link>
           <div className="d-flex align-items-center">
-            <span className={styles.UpdatedAt}>{updated_at}</span>
+            <span className={styles.UpdatedAt}>{new Date(updated_at).toLocaleString()}</span>
             {is_owner && forumPage && (
               <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete} />
             )}

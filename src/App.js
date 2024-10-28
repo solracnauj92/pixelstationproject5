@@ -63,9 +63,9 @@ function App() {
           <Route exact path="/messages/:receiverId?" component={Messaging} />
 
           {/* Forum Routes */}
-          <Route exact path="/forums" component={ForumsPage} /> {/* List of forums */}
-          <Route exact path="/forums/create" component={ForumCreateForm} /> {/* Create forum */}
-          <Route exact path="/forums/:id" component={ForumPage} /> {/* Individual forum page */}
+          <Route exact path="/forum" component={ForumsPage} /> {/* List of forums */}
+          <Route exact path="/forum/create" component={ForumCreateForm} /> {/* Create forum */}
+          <Route exact path="/forum/:id" component={ForumPage} /> {/* Individual forum page */}
 
           {/* Game Library Routes */}
           <Route exact path="/game_library" component={GameLibrary} />
