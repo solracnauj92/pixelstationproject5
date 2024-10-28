@@ -19,7 +19,7 @@ import ForumPage from './pages/forum/ForumPage';
 import ForumsPage from './pages/forum/ForumsPage'; 
 import CreateForum from './pages/forum/CreateForum'; 
 import ForumThreadPage from './pages/forum/ForumThreadPage';
-import Messaging from './pages/messages/Messaging';
+import Messaging from './pages/messages/Messages';
 import GameLibrary from './pages/game_library/GameLibrary'; 
 import GameCollection from './pages/game_library/GameCollection'; 
 import GameDetail from './pages/game_library/GameDetail'; 
@@ -61,7 +61,7 @@ function App() {
           <Route exact path="/profiles/:id/edit" component={ProfileEditForm} />
 
           {/* Messaging Route */}
-          <Route exact path="/messages/:receiverId?" component={Messaging} />
+          <Route exact path="/messages/:receiverId?" component={Messaging} /> {/* Messaging component */}
 
           {/* Forum Routes */}
           <Route exact path="/forum" component={ForumsPage} /> {/* Lists all forums */}
