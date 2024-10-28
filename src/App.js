@@ -15,12 +15,14 @@ import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import NotFound from "./components/NotFound";
-import Forum from './pages/forum/Forum';
+import ForumPage from './pages/forum/ForumPage';
+import ForumsPage from './pages/forum/ForumsPage'; 
+import ForumCreateForm from './pages/forum/ForumCreateForm'; 
 import Messaging from './pages/messages/Messaging';
-import GameLibrary from './pages/game_library/GameLibrary'; // Landing page
-import GameCollection from './pages/game_library/GameCollection'; // For viewing games
-import GameDetail from './pages/game_library/GameDetail'; // For viewing game details
-import GameLibraryPage from './pages/game_library/GameLibraryPage'; // User game library
+import GameLibrary from './pages/game_library/GameLibrary'; 
+import GameCollection from './pages/game_library/GameCollection'; 
+import GameDetail from './pages/game_library/GameDetail'; 
+import GameLibraryPage from './pages/game_library/GameLibraryPage'; 
 import Footer from "./components/Footer";
 
 function App() {
@@ -34,22 +36,19 @@ function App() {
         <Switch>
           <Route exact path="/" render={() => (
             <PostsPage message="No results found. Adjust the search keyword." />
-          )}
-          />
+          )} />
           <Route exact path="/feed" render={() => (
             <PostsPage
               message="No results found. Adjust the search keyword or follow a user."
               filter={`owner__followed__owner__profile=${profile_id}&`}
             />
-          )}
-          />
+          )} />
           <Route exact path="/liked" render={() => (
             <PostsPage
               message="No results found. Adjust the search keyword or like a post."
               filter={`likes__owner__profile=${profile_id}&ordering=-likes__created_at&`}
             />
-          )}
-          />
+          )} />
           <Route exact path="/signin" component={SignInForm} />
           <Route exact path="/signup" component={SignUpForm} />
           <Route exact path="/posts/create" component={PostCreateForm} />
@@ -61,12 +60,14 @@ function App() {
           <Route exact path="/profiles/:id/edit" component={ProfileEditForm} />
 
           {/* Add the Messaging Route */}
-          <Route exact path="/messages/:receiverId?" component={Messaging} /> {/* Adjust to pass receiverId if needed */}
+          <Route exact path="/messages/:receiverId?" component={Messaging} />
 
-          {/* Add the Forum Route */}
-          <Route exact path="/forum" component={Forum} />
+          {/* Forum Routes */}
+          <Route exact path="/forums" component={ForumsPage} /> {/* List of forums */}
+          <Route exact path="/forums/create" component={ForumCreateForm} /> {/* Create forum */}
+          <Route exact path="/forums/:id" component={ForumPage} /> {/* Individual forum page */}
 
-          {/* Game Library Route */}
+          {/* Game Library Routes */}
           <Route exact path="/game_library" component={GameLibrary} />
           <Route path="/game_library/games" component={GameCollection} />
           <Route path="/game_library/user-games" component={GameLibraryPage} />

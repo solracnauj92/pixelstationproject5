@@ -1,18 +1,18 @@
-// src/pages/forums/ForumPage.js
 import React, { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import ForumThread from "./ForumThread";
+import ForumThread from "./ForumThreadPage";
 import Comment from "../comments/Comment";
 import CommentCreateForm from "../comments/CommentCreateForm";
 import Asset from "../../components/Asset";
 import { fetchMoreData } from "../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
+import styles from "../../styles/Forum.module.css";
 
 function ForumPage() {
   const { id } = useParams();
@@ -24,6 +24,7 @@ function ForumPage() {
   useEffect(() => {
     const fetchForumData = async () => {
       try {
+        // Fetching forum thread and its comments
         const [{ data: thread }, { data: threadComments }] = await Promise.all([
           axiosReq.get(`/forums/${id}/`),
           axiosReq.get(`/comments/?forum=${id}`),
@@ -34,15 +35,24 @@ function ForumPage() {
         console.log(err);
       }
     };
+    
     fetchForumData();
   }, [id]);
 
   return (
-    <Row className="h-100">
+    <Row className={`h-100 ${styles.ForumPageContainer}`}>
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <PopularProfiles mobile />
-        <ForumThread {...forumThread.results[0]} setForumThread={setForumThread} threadPage />
+        
+        {/* Display the main forum thread */}
+        {forumThread.results.length ? (
+          <ForumThread {...forumThread.results[0]} setForumThread={setForumThread} threadPage />
+        ) : (
+          <Asset spinner />
+        )}
+
         <Container>
+          {/* Show comment creation form if user is logged in */}
           {currentUser ? (
             <CommentCreateForm
               profile_id={currentUser.profile_id}
@@ -52,8 +62,10 @@ function ForumPage() {
               setComments={setComments}
             />
           ) : comments.results.length ? (
-            "Comments"
+            <h5>Comments</h5> // Improved user feedback when there are comments
           ) : null}
+
+          {/* Display comments */}
           {comments.results.length ? (
             <InfiniteScroll
               children={comments.results.map((comment) => (

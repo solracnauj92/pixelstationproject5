@@ -1,18 +1,18 @@
 // src/pages/forums/ForumsPage.js
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { axiosReq } from "../../api/axiosDefaults";
-import ForumThread from "./ForumThread";
+import ForumThread from "./ForumThreadPage"; 
 import Asset from "../../components/Asset";
 import PopularProfiles from "../profiles/PopularProfiles";
 import NoResults from "../../assets/no-results.png";
 import appStyles from "../../App.module.css";
-import styles from "../../styles/ForumsPage.module.css";
+import styles from "../../styles/Forum.module.css"; 
 import { fetchMoreData } from "../../utils/utils";
 
 function ForumsPage({ message, filter = "" }) {
@@ -31,10 +31,12 @@ function ForumsPage({ message, filter = "" }) {
         console.log(err);
       }
     };
+
     setHasLoaded(false);
     const timer = setTimeout(() => {
       fetchForums();
     }, 1000);
+
     return () => clearTimeout(timer);
   }, [filter, query, pathname]);
 
@@ -42,7 +44,8 @@ function ForumsPage({ message, filter = "" }) {
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <PopularProfiles mobile />
-        <i className={`fas fa-search ${styles.SearchIcon}`} />
+
+        {/* Search Bar */}
         <Form
           className={styles.SearchBar}
           onSubmit={(event) => event.preventDefault()}
@@ -54,6 +57,12 @@ function ForumsPage({ message, filter = "" }) {
             placeholder="Search threads"
           />
         </Form>
+
+        {/* Button to create a new forum */}
+        <Link to="/forums/create" className="btn btn-primary mb-3">
+          Create New Forum
+        </Link>
+
         {hasLoaded ? (
           <>
             {forums.results.length ? (

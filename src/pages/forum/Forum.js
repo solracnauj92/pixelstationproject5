@@ -1,6 +1,6 @@
 // Forum.js
 import React from "react";
-import styles from "../../styles/Forum.module.css";
+import styles from "../../styles/Forum.module.css"; 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Card, Media, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
@@ -31,11 +31,14 @@ const Forum = (props) => {
   };
 
   const handleDelete = async () => {
-    try {
-      await axiosRes.delete(`/forums/${id}/`);
-      history.goBack();
-    } catch (err) {
-      console.log(err);
+    if (window.confirm("Are you sure you want to delete this forum?")) {
+      try {
+        await axiosRes.delete(`/forums/${id}/`);
+        setForums((prevForums) => prevForums.filter((forum) => forum.id !== id)); // Update forum list
+        history.goBack(); // Navigate back after deletion
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -43,12 +46,12 @@ const Forum = (props) => {
     <Card className={styles.Forum}>
       <Card.Body>
         <Media className="align-items-center justify-content-between">
-          <Link to={`/profiles/${profile_id}`}>
+          <Link to={`/profiles/${profile_id}`} className={styles.ProfileLink}>
             <Avatar src={profile_image} height={55} />
-            {owner}
+            <span>{owner}</span>
           </Link>
           <div className="d-flex align-items-center">
-            <span>{updated_at}</span>
+            <span className={styles.UpdatedAt}>{updated_at}</span>
             {is_owner && forumPage && (
               <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete} />
             )}
@@ -57,7 +60,12 @@ const Forum = (props) => {
       </Card.Body>
       <Link to={`/forums/${id}`}>
         <Card.Body>
-          {title && <Card.Title className="text-center">{title}</Card.Title>}
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>{replies_count} replies</Tooltip>}
+          >
+            <Card.Title className="text-center">{title}</Card.Title>
+          </OverlayTrigger>
           {content && <Card.Text>{content}</Card.Text>}
         </Card.Body>
       </Link>
