@@ -22,7 +22,8 @@ const Messages = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const { data } = await axiosReq.get('/profiles/'); // Fetch profiles
+                const { data } = await axiosReq.get('/profiles/');
+                console.log("Fetched Users Data:", data); // Check structure of user data
                 if (Array.isArray(data.results)) {
                     setUsers(data.results);
                 } else {
@@ -38,14 +39,15 @@ const Messages = () => {
         fetchUsers();
     }, []);
 
-    // Fetch messages based on the selected user's profile
+    // Fetch messages when the component mounts or when selectedUser changes
     useEffect(() => {
         const fetchMessages = async () => {
             if (!selectedUser) return; 
             setLoadingMessages(true); 
             try {
-                const { data } = await axiosReq.get(`/profiles/${selectedUser}/messages/`); // Adjusted endpoint
-                setMessages(data); // Adjust based on how your API returns messages
+                // Adjusted to use query parameters
+                const { data } = await axiosReq.get(`/messaging/messages/?user_id=${selectedUser}`);
+                setMessages(data); 
             } catch (err) {
                 console.error("Failed to fetch messages:", err);
             } finally {
@@ -62,15 +64,18 @@ const Messages = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log("Sending message:", newMessage); // Log message being sent
         if (!newMessage.trim()) {
             setErrors({ content: "Message cannot be empty." });
             return; 
         }
         
         try {
-            const { data } = await axiosReq.post(`/profiles/${selectedUser}/messages/`, { // Adjusted endpoint
+            // Adjusted to send messages to the correct endpoint
+            const { data } = await axiosReq.post(`/messaging/messages/`, { 
                 content: newMessage,
                 sender: currentUser.id, 
+                receiver: selectedUser, // Assuming this is required for your API
             });
             setMessages((prevMessages) => [...prevMessages, data]);
             setNewMessage(""); 
@@ -92,14 +97,21 @@ const Messages = () => {
                     <Form.Control 
                         as="select" 
                         value={selectedUser} 
-                        onChange={(e) => setSelectedUser(e.target.value)}
+                        onChange={(e) => {
+                            console.log("Selected User:", e.target.value); // Log selected user
+                            setSelectedUser(e.target.value);
+                        }}
                     >
                         <option value="">Select a user</option>
-                        {Array.isArray(users) && users.map((user) => (
-                            <option key={user.id} value={user.id}>
-                                <Avatar src={user.image || user.profile_image} /> {user.username} 
-                            </option>
-                        ))}
+                        {Array.isArray(users) && users.length > 0 ? (
+                            users.map((user) => (
+                                <option key={user.id} value={user.id}>
+                                    <Avatar src={user.image || user.profile_image} /> {user.username}
+                                </option>
+                            ))
+                        ) : (
+                            <option disabled>No users available</option>
+                        )}
                     </Form.Control>
                 </Form.Group>
             )}
