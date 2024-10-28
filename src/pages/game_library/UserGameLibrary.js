@@ -1,49 +1,27 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { axiosReq } from "../../api/axiosDefaults";
-import { Container, Card } from "react-bootstrap";
-import styles from '../../styles/UserGameLibrary.module.css';
-import jwt_decode from "jwt-decode";
-import { useCurrentUser } from "../../contexts/CurrentUserContext"; // Ensure this import is correct
+import { useCurrentUser } from "../../contexts/CurrentUserContext"; 
+import { axiosReq } from "../../api/axiosDefaults"; 
+import { Container, Alert, Card } from "react-bootstrap"; 
+import styles from "../../styles/UserGameLibrary.module.css"; // Ensure this import is present
 
 const UserGameLibrary = () => {
-    const currentUser = useCurrentUser(); // Use the hook to get the current user
+    const currentUser = useCurrentUser();
     const [userGames, setUserGames] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const isTokenExpired = (token) => {
-        if (!token) return true; // No token means expired
-        const decodedToken = jwt_decode(token);
-        const currentTime = Date.now() / 1000; // in seconds
-        return decodedToken.exp < currentTime;
-    };
-
     const fetchUserGames = useCallback(async () => {
         if (!currentUser) {
-            console.warn("Current user is not defined.");
-            setError("User not logged in.");
-            setLoading(false);
-            return;
-        }
-
-        const token = localStorage.getItem("token");
-        if (isTokenExpired(token)) {
-            console.warn("Token is expired. Please log in again.");
-            setError("Token expired. Please log in again.");
+            setError("Current user is not defined.");
             setLoading(false);
             return;
         }
 
         try {
             const { data } = await axiosReq.get(`/game_library/user-games/?user=${currentUser.id}`);
-            if (data.results && Array.isArray(data.results)) {
-                setUserGames(data.results);
-            } else {
-                console.error("Unexpected response format:", data);
-                setUserGames([]);
-            }
+            setUserGames(data.results || []);
         } catch (err) {
-            console.error("Error fetching user games:", err.response || err.message);
+            console.error("Error fetching user games:", err);
             setError("Failed to fetch games. Please try again.");
         } finally {
             setLoading(false);
@@ -51,20 +29,16 @@ const UserGameLibrary = () => {
     }, [currentUser]);
 
     useEffect(() => {
-        if (currentUser) {
-            fetchUserGames();
-        } else {
-            setLoading(false); // Stop loading if there's no user
-        }
-    }, [fetchUserGames, currentUser]); // Fetch user games when currentUser changes
+        fetchUserGames();
+    }, [fetchUserGames]);
 
     if (loading) return <p>Loading your game library...</p>;
-    if (error) return <p>Error: {error}</p>;
+    if (error) return <Alert variant="danger">{error}</Alert>;
 
     return (
         <Container className={styles.userGameLibrary}>
             {userGames.length === 0 ? (
-                <p>No games found.</p>
+                <Alert variant="info">No games found. Consider adding some!</Alert>
             ) : (
                 userGames.map((game) => (
                     <Card key={game.id} className={styles.gameCard}>
