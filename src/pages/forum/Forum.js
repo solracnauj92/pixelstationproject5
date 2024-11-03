@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/Forum.module.css"; 
+import styles from "../../styles/Forum.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Card, Media, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
@@ -34,9 +34,9 @@ const Forum = (props) => {
       try {
         await axiosRes.delete(`/forums/${id}/`);
         setForums((prevForums) => prevForums.filter((forum) => forum.id !== id));
-        history.goBack(); // Navigate back after deletion
+        history.goBack(); 
       } catch (err) {
-        console.log(err);
+        console.error("Error deleting forum:", err);
       }
     }
   };

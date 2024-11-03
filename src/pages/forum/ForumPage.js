@@ -5,32 +5,30 @@ import ForumPost from "./ForumPost";
 import Asset from "../../components/Asset";
 
 function ForumPage() {
-  const { id } = useParams(); // Extract forum ID from URL
-  const [posts, setPosts] = useState([]); // State for posts
-  const [loading, setLoading] = useState(true); // State for loading status
-  const [error, setError] = useState(null); // State for error handling
+  const { id } = useParams();
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("Forum ID:", id); // Debugging line
     const fetchPosts = async () => {
       try {
-        setLoading(true); // Set loading to true before fetching
-        const { data } = await axiosReq.get(`/forums/${id}/posts/`); // API call
-        setPosts(data.results || []); // Set posts or an empty array
+        setLoading(true);
+        const { data } = await axiosReq.get(`/forums/${id}/posts/`);
+        setPosts(data.results || []);
       } catch (err) {
-        setError(err); // Set error state
-        console.log(err); // Log the error
+        setError("Error fetching posts: " + (err.response?.data?.detail || err.message));
+        console.error(err);
       } finally {
-        setLoading(false); // Set loading to false after fetching
+        setLoading(false);
       }
     };
 
-    fetchPosts(); // Invoke the fetch function
-  }, [id]); // Dependency on forum ID
+    fetchPosts();
+  }, [id]);
 
-  // Render loading spinner or error message
   if (loading) return <Asset spinner />;
-  if (error) return <p>Error fetching posts: {error.message}</p>;
+  if (error) return <p className="text-danger">{error}</p>;
 
   return (
     <div className="container mt-4">

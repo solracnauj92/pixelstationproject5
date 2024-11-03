@@ -3,55 +3,43 @@ import { useParams } from "react-router-dom";
 import { axiosRes } from "../../api/axiosDefaults";
 import Thread from "./ThreadDetail"; // Ensure you have a Thread component
 import ThreadCreateForm from "./ThreadCreateForm"; // Create this component for new threads
-import Asset from "../../components/Asset"; // For loading spinner or error messages
+import Asset from "../../components/Asset";
 
 const ForumThreadPage = () => {
-  const { forumId } = useParams(); // Get forumId from URL params
+  const { forumId } = useParams();
   const [threads, setThreads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("Forum ID:", forumId); // Debugging line to check forumId
     const fetchThreads = async () => {
-      setLoading(true); // Set loading state to true
-      setError(null); // Reset error state
       try {
-        // Check if forumId is defined before making the request
-        if (!forumId) {
-          throw new Error("Forum ID is undefined");
-        }
         const { data } = await axiosRes.get(`/forums/${forumId}/threads/`);
-        setThreads(data.results || []); // Assuming the response has a 'results' array
+        setThreads(data.results || []);
       } catch (err) {
-        console.log(err);
-        setError("Failed to load threads. Please try again later.");
+        setError("Error fetching threads: " + (err.response?.data?.detail || err.message));
+        console.error(err);
       } finally {
-        setLoading(false); // Set loading state to false regardless of the outcome
+        setLoading(false);
       }
     };
+
     fetchThreads();
   }, [forumId]);
 
+  if (loading) return <Asset spinner />;
+  if (error) return <p className="text-danger">{error}</p>;
+
   return (
-    <div>
+    <div className="container mt-4">
       <h1>Forum Threads</h1>
       <ThreadCreateForm forumId={forumId} setThreads={setThreads} />
-      
-      {loading ? ( // Show loading spinner
-        <Asset spinner />
-      ) : error ? ( // Show error message if an error occurred
-        <div className="text-danger">{error}</div>
+      {threads.length ? (
+        threads.map(thread => (
+          <Thread key={thread.id} {...thread} />
+        ))
       ) : (
-        <div>
-          {threads.length ? ( // Check if there are threads to display
-            threads.map((thread) => (
-              <Thread key={thread.id} {...thread} />
-            ))
-          ) : (
-            <p>No threads available in this forum.</p> // Message if no threads exist
-          )}
-        </div>
+        <p>No threads available.</p>
       )}
     </div>
   );

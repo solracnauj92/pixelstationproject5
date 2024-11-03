@@ -1,26 +1,28 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { axiosReq } from "../../api/axiosDefaults"; // Ensure this points to your Axios setup
+import { axiosReq } from "../../api/axiosDefaults";
 import { Form, Button, Alert } from "react-bootstrap";
 
 const CreateForum = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [errors, setErrors] = useState(null); // State for errors
+  const [errors, setErrors] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(""); 
   const history = useHistory();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // POST request to create a new forum
       await axiosReq.post("/forums/", { title, content });
-      history.push("/forums"); // Redirect to forums page after creating
+      setSuccessMessage("Forum created successfully!"); 
+      setTimeout(() => {
+        history.push("/forums");
+      }, 2000); // Redirect after 2 seconds
     } catch (err) {
-      // Set errors from the response, ensuring a fallback if undefined
       if (err.response && err.response.data) {
-        setErrors(err.response.data); // Assuming the error response contains details in the data
+        setErrors(err.response.data);
       } else {
-        setErrors({ general: "An unexpected error occurred." }); // Handle generic errors
+        setErrors({ general: "An unexpected error occurred." });
       }
       console.error("Error creating forum:", err);
     }
@@ -29,7 +31,7 @@ const CreateForum = () => {
   return (
     <Form onSubmit={handleSubmit}>
       <h2>Create New Forum</h2>
-      {/* Display errors if any exist */}
+      {successMessage && <Alert variant="success">{successMessage}</Alert>}
       {errors && (
         <Alert variant="danger">
           {errors.title ? errors.title : errors.content ? errors.content : errors.general}

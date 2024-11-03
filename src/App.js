@@ -17,6 +17,7 @@ import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import NotFound from "./components/NotFound";
 import ForumPage from './pages/forum/ForumPage'; 
 import ForumsPage from './pages/forum/ForumsPage'; 
+import ForumDetail from "./pages/forum/ForumDetail";
 import CreateForum from './pages/forum/CreateForum'; 
 import ForumThreadPage from './pages/forum/ForumThreadPage';
 import Messaging from './pages/messages/Messages';
@@ -68,6 +69,7 @@ function App() {
           <Route exact path="/forum/create" component={CreateForum} /> {/* Create a new forum */}
           <Route exact path="/forum/:id" component={ForumPage} /> {/* Display a specific forum */}
           <Route exact path="/forum/:forumId/threads" component={ForumThreadPage} /> {/* Display threads within a specific forum */}
+          <Route path="/forums/:id" component={ForumDetail} /> {/* Forum details route */}
           
           {/* Game Library Routes */}
           <Route exact path="/game_library" component={GameLibrary} />
