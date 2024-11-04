@@ -43,14 +43,18 @@ function Newsletter() {
         setIsLoading(true);  
         try {
             const response = await axiosRes.post('/newsletter/subscriptions/', { email, name }); 
-            setMessage(response.data.msg);
             if (response.status === 201) {
+                setMessage(`🎉 You've successfully subscribed to our newsletter! 🎉 \n\n Stay tuned for the latest updates and news from PixelStation!`);
                 setEmail(''); 
                 setName(''); 
             }
         } catch (error) {
             if (error.response) {
-                setMessage(error.response.data.msg || 'An error occurred. Please try again.');
+                if (error.response.status === 400) {
+                    setMessage('An error occurred. Please ensure this email has not been already registered.');
+                } else {
+                    setMessage(error.response.data.msg || 'An error occurred. Please try again.');
+                }
             } else {
                 setMessage('An error occurred. Please try again.');
             }
