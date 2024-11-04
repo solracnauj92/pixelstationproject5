@@ -60,7 +60,7 @@ function PostsPage({ message, filter = "" }) {
             onChange={(event) => setQuery(event.target.value)}
             type="text"
             className="mr-sm-2"
-            placeholder="Search posts"
+            placeholder="Click to find Your next scroll-worthy post!"
           />
         </Form>
 

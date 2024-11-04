@@ -15,9 +15,9 @@ const PopularProfiles = ({ mobile }) => {
         mobile && "d-lg-none text-center mb-3"
       }`}
     >
-      <Card className={`${appStyles.Content} mt-4 border-0`}> {/* Added border-0 to remove border */}
+      <Card className={`${appStyles.Content} mt-4 border-0`}>
 
-<Card.Body className="text-center"> {/* Center align the content */}
+<Card.Body className="text-center"> 
 
   <img 
 
@@ -25,19 +25,22 @@ const PopularProfiles = ({ mobile }) => {
 
     alt="Pixel Station Logo" 
 
-    className="mb-3" // Add some margin below the logo
+    className="mb-3" 
 
-    style={{ width: "300px", height: "auto" }} // Adjust size as needed
-
+    style={{ width: "300px", height: "auto" }} 
   />
 
   <Card.Text>
 
-    Welcome to Pixel Station, your hub for gaming news, reviews, and community discussions! 
+    Welcome to PixelStation, your hub for gaming news, reviews, and community discussions! 
+    <br></br>
+    <br></br>
 
-    Stay updated with the latest trends in gaming, connect with fellow gamers, and explore 
+    Stay updated, connect, and explore 
 
-    new adventures in the pixelated world. Join us for exclusive events and more!
+    new adventures. <br></br> <br></br>
+    
+    Join us for exclusive events and more!
 
   </Card.Text>
 
