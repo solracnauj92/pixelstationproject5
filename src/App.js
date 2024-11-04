@@ -26,6 +26,7 @@ import GameCollection from './pages/game_library/GameCollection';
 import GameDetail from './pages/game_library/GameDetail'; 
 import GameLibraryPage from './pages/game_library/GameLibraryPage'; 
 import Footer from "./components/Footer";
+import Newsletter from './pages/newsletter/Newsletter';
 
 function App() {
   const currentUser = useCurrentUser();
@@ -76,6 +77,8 @@ function App() {
           <Route path="/game_library/games" component={GameCollection} />
           <Route path="/game_library/user-games" component={GameLibraryPage} />
           <Route path="/game_library/games/:gameId" component={GameDetail} />
+
+          <Route path="/newsletter" component={Newsletter} />
 
           {/* Not Found Route */}
           <Route path="*" component={NotFound} />

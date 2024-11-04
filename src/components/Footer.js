@@ -22,6 +22,11 @@ function Footer() {
                     <i className="bi bi-youtube mx-2"></i>
                 </a>
             </div>
+            <div className="newsletter-link mb-2">
+                <a href="/newsletter" aria-label="Subscribe to our Newsletter">
+                    Subscribe to our Newsletter
+                </a>
+            </div>
             &copy; {new Date().getFullYear()} Pixel Station. All rights reserved.
         </footer>
     );
