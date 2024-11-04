@@ -1,75 +1,55 @@
-import React from "react";
-import styles from "../../styles/Forum.module.css";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Card, Media, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
-import Avatar from "../../components/Avatar";
+// src/pages/forum/Forum.js
+
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { axiosRes } from "../../api/axiosDefaults";
-import { MoreDropdown } from "../../components/MoreDropdown";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
-const Forum = (props) => {
-  const {
-    id,
-    owner,
-    profile_id,
-    profile_image,
-    replies_count,
-    title,
-    content,
-    updated_at,
-    forumPage,
-    setForums,
-  } = props;
 
+function Forum() {
+  const [forums, setForums] = useState([]);
+  const [showForm, setShowForm] = useState(false);
   const currentUser = useCurrentUser();
-  const is_owner = currentUser?.username === owner;
-  const history = useHistory();
-
-  const handleEdit = () => {
-    history.push(`/forums/${id}/edit`);
-  };
-
-  const handleDelete = async () => {
-    if (window.confirm("Are you sure you want to delete this forum?")) {
+  
+  useEffect(() => {
+    const fetchForums = async () => {
       try {
-        await axiosRes.delete(`/forums/${id}/`);
-        setForums((prevForums) => prevForums.filter((forum) => forum.id !== id));
-        history.goBack(); 
+        const { data } = await axiosRes.get("/forums/");
+        setForums(data.results);
       } catch (err) {
-        console.error("Error deleting forum:", err);
+        console.log(err);
       }
+    };
+    fetchForums();
+  }, []);
+
+  const handleDelete = async (forumId) => {
+    try {
+      await axiosRes.delete(`/forums/${forumId}/`);
+      setForums((prevForums) => prevForums.filter((forum) => forum.id !== forumId));
+    } catch (err) {
+      console.log(err);
     }
   };
 
   return (
-    <Card className={styles.Forum}>
-      <Card.Body>
-        <Media className="align-items-center justify-content-between">
-          <Link to={`/profiles/${profile_id}`} className={styles.ProfileLink}>
-            <Avatar src={profile_image} height={55} />
-            <span>{owner}</span>
-          </Link>
-          <div className="d-flex align-items-center">
-            <span className={styles.UpdatedAt}>{new Date(updated_at).toLocaleString()}</span>
-            {is_owner && forumPage && (
-              <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete} />
+    <div>
+      <h2>Forums</h2>
+      {currentUser && <button onClick={() => setShowForm(!showForm)}>New Forum</button>}
+      {/* If you decide to add a form component later, uncomment the line below */}
+      {/* {showForm && <ForumForm setForums={setForums} />} */}
+      <ul>
+        {forums.map((forum) => (
+          <li key={forum.id}>
+            <Link to={`/forums/${forum.id}/`}>{forum.title}</Link>
+            {currentUser?.username === forum.owner && (
+              <button onClick={() => handleDelete(forum.id)}>Delete</button>
             )}
-          </div>
-        </Media>
-      </Card.Body>
-      <Link to={`/forums/${id}`}>
-        <Card.Body>
-          <OverlayTrigger
-            placement="top"
-            overlay={<Tooltip>{replies_count} replies</Tooltip>}
-          >
-            <Card.Title className="text-center">{title}</Card.Title>
-          </OverlayTrigger>
-          {content && <Card.Text>{content}</Card.Text>}
-        </Card.Body>
-      </Link>
-    </Card>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
-};
+}
 
 export default Forum;

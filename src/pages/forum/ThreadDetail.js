@@ -1,17 +1,41 @@
-import React from "react";
-import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+// src/components/ThreadDetail.js
 
-const Thread = ({ id, title, content }) => {
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { axiosRes } from "../../api/axiosDefaults";
+import ReplyCreateForm from "../replies/ReplyCreateForm";
+import Reply from "../replies/Reply";
+
+function ThreadDetail() {
+  const { id } = useParams();
+  const [thread, setThread] = useState({});
+  const [replies, setReplies] = useState([]);
+
+  useEffect(() => {
+    const fetchThreadData = async () => {
+      try {
+        const { data: threadData } = await axiosRes.get(`/threads/${id}/`);
+        setThread(threadData);
+        const { data: repliesData } = await axiosRes.get(`/threads/${id}/replies/`);
+        setReplies(repliesData.results);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchThreadData();
+  }, [id]);
+
   return (
-    <Card className="mb-3">
-      <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Text>{content}</Card.Text>
-        <Link to={`/threads/${id}`}>Read more</Link>
-      </Card.Body>
-    </Card>
+    <div>
+      <h2>{thread.title}</h2>
+      <ReplyCreateForm threadId={id} setReplies={setReplies} />
+      <ul>
+        {replies.map((reply) => (
+          <Reply key={reply.id} {...reply} setReplies={setReplies} />
+        ))}
+      </ul>
+    </div>
   );
-};
+}
 
-export default Thread;
+export default ThreadDetail;

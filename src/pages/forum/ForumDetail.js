@@ -1,60 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { axiosReq } from "../../api/axiosDefaults"; 
-import Asset from "../../components/Asset";
+// src/components/ForumDetail.js
 
-const ForumDetail = () => {
-  const { id } = useParams(); 
-  const [forum, setForum] = useState(null);
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { axiosRes } from "../../api/axiosDefaults";
+import ThreadCreateForm from "./ThreadCreateForm";
+
+function ForumDetail() {
+  const { id } = useParams();
+  const [forum, setForum] = useState({});
   const [threads, setThreads] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchForumDetail = async () => {
+    const fetchForumData = async () => {
       try {
-        
-        const { data } = await axiosReq.get(`/forums/${id}/`);
-        setForum(data);
-
-        
-        const threadsResponse = await axiosReq.get(`/forums/${id}/threads/`);
-        setThreads(threadsResponse.data.results);
+        const { data: forumData } = await axiosRes.get(`/forums/${id}/`);
+        setForum(forumData);
+        const { data: threadsData } = await axiosRes.get(`/forums/${id}/threads/`);
+        setThreads(threadsData.results);
       } catch (err) {
-        console.error("Error fetching forum detail:", err);
-        setError("Failed to load forum details.");
-      } finally {
-        setLoading(false);
+        console.log(err);
       }
     };
-
-    fetchForumDetail();
+    fetchForumData();
   }, [id]);
-
-  if (loading) return <Asset spinner />;
-  if (error) return <div className="text-danger">{error}</div>;
-  if (!forum) return <p>No forum found.</p>; 
 
   return (
     <div>
-      <h1>{forum.name}</h1>
-      <p>{forum.description}</p>
-      <p>Created on: {forum.created_at}</p>
-      
-      <h2>Threads</h2>
-      {threads.length > 0 ? (
-        <ul>
-          {threads.map((thread) => (
-            <li key={thread.id}>
-              <Link to={`/forums/${forum.id}/threads/${thread.id}`}>{thread.title}</Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No threads available in this forum.</p>
-      )}
+      <h2>{forum.title}</h2>
+      <ThreadCreateForm forumId={id} setThreads={setThreads} />
+      <ul>
+        {threads.map((thread) => (
+          <li key={thread.id}>
+            <Link to={`/threads/${thread.id}`}>{thread.title}</Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-};
+}
 
 export default ForumDetail;
