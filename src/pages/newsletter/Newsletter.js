@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { axiosRes } from '../../api/axiosDefaults';  
-import styles from '../../styles/Newsletter.module.css'; // Assuming CSS module import
+import '../../styles/Newsletter.module.css';
 
 function Newsletter() {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
     const [isUserAuthenticated, setIsUserAuthenticated] = useState(false); 
+    const [isLoading, setIsLoading] = useState(false);  
 
     useEffect(() => {
         const fetchCurrentUser = async () => {
@@ -14,9 +15,11 @@ function Newsletter() {
                 await axiosRes.get('/dj-rest-auth/user/'); 
                 setIsUserAuthenticated(true); 
             } catch (error) {
-                console.error("Error fetching current user:", error.response ? error.response.data : error.message);
                 if (error.response) {
+                    console.error("Error response:", error.response.data);
                     setMessage('Session expired. Please log in again.');
+                } else {
+                    console.error("Error message:", error.message);
                 }
             }
         };
@@ -37,24 +40,30 @@ function Newsletter() {
             return;
         }
 
+        setIsLoading(true);  
         try {
-            const response = await axiosRes.post('/newsletter/', { email, name }); 
+            const response = await axiosRes.post('/newsletter/subscriptions/', { email, name }); 
             setMessage(response.data.msg);
             if (response.status === 201) {
-                setEmail(''); // Clear the email input
-                setName('');  // Clear the name input
+                setEmail(''); 
+                setName(''); 
             }
         } catch (error) {
-            console.error("Error submitting form:", error.response ? error.response.data : error.message);
-            setMessage(error.response ? error.response.data.msg || 'An error occurred. Please try again.' : 'An error occurred. Please try again.');
+            if (error.response) {
+                setMessage(error.response.data.msg || 'An error occurred. Please try again.');
+            } else {
+                setMessage('An error occurred. Please try again.');
+            }
+        } finally {
+            setIsLoading(false);  
         }
     };
 
     return (
-        <div className={styles.newsletterContainer}> {/* Use styles from the imported CSS module */}
+        <div className="newsletter-container">
             <h1>Subscribe to Our Newsletter</h1>
             <form onSubmit={handleSubmit}>
-                <div className={styles.formGroup}>
+                <div className="form-group">
                     <label htmlFor="name">Name</label>
                     <input
                         type="text"
@@ -64,7 +73,7 @@ function Newsletter() {
                         required
                     />
                 </div>
-                <div className={styles.formGroup}>
+                <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input
                         type="email"
@@ -74,9 +83,11 @@ function Newsletter() {
                         required
                     />
                 </div>
-                <button type="submit">Subscribe</button>
+                <button type="submit" disabled={isLoading}>
+                    {isLoading ? 'Subscribing...' : 'Subscribe'}
+                </button>
             </form>
-            {message && <p aria-live="assertive" className={styles.message}>{message}</p>} {/* Added aria-live for better accessibility */}
+            {message && <p>{message}</p>}
         </div>
     );
 }
