@@ -7,11 +7,17 @@
 
 .title {
     font-size: 32px;
-    margin-bottom: 20px;
+    margin-bottom: 20px; 
     color: #333; 
 }
 
 .noHorizontalScroll {
     overflow-x: hidden; 
     max-width: 100vw; 
+}
+
+
+.my-4 {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important; 
 }

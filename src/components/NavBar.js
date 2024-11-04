@@ -65,14 +65,6 @@ const NavBar = () => {
       >
         <i className="bi bi-chat-dots"></i>Forum
       </NavLink>
-      {/* Add Messages Link Here */}
-      <NavLink
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/messages"
-      >
-        <i className="bi bi-envelope"></i>Messages
-      </NavLink>
       <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
         <i className="bi bi-door-open"></i>Exit
       </NavLink>

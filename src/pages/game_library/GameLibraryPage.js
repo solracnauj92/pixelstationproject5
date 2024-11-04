@@ -76,8 +76,9 @@ const GameLibraryPage = () => {
 
     return (
         <Container className={styles.noHorizontalScroll}> {/* Apply CSS module for no scroll */}
-            <h1>All Games</h1>
+            <h3 className={`${styles.title} mb-4`}>Add Game</h3>
             <GameCreateForm setGames={handleAddGame} /> {/* Pass handler to form */}
+
             {/* Add InfiniteScroll for infinite loading */}
             <InfiniteScroll
                 dataLength={games.results.length} 
@@ -85,6 +86,7 @@ const GameLibraryPage = () => {
                 hasMore={!!games.next} 
                 loader={<Spinner animation="border" />} 
             >
+                <h1 className={`${styles.title} my-4`}>Games Library</h1>
                 <GameList games={games.results} /> {/* Render the list of games */}
             </InfiniteScroll>
         </Container>

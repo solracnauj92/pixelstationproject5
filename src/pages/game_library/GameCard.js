@@ -1,14 +1,15 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import styles from '../../styles/GameCard.module.css';
-import { Link } from 'react-router-dom';
+
 
 const GameCard = ({ game }) => {
     return (
         <Card className={styles.GameCard}>
-            <Link to={`/games/${game.id}`}>
-                <Card.Img src={game.image} alt={game.title} />
-            </Link>
+            <Card.Img src={game.image} alt={game.title} />
+            {/*<Link to={`/games/${game.id}`}>
+                
+            </Link> */}
             <Card.Body>
                 <h3 className={styles.title}>{game.title}</h3>
                 <p className={styles.description}>{game.description}</p>

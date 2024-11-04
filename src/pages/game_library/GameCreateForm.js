@@ -46,7 +46,7 @@ const GameCreateForm = ({ setGames }) => {
         formData.append("title", title);
         formData.append("description", description);
         formData.append("genre", genre);
-        formData.append("release_date", release_date); // Append release_date
+        formData.append("release_date", release_date); 
         formData.append("owner", currentUser?.id); 
         if (imageInput.current.files.length) {
             formData.append("image", imageInput.current.files[0]);
