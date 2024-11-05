@@ -3,18 +3,18 @@ import { useParams } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import { Container, Row, Col, Card, Button, Form, Spinner, Image, Alert } from "react-bootstrap";
 import Asset from "../../components/Asset";
-import { useCurrentUser } from "../../contexts/CurrentUserContext"; 
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 function HubDetail() {
-  const { hubId } = useParams(); 
-  const [hub, setHub] = useState(null); 
+  const { hubId } = useParams();
+  const [hub, setHub] = useState(null);
   const [debates, setDebates] = useState({ results: [], next: null }); // Update debates to store results and next
-  const [newDebateContent, setNewDebateContent] = useState(""); 
+  const [newDebateContent, setNewDebateContent] = useState("");
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
 
-  const currentUser = useCurrentUser(); 
+  const currentUser = useCurrentUser();
   const profileImage = currentUser?.profile_image || 'path/to/default/profile/image.png';
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function HubDetail() {
         console.error("Error fetching hub details and debates:", err.response ? err.response.data : err.message);
         setError("Failed to fetch hub details and debates. Please try again later.");
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
@@ -39,20 +39,20 @@ function HubDetail() {
   }, [hubId]);
 
   const handleCreateDebate = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     try {
       if (!newDebateContent.trim()) {
         setError("Debate content cannot be empty.");
         return;
       }
-  
+
       const { data: newDebate } = await axiosReq.post(`/debatehub/hubs/${hubId}/debates/`, {
         content: newDebateContent,
-        hub: hubId 
+        hub: hubId
       });
       setDebates((prevDebates) => ({ results: [newDebate, ...prevDebates.results], next: prevDebates.next })); // Update the debates state
-      setNewDebateContent(""); 
-      setError(null); 
+      setNewDebateContent("");
+      setError(null);
     } catch (err) {
       console.error("Error creating debate:", err.response ? err.response.data : err.message);
       setError("Failed to create debate. Please try again.");
@@ -77,11 +77,11 @@ function HubDetail() {
   return (
     <Container>
       {loading ? (
-        <Spinner animation="border" /> 
+        <Spinner animation="border" />
       ) : (
         <>
-          {error && <Alert variant="danger">{error}</Alert>} 
-          {hub && ( 
+          {error && <Alert variant="danger">{error}</Alert>}
+          {hub && (
             <>
               <h1>{hub.name}</h1>
               <p>{hub.description}</p>
@@ -89,7 +89,7 @@ function HubDetail() {
             </>
           )}
 
-          {currentUser && ( 
+          {currentUser && (
             <Form onSubmit={handleCreateDebate}>
               <Form.Group controlId="debateContent">
                 <Form.Label>Voice your thoughts</Form.Label>
@@ -113,8 +113,8 @@ function HubDetail() {
           )}
 
           <hr />
-
-          <h2>Opinions on the Topic</h2>
+          
+          <h3 className="text-center font-weight-bold text-uppercase mt-5">Opinions on the Topic</h3>
           {debates.results.length ? (
             <InfiniteScroll
               dataLength={debates.results.length}
@@ -124,19 +124,19 @@ function HubDetail() {
             >
               <Row>
                 {debates.results.map((debate) => (
-                  <Col key={debate.id} xs={12} md={12} lg={12}> 
-                    <Card className="m-2 d-flex flex-row align-items-start">
-                      <Col xs="auto">
-                        <div className="text-center">
-                          <strong>{debate.author}</strong> 
-                        </div>
-                        <div className="text-center text-muted" style={{ fontSize: '0.9em' }}>
-                          {debate.created_at} 
-                        </div>
-                      </Col>
-                      <Card.Body>
-                        <Card.Text>{debate.content}</Card.Text> 
-                      </Card.Body>
+                  <Col key={debate.id} xs={12} md={12} lg={12}>
+                    <Card className="m-2 shadow-lg rounded-lg p-3 transition-all duration-200 ease-in-out hover:scale-105">
+                      <Row className="d-flex align-items-center">
+                        <Col xs="auto" className="text-center">
+                          <div className="font-weight-bold">{debate.author}</div>
+                          <div className="text-muted" style={{ fontSize: '0.9em' }}>
+                            {debate.created_at}
+                          </div>
+                        </Col>
+                        <Card.Body className="p-3">
+                          <Card.Text>{debate.content}</Card.Text>
+                        </Card.Body>
+                      </Row>
                     </Card>
                   </Col>
                 ))}
