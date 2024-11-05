@@ -63,6 +63,13 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/forum"
       >
+         <NavLink
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/debatehub/hubs"
+      >
+        <i className="bi bi-people"></i>Hubs
+      </NavLink>
         <i className="bi bi-chat-dots"></i>Forum
       </NavLink>
       <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>

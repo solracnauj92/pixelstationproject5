@@ -27,6 +27,11 @@ import GameDetail from './pages/game_library/GameDetail';
 import GameLibraryPage from './pages/game_library/GameLibraryPage'; 
 import Footer from "./components/Footer";
 import Newsletter from './pages/newsletter/Newsletter';
+import DebateList from "./pages/debatehub/DebateList";
+import DebateDetail from "./pages/debatehub/DebateDetail";
+import HubList from "./pages/debatehub/HubList";
+import ResponseList from './pages/debatehub/ResponseList';
+import ResponseDetail from './pages/debatehub/ResponseDetail';
 
 function App() {
   const currentUser = useCurrentUser();
@@ -63,14 +68,14 @@ function App() {
           <Route exact path="/profiles/:id/edit" component={ProfileEditForm} />
 
           {/* Messaging Route */}
-          <Route exact path="/messages/:receiverId?" component={Messaging} /> {/* Messaging component */}
+          <Route exact path="/messages/:receiverId?" component={Messaging} />
 
           {/* Forum Routes */}
-          <Route exact path="/forum" component={ForumsPage} /> {/* Lists all forums */}
-          <Route exact path="/forum/create" component={CreateForum} /> {/* Create a new forum */}
-          <Route exact path="/forum/:id" component={ForumPage} /> {/* Display a specific forum */}
-          <Route exact path="/forum/:forumId/threads" component={ForumThreadPage} /> {/* Display threads within a specific forum */}
-          <Route path="/forums/:id" component={ForumDetail} /> {/* Forum details route */}
+          <Route exact path="/forum" component={ForumsPage} />
+          <Route exact path="/forum/create" component={CreateForum} />
+          <Route exact path="/forum/:id" component={ForumPage} />
+          <Route exact path="/forum/:forumId/threads" component={ForumThreadPage} />
+          <Route path="/forums/:id" component={ForumDetail} />
           
           {/* Game Library Routes */}
           <Route exact path="/game_library" component={GameLibrary} />
@@ -79,6 +84,13 @@ function App() {
           <Route path="/game_library/games/:gameId" component={GameDetail} />
 
           <Route path="/newsletter" component={Newsletter} />
+
+          {/* Debate Hub Routes */}
+          <Route exact path="/debatehub/hubs" component={HubList} />
+          <Route exact path="/debatehub/hubs/:hubId/debates" component={DebateList} />
+          <Route exact path="/debatehub/debates/:debateId" component={DebateDetail} />
+          <Route exact path="/debatehub/debates/:debateId/responses" component={ResponseList} />
+          <Route exact path="/debatehub/responses/:id" component={ResponseDetail} />
 
           {/* Not Found Route */}
           <Route path="*" component={NotFound} />
