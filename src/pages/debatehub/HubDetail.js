@@ -101,31 +101,31 @@ function HubDetail() {
           <hr />
 
           <h2>Opinions on the Topic</h2>
-          {debates.length ? (
-            <Row>
-              {debates.map((debate) => (
-                <Col key={debate.id} xs={12} md={12} lg={12}> {/* Full width column */}
-                  <Card className="m-2 d-flex flex-row align-items-start"> {/* Flexbox for horizontal alignment */}
-                    <Col xs="auto">
-                      <Image 
-                        src={debate.author.profileImage} alt="Profile" 
-                        roundedCircle 
-                        width={40} 
-                        height={40} 
-                        className="m-2" 
-                      />
-                    </Col>
-                    <Card.Body>
-                      <Card.Title>{debate.author.username}</Card.Title>
-                      <Card.Text>{debate.content}</Card.Text> {/* Full content displayed */}
-                    </Card.Body>
-                  </Card>
-                </Col>
-              ))}
-            </Row>
-          ) : (
-            <Asset message="No debates yet. Be the first to start a debate!" />
-          )}
+{debates.length ? (
+  <Row>
+    {debates.map((debate) => (
+      <Col key={debate.id} xs={12} md={12} lg={12}> 
+        <Card className="m-2 d-flex flex-row align-items-start">
+          <Col xs="auto">
+            <div className="text-center">
+              <strong>{debate.author}</strong> {/* Accessing author as a string */}
+            </div>
+            {/* Display created_at date */}
+            <div className="text-center text-muted" style={{ fontSize: '0.9em' }}>
+              {debate.created_at} {/* Displaying the created_at date */}
+            </div>
+          </Col>
+          <Card.Body>
+            <Card.Text>{debate.content}</Card.Text> {/* Full content displayed */}
+          </Card.Body>
+        </Card>
+      </Col>
+    ))}
+  </Row>
+) : (
+  <Asset message="No debates yet. Be the first to start a debate!" />
+)}
+
         </>
       )}
     </Container>
