@@ -15,23 +15,21 @@ import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import NotFound from "./components/NotFound";
-import ForumPage from './pages/forum/ForumPage'; 
-import ForumsPage from './pages/forum/ForumsPage'; 
+import ForumPage from './pages/forum/ForumPage';
+import ForumsPage from './pages/forum/ForumsPage';
 import ForumDetail from "./pages/forum/ForumDetail";
-import CreateForum from './pages/forum/CreateForum'; 
+import CreateForum from './pages/forum/CreateForum';
 import ForumThreadPage from './pages/forum/ForumThreadPage';
 import Messaging from './pages/messages/Messages';
-import GameLibrary from './pages/game_library/GameLibrary'; 
-import GameCollection from './pages/game_library/GameCollection'; 
-import GameDetail from './pages/game_library/GameDetail'; 
-import GameLibraryPage from './pages/game_library/GameLibraryPage'; 
+import GameLibrary from './pages/game_library/GameLibrary';
+import GameCollection from './pages/game_library/GameCollection';
+import GameDetail from './pages/game_library/GameDetail';
+import GameLibraryPage from './pages/game_library/GameLibraryPage';
 import Footer from "./components/Footer";
 import Newsletter from './pages/newsletter/Newsletter';
-import DebateList from "./pages/debatehub/DebateList";
-import DebateDetail from "./pages/debatehub/DebateDetail";
 import HubList from "./pages/debatehub/HubList";
-import ResponseList from './pages/debatehub/ResponseList';
-import ResponseDetail from './pages/debatehub/ResponseDetail';
+import HubDetail from "./pages/debatehub/HubDetail";
+
 
 function App() {
   const currentUser = useCurrentUser();
@@ -76,7 +74,7 @@ function App() {
           <Route exact path="/forum/:id" component={ForumPage} />
           <Route exact path="/forum/:forumId/threads" component={ForumThreadPage} />
           <Route path="/forums/:id" component={ForumDetail} />
-          
+
           {/* Game Library Routes */}
           <Route exact path="/game_library" component={GameLibrary} />
           <Route path="/game_library/games" component={GameCollection} />
@@ -86,11 +84,8 @@ function App() {
           <Route path="/newsletter" component={Newsletter} />
 
           {/* Debate Hub Routes */}
-          <Route exact path="/debatehub/hubs" component={HubList} />
-          <Route exact path="/debatehub/hubs/:hubId/debates" component={DebateList} />
-          <Route exact path="/debatehub/debates/:debateId" component={DebateDetail} />
-          <Route exact path="/debatehub/debates/:debateId/responses" component={ResponseList} />
-          <Route exact path="/debatehub/responses/:id" component={ResponseDetail} />
+          <Route path="/debatehub/hubs/" exact component={HubList} />
+          <Route path="/debatehub/hubs/:hubId/" component={HubDetail} />
 
           {/* Not Found Route */}
           <Route path="*" component={NotFound} />
