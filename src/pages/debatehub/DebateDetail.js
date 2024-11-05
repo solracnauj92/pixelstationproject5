@@ -36,7 +36,7 @@ function HubDetail() {
         content: newDebateContent,
       });
       setDebates((prevDebates) => [newDebate, ...prevDebates]);
-      setNewDebateContent("");  // Reset form after submission
+      setNewDebateContent("");  
     } catch (err) {
       console.error("Error creating debate:", err);
     }

@@ -3,18 +3,18 @@ import { useParams } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import { Container, Row, Col, Card, Button, Form, Spinner, Image, Alert } from "react-bootstrap";
 import Asset from "../../components/Asset";
-import { useCurrentUser } from "../../contexts/CurrentUserContext"; // Import useCurrentUser
+import { useCurrentUser } from "../../contexts/CurrentUserContext"; 
 
 function HubDetail() {
-  const { hubId } = useParams(); // Get hubId from URL parameters
-  const [hub, setHub] = useState(null); // State to hold hub details
-  const [debates, setDebates] = useState([]); // State to hold list of debates
-  const [newDebateContent, setNewDebateContent] = useState(""); // State for new debate content
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // State for error messages
+  const { hubId } = useParams(); 
+  const [hub, setHub] = useState(null); 
+  const [debates, setDebates] = useState([]); 
+  const [newDebateContent, setNewDebateContent] = useState(""); 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); 
 
-  const currentUser = useCurrentUser(); // Get current user context
-  const profileImage = currentUser?.profile_image; // Get profile image from currentUser
+  const currentUser = useCurrentUser(); 
+  const profileImage = currentUser?.profile_image || 'path/to/default/profile/image.png';
 
   useEffect(() => {
     const fetchHubAndDebates = async () => {
@@ -27,11 +27,10 @@ function HubDetail() {
         const { data: debatesData } = await axiosReq.get(`/debatehub/hubs/${hubId}/debates/`);
         setDebates(debatesData.results);
       } catch (err) {
-        // Log and set error message
         console.error("Error fetching hub details and debates:", err.response ? err.response.data : err.message);
         setError("Failed to fetch hub details and debates. Please try again later.");
       } finally {
-        setLoading(false); // Set loading to false after fetch completes
+        setLoading(false); 
       }
     };
 
@@ -39,13 +38,12 @@ function HubDetail() {
   }, [hubId]);
 
   const handleCreateDebate = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault(); 
     try {
-      // Create a new debate
       const { data: newDebate } = await axiosReq.post(`/debatehub/hubs/${hubId}/debates/`, { content: newDebateContent });
-      setDebates((prevDebates) => [newDebate, ...prevDebates]); // Update debates list with the new debate
-      setNewDebateContent(""); // Clear the input field
-      setError(null); // Clear any previous errors
+      setDebates((prevDebates) => [newDebate, ...prevDebates]); 
+      setNewDebateContent(""); 
+      setError(null); 
     } catch (err) {
       console.error("Error creating debate:", err.response ? err.response.data : err.message);
       setError("Failed to create debate. Please try again.");
@@ -55,11 +53,11 @@ function HubDetail() {
   return (
     <Container>
       {loading ? (
-        <Spinner animation="border" /> // Show spinner while loading
+        <Spinner animation="border" /> 
       ) : (
         <>
           {error && <Alert variant="danger">{error}</Alert>} {/* Show error message if exists */}
-          {hub && ( // Render hub details if available
+          {hub && ( 
             <>
               <h1>{hub.name}</h1>
               <p>{hub.description}</p>
@@ -67,10 +65,10 @@ function HubDetail() {
             </>
           )}
 
-          {currentUser && ( // Render debate creation form if the user is logged in
+          {currentUser && ( 
             <Form onSubmit={handleCreateDebate}>
               <Form.Group controlId="debateContent">
-                <Form.Label>Create a new debate</Form.Label>
+                <Form.Label>Voice your thoughts</Form.Label>
                 <Row className="align-items-center">
                   <Col xs="auto">
                     <Image src={profileImage} roundedCircle width={40} height={40} alt="Profile" />
@@ -81,7 +79,7 @@ function HubDetail() {
                       rows={3}
                       value={newDebateContent}
                       onChange={(e) => setNewDebateContent(e.target.value)}
-                      placeholder="Start a new debate here..."
+                      placeholder="We want to know what you think!"
                     />
                   </Col>
                 </Row>
@@ -92,16 +90,24 @@ function HubDetail() {
 
           <hr />
 
-          <h2>Debates</h2>
+          <h2>Opinions on the Topic</h2>
           {debates.length ? (
             <Row>
               {debates.map((debate) => (
-                <Col key={debate.id} xs={12} md={6} lg={4}>
-                  <Card className="m-2">
+                <Col key={debate.id} xs={12} md={12} lg={12}> {/* Full width column */}
+                  <Card className="m-2 d-flex flex-row align-items-start"> {/* Flexbox for horizontal alignment */}
+                    <Col xs="auto">
+                      <Image 
+                        src={profileImage} alt="Profile" 
+                        roundedCircle 
+                        width={40} 
+                        height={40} 
+                        className="m-2" 
+                      />
+                    </Col>
                     <Card.Body>
-                      <Card.Title>{debate.author.username}</Card.Title> {/* Assuming debate.author is an object */}
-                      <Card.Text>{debate.content.slice(0, 100)}...</Card.Text>
-                      <Button variant="link">View Details</Button>
+                      <Card.Title>{debate.author.username}</Card.Title>
+                      <Card.Text>{debate.content}</Card.Text> {/* Full content displayed */}
                     </Card.Body>
                   </Card>
                 </Col>
