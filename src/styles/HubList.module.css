@@ -1,0 +1,48 @@
+/* HubList.module.css */
+
+/* Hub Cards */
+.hubCard {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* Heavy shadow by default */
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+    height: 100%;
+  }
+  
+  .hubCard:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+  }
+  
+  .hubCard:active,
+  .hubCard:focus {
+    background-color: #007bff; /* Blue background when clicked or focused */
+    color: #fff; /* White text when active */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Maintain shadow */
+  }
+  
+  .hubCard .card-body {
+    padding: 1.5rem;
+  }
+  
+  .hubCard .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .hubCard .card-text {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  
+  .hubCard .card-text:last-child {
+    font-size: 0.9rem;
+    color: #888;
+  }
+  

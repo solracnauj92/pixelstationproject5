@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import { Form, Button, Alert, Image, Container, Row, Col, Spinner } from "react-bootstrap";
-import Upload from "../../assets/upload.png"; 
+import Upload from "../../assets/upload.png";
 import { axiosReq } from "../../api/axiosDefaults";
-import { useCurrentUser } from "../../contexts/CurrentUserContext"; 
-import styles from "../../styles/GameCreateForm.module.css"; 
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import styles from "../../styles/GameCreateForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
 const GameCreateForm = ({ setGames }) => {
@@ -19,7 +19,7 @@ const GameCreateForm = ({ setGames }) => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
-    const currentUser = useCurrentUser(); 
+    const currentUser = useCurrentUser();
     const { title, description, genre, image, release_date } = gameData;
 
     const handleChange = (event) => {
@@ -31,10 +31,10 @@ const GameCreateForm = ({ setGames }) => {
 
     const handleChangeImage = (event) => {
         if (event.target.files.length) {
-            URL.revokeObjectURL(image); 
+            URL.revokeObjectURL(image);
             setGameData({
                 ...gameData,
-                image: URL.createObjectURL(event.target.files[0]), 
+                image: URL.createObjectURL(event.target.files[0]),
             });
         }
     };
@@ -46,8 +46,8 @@ const GameCreateForm = ({ setGames }) => {
         formData.append("title", title);
         formData.append("description", description);
         formData.append("genre", genre);
-        formData.append("release_date", release_date); 
-        formData.append("owner", currentUser?.id); 
+        formData.append("release_date", release_date);
+        formData.append("owner", currentUser?.id);
         if (imageInput.current.files.length) {
             formData.append("image", imageInput.current.files[0]);
         }
@@ -141,7 +141,7 @@ const GameCreateForm = ({ setGames }) => {
                         {loading ? (
                             <Spinner animation="border" />
                         ) : (
-                            <Button type="submit">Create Game</Button>
+                            <Button type="submit">Add Game</Button>
                         )}
 
                         {/* Show success message */}
@@ -155,7 +155,7 @@ const GameCreateForm = ({ setGames }) => {
                                     <Image src={image} rounded fluid />
                                     <div>
                                         <Form.Label
-                                            className={`${btnStyles.Button} btn`} 
+                                            className={`${btnStyles.Button} btn`}
                                             htmlFor="image-upload"
                                         >
                                             Change the image
