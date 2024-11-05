@@ -41,10 +41,15 @@ function ProfilePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [{ data: pageProfile }, { data: profilePosts }] = await Promise.all([
-          axiosReq.get(`/profiles/${id}/`),   // Added trailing slash
-          axiosReq.get(`/posts/?owner__profile=${id}`),
-        ]);
+        const [{ data: pageProfile }, { data: profilePosts }] =
+
+          await Promise.all([
+
+            axiosReq.get(`/profiles/${id}/`),
+
+            axiosReq.get(`/posts/?owner__profile=${id}`),
+
+          ]);
         setProfileData((prevState) => ({
           ...prevState,
           pageProfile: { results: [pageProfile] },
@@ -52,7 +57,7 @@ function ProfilePage() {
         setProfilePosts(profilePosts);
         setHasLoaded(true);
       } catch (err) {
-        console.error("Error fetching data:", err); // Enhanced error logging
+        console.log(err);
       }
     };
 

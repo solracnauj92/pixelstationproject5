@@ -57,20 +57,19 @@ const NavBar = () => {
       <NavLink className={styles.NavLink} activeClassName={styles.Active} to="/game_library/user-games">
         <i className="bi bi-controller"></i>Library
       </NavLink>
-      {/* Add Forum Link Here */}
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/forum"
       >
-         <NavLink
+        <i className="bi bi-chat-dots"></i>Forum
+      </NavLink>
+      <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/debatehub/hubs"
       >
         <i className="bi bi-people"></i>Hubs
-      </NavLink>
-        <i className="bi bi-chat-dots"></i>Forum
       </NavLink>
       <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
         <i className="bi bi-door-open"></i>Exit
