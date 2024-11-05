@@ -4,11 +4,12 @@ import { axiosReq } from "../../api/axiosDefaults";
 import { Container, Row, Col, Card, Button, Form, Spinner, Image, Alert } from "react-bootstrap";
 import Asset from "../../components/Asset";
 import { useCurrentUser } from "../../contexts/CurrentUserContext"; 
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function HubDetail() {
   const { hubId } = useParams(); 
   const [hub, setHub] = useState(null); 
-  const [debates, setDebates] = useState([]); 
+  const [debates, setDebates] = useState({ results: [], next: null }); // Update debates to store results and next
   const [newDebateContent, setNewDebateContent] = useState(""); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); 
@@ -25,7 +26,7 @@ function HubDetail() {
 
         // Fetch debates for the hub
         const { data: debatesData } = await axiosReq.get(`/debatehub/hubs/${hubId}/debates/`);
-        setDebates(debatesData.results);
+        setDebates({ results: debatesData.results, next: debatesData.next }); // Update state to hold next
       } catch (err) {
         console.error("Error fetching hub details and debates:", err.response ? err.response.data : err.message);
         setError("Failed to fetch hub details and debates. Please try again later.");
@@ -40,18 +41,16 @@ function HubDetail() {
   const handleCreateDebate = async (e) => {
     e.preventDefault(); 
     try {
-      // Check if newDebateContent is not empty before sending
       if (!newDebateContent.trim()) {
         setError("Debate content cannot be empty.");
         return;
       }
   
       const { data: newDebate } = await axiosReq.post(`/debatehub/hubs/${hubId}/debates/`, {
-        // Modify this according to your API requirements
         content: newDebateContent,
-        hub: hubId // Assuming you need to associate the debate with the hub
+        hub: hubId 
       });
-      setDebates((prevDebates) => [newDebate, ...prevDebates]); 
+      setDebates((prevDebates) => ({ results: [newDebate, ...prevDebates.results], next: prevDebates.next })); // Update the debates state
       setNewDebateContent(""); 
       setError(null); 
     } catch (err) {
@@ -59,14 +58,29 @@ function HubDetail() {
       setError("Failed to create debate. Please try again.");
     }
   };
-  
+
+  // Function to load more debates
+  const loadMoreDebates = async () => {
+    if (debates.next) {
+      try {
+        const { data } = await axiosReq.get(debates.next);
+        setDebates((prevDebates) => ({
+          results: [...prevDebates.results, ...data.results],
+          next: data.next
+        }));
+      } catch (err) {
+        console.error("Error loading more debates:", err.response ? err.response.data : err.message);
+      }
+    }
+  };
+
   return (
     <Container>
       {loading ? (
         <Spinner animation="border" /> 
       ) : (
         <>
-          {error && <Alert variant="danger">{error}</Alert>} {/* Show error message if exists */}
+          {error && <Alert variant="danger">{error}</Alert>} 
           {hub && ( 
             <>
               <h1>{hub.name}</h1>
@@ -101,31 +115,36 @@ function HubDetail() {
           <hr />
 
           <h2>Opinions on the Topic</h2>
-{debates.length ? (
-  <Row>
-    {debates.map((debate) => (
-      <Col key={debate.id} xs={12} md={12} lg={12}> 
-        <Card className="m-2 d-flex flex-row align-items-start">
-          <Col xs="auto">
-            <div className="text-center">
-              <strong>{debate.author}</strong> {/* Accessing author as a string */}
-            </div>
-            {/* Display created_at date */}
-            <div className="text-center text-muted" style={{ fontSize: '0.9em' }}>
-              {debate.created_at} {/* Displaying the created_at date */}
-            </div>
-          </Col>
-          <Card.Body>
-            <Card.Text>{debate.content}</Card.Text> {/* Full content displayed */}
-          </Card.Body>
-        </Card>
-      </Col>
-    ))}
-  </Row>
-) : (
-  <Asset message="No debates yet. Be the first to start a debate!" />
-)}
-
+          {debates.results.length ? (
+            <InfiniteScroll
+              dataLength={debates.results.length}
+              next={loadMoreDebates}
+              hasMore={!!debates.next}
+              loader={<Spinner animation="border" />}
+            >
+              <Row>
+                {debates.results.map((debate) => (
+                  <Col key={debate.id} xs={12} md={12} lg={12}> 
+                    <Card className="m-2 d-flex flex-row align-items-start">
+                      <Col xs="auto">
+                        <div className="text-center">
+                          <strong>{debate.author}</strong> 
+                        </div>
+                        <div className="text-center text-muted" style={{ fontSize: '0.9em' }}>
+                          {debate.created_at} 
+                        </div>
+                      </Col>
+                      <Card.Body>
+                        <Card.Text>{debate.content}</Card.Text> 
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </InfiniteScroll>
+          ) : (
+            <Asset message="No debates yet. Be the first to start a debate!" />
+          )}
         </>
       )}
     </Container>
