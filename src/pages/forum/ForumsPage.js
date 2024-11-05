@@ -34,26 +34,69 @@ const ForumsPage = () => {
     <div>
       <h1>Forum - Monthly Quest</h1>
       <h2>📅 Topic of the Month: "The Music of Final Fantasy – Timeless Tunes or Just Nostalgia?" 🎶</h2>
-      <p>Few gaming franchises have soundtracks as iconic as Final Fantasy. From Nobuo Uematsu’s original compositions in the early games to the sweeping orchestrations in later installments, 
-        Final Fantasy music has captivated generations of gamers. This month, let’s explore what makes the Final Fantasy soundtracks so special. 
-        Are they timeless masterpieces that transcend gaming, or are they simply beloved because they’re nostalgic?
+      <p>
+        Few gaming franchises have soundtracks as iconic as Final Fantasy. From Nobuo Uematsu’s original compositions in the early games 
+        to the sweeping orchestrations in later installments, Final Fantasy music has captivated generations of gamers. This month, let’s 
+        explore what makes the Final Fantasy soundtracks so special. Are they timeless masterpieces that transcend gaming, or simply beloved 
+        because of nostalgia?
       </p>
-      <h3>🔍 Discussion Point: Timeless Tunes vs. Nostalgia</h3>
-      <p>Is the music of Final Fantasy truly timeless, or is its appeal largely due to the nostalgia it evokes? Here are some angles to consider:</p>
-      <h4>Musical Mastery or Emotional Memories?</h4> <p>– Some argue that the music in Final Fantasy games, especially from composers like Nobuo Uematsu, 
-        is on par with classical compositions. Tracks like "One-Winged Angel" (Final Fantasy VII) and "To Zanarkand" (Final Fantasy X) have even made their way into concert halls. 
-        But does the music stand on its own, or do we love it mainly because of the memories it brings back?</p>
-      <h4>Consistency in Quality Across the Series</h4> <p>– How has Final Fantasy maintained a high standard of music across so many titles and composers? 
-        Each game’s soundtrack captures a unique atmosphere that shapes the game’s world, but some fans have strong feelings about which installments had the best music. 
-        Which games do you think have the most memorable soundtracks?</p>
-      <h4>Music as Storytelling</h4> <p>– The music in Final Fantasy often communicates the mood and story even more powerfully than the visuals or dialogue. 
-        How has the music enhanced the storytelling of the series over the years? Can music alone bring out emotions, or does it need the context of gameplay?</p>
-      <h3>🎧 Further Exploration:</h3>
-      <h4>Listen:</h4> <p>The album Distant Worlds features Final Fantasy music performed by a live orchestra. 
-        Listening to these tracks outside of the games might reveal how timeless (or tied to nostalgia) the music truly feels.</p>
-        <h4>Game Suggestion:</h4> <p>Try Final Fantasy VI if you haven’t – it’s widely regarded as one of Uematsu’s best works, 
-        with a soundtrack that perfectly complements its epic story.</p>
-        <h4>Video Resource:</h4> <p>Check out Final Fantasy: The Spirits Within, a documentary on the making of the music for Final Fantasy VII, including an analysis of "One-Winged Angel."</p>
+      <section>
+        <h3>🔍 Discussion Point: Timeless Tunes vs. Nostalgia</h3>
+        <p>Is the music of Final Fantasy truly timeless, or is its appeal largely due to the nostalgia it evokes? Consider these angles:</p>
+        
+        <div>
+          <h4>Musical Mastery or Emotional Memories?</h4>
+          <p>
+            Some argue that the music in Final Fantasy games, especially from composers like Nobuo Uematsu, rivals classical compositions. 
+            Tracks like "One-Winged Angel" (Final Fantasy VII) and "To Zanarkand" (Final Fantasy X) have even made their way into concert halls. 
+            But does the music stand on its own, or is it cherished because of the memories it evokes?
+          </p>
+        </div>
+
+        <div>
+          <h4>Consistency in Quality Across the Series</h4>
+          <p>
+            How has Final Fantasy maintained a high standard of music across so many titles and composers? Each soundtrack captures a unique 
+            atmosphere that shapes the game’s world. Which games, in your opinion, have the most memorable soundtracks?
+          </p>
+        </div>
+
+        <div>
+          <h4>Music as Storytelling</h4>
+          <p>
+            Final Fantasy’s music often conveys the mood and story more powerfully than visuals or dialogue. How has the music enhanced the 
+            storytelling of the series? Can music alone bring out emotions, or does it need the context of gameplay?
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h3>🎧 Further Exploration:</h3>
+        
+        <div>
+          <h4>Listen:</h4>
+          <p>
+            The album *Distant Worlds* features Final Fantasy music performed by a live orchestra. Listening outside the game may reveal 
+            how timeless (or nostalgic) the music truly feels.
+          </p>
+        </div>
+
+        <div>
+          <h4>Game Suggestion:</h4>
+          <p>
+            Try *Final Fantasy VI* if you haven’t – it’s widely regarded as one of Uematsu’s best works, with a soundtrack that perfectly 
+            complements its epic story.
+          </p>
+        </div>
+
+        <div>
+          <h4>Video Resource:</h4>
+          <p>
+            Watch *Final Fantasy: The Spirits Within*, a documentary about creating music for Final Fantasy VII, including an analysis of "One-Winged Angel."
+          </p>
+        </div>
+      </section>
+
       <h3>💬 Join the Discussion!</h3>
 
       {forums.length > 0 ? (
@@ -62,13 +105,13 @@ const ForumsPage = () => {
             <li key={forum.id}>
               <Link to={`/forums/${forum.id}`}>{forum.name}</Link>
               <p>{forum.description}</p>
-              
             </li>
           ))}
         </ul>
       ) : (
-        <p>No discussion available.</p>
+        <p>No discussions available.</p>
       )}
+
       <CreateForum />
     </div>
   );
