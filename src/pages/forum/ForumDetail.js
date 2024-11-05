@@ -1,5 +1,3 @@
-// src/components/ForumDetail.js
-
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { axiosRes } from "../../api/axiosDefaults";
@@ -15,7 +13,7 @@ function ForumDetail() {
       try {
         const { data: forumData } = await axiosRes.get(`/forums/${id}/`);
         setForum(forumData);
-        const { data: threadsData } = await axiosRes.get(`/forums/${id}/threads/`);
+        const { data: threadsData } = await axiosRes.get(`/forums/${id}/threads/`); // Fetch threads for the forum
         setThreads(threadsData.results);
       } catch (err) {
         console.log(err);
@@ -26,12 +24,12 @@ function ForumDetail() {
 
   return (
     <div>
-      <h2>{forum.title}</h2>
+      <h2>{forum.name}</h2>
       <ThreadCreateForm forumId={id} setThreads={setThreads} />
       <ul>
         {threads.map((thread) => (
           <li key={thread.id}>
-            <Link to={`/threads/${thread.id}`}>{thread.title}</Link>
+            <Link to={`/forums/${id}/threads/${thread.id}`}>{thread.title}</Link>
           </li>
         ))}
       </ul>

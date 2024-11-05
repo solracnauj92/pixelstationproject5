@@ -8,7 +8,7 @@ const ForumPost = ({ post }) => {
       <Card.Body>
         <Card.Title>{post.title}</Card.Title>
         <Card.Text>{post.content}</Card.Text>
-        <Link to={`/posts/${post.id}`}>Read more</Link>
+        <Link to={`/forums/${post.forumId}/threads/${post.id}`}>Read more</Link>
       </Card.Body>
     </Card>
   );

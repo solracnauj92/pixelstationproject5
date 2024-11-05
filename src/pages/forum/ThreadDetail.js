@@ -1,41 +1,55 @@
-// src/components/ThreadDetail.js
-
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { axiosRes } from "../../api/axiosDefaults";
-import ReplyCreateForm from "../replies/ReplyCreateForm";
-import Reply from "../replies/Reply";
+import ReplyCreateForm from "./ReplyCreateForm"; // Assume this is a form component for creating replies
 
-function ThreadDetail() {
-  const { id } = useParams();
-  const [thread, setThread] = useState({});
+const ThreadDetail = () => {
+  const { forumId, threadId } = useParams(); // Extract forum and thread IDs from the URL
+  const [thread, setThread] = useState(null);
   const [replies, setReplies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchThreadData = async () => {
       try {
-        const { data: threadData } = await axiosRes.get(`/threads/${id}/`);
+        // Fetch the thread details using the forumId and threadId
+        const { data: threadData } = await axiosRes.get(`/forums/${forumId}/threads/${threadId}/`);
         setThread(threadData);
-        const { data: repliesData } = await axiosRes.get(`/threads/${id}/replies/`);
+        
+        // Fetch replies associated with the thread
+        const { data: repliesData } = await axiosRes.get(`/forums/${forumId}/threads/${threadId}/replies/`);
         setReplies(repliesData.results);
       } catch (err) {
-        console.log(err);
+        console.error("Error fetching thread data:", err);
+        setError("Failed to load thread details.");
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchThreadData();
-  }, [id]);
+  }, [forumId, threadId]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <div className="text-danger">{error}</div>;
 
   return (
     <div>
       <h2>{thread.title}</h2>
-      <ReplyCreateForm threadId={id} setReplies={setReplies} />
+      <p>{thread.content}</p>
+      <h3>Replies</h3>
+      <ReplyCreateForm threadId={threadId} setReplies={setReplies} />
       <ul>
         {replies.map((reply) => (
-          <Reply key={reply.id} {...reply} setReplies={setReplies} />
+          <li key={reply.id}>
+            <p>{reply.content}</p>
+            <p><strong>By:</strong> {reply.author}</p>
+          </li>
         ))}
       </ul>
     </div>
   );
-}
+};
 
 export default ThreadDetail;

@@ -38,7 +38,8 @@ const ForumsPage = () => {
           {forums.map((forum) => (
             <li key={forum.id}>
               <Link to={`/forums/${forum.id}`}>{forum.name}</Link>
-              <p>{forum.description}</p> {/* Updated to use forum.description */}
+              <p>{forum.description}</p>
+              <Link to={`/forums/${forum.id}/threads/`}>View Threads</Link>
             </li>
           ))}
         </ul>

@@ -4,8 +4,8 @@ import { axiosReq } from "../../api/axiosDefaults";
 import { Form, Button, Alert } from "react-bootstrap";
 
 const CreateForum = () => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [errors, setErrors] = useState(null);
   const [successMessage, setSuccessMessage] = useState(""); 
   const history = useHistory();
@@ -13,11 +13,11 @@ const CreateForum = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axiosReq.post("/forums/", { title, content });
+      await axiosReq.post("/forums/", { name, description });
       setSuccessMessage("Forum created successfully!"); 
       setTimeout(() => {
         history.push("/forums");
-      }, 2000); // Redirect after 2 seconds
+      }, 2000);
     } catch (err) {
       if (err.response && err.response.data) {
         setErrors(err.response.data);
@@ -34,25 +34,25 @@ const CreateForum = () => {
       {successMessage && <Alert variant="success">{successMessage}</Alert>}
       {errors && (
         <Alert variant="danger">
-          {errors.title ? errors.title : errors.content ? errors.content : errors.general}
+          {errors.name ? errors.name : errors.description ? errors.description : errors.general}
         </Alert>
       )}
       <Form.Group>
-        <Form.Label>Title</Form.Label>
+        <Form.Label>Name</Form.Label>
         <Form.Control
           type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           required
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Content</Form.Label>
+        <Form.Label>Description</Form.Label>
         <Form.Control
           as="textarea"
           rows={3}
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           required
         />
       </Form.Group>
