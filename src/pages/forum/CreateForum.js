@@ -30,7 +30,8 @@ const CreateForum = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h2>Create New Forum</h2>
+      <h2> Reply to the Forum</h2>
+      
       {successMessage && <Alert variant="success">{successMessage}</Alert>}
       {errors && (
         <Alert variant="danger">
@@ -38,7 +39,9 @@ const CreateForum = () => {
         </Alert>
       )}
       <Form.Group>
-        <Form.Label>Name</Form.Label>
+        <Form.Label><h4> Topic or Idea for Discussion</h4>
+        <p>(A brief title that captures the main idea or subject to be discussed)</p>
+        <p>Messages here are anonymous, allowing users to share ideas openly and without hesitation</p></Form.Label>
         <Form.Control
           type="text"
           value={name}
@@ -47,7 +50,8 @@ const CreateForum = () => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Description</Form.Label>
+        <Form.Label><h4> Message Content or Detailed Description</h4>
+        <p>(A space where users can freely explore and expand on the topic, adding context or specific details to spark meaningful discussion.)</p></Form.Label>
         <Form.Control
           as="textarea"
           rows={3}
@@ -56,7 +60,7 @@ const CreateForum = () => {
           required
         />
       </Form.Group>
-      <Button type="submit">Create Forum</Button>
+      <Button type="submit">Submit</Button>
     </Form>
   );
 };
