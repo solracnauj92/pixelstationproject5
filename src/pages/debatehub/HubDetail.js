@@ -40,7 +40,17 @@ function HubDetail() {
   const handleCreateDebate = async (e) => {
     e.preventDefault(); 
     try {
-      const { data: newDebate } = await axiosReq.post(`/debatehub/hubs/${hubId}/debates/`, { content: newDebateContent });
+      // Check if newDebateContent is not empty before sending
+      if (!newDebateContent.trim()) {
+        setError("Debate content cannot be empty.");
+        return;
+      }
+  
+      const { data: newDebate } = await axiosReq.post(`/debatehub/hubs/${hubId}/debates/`, {
+        // Modify this according to your API requirements
+        content: newDebateContent,
+        hub: hubId // Assuming you need to associate the debate with the hub
+      });
       setDebates((prevDebates) => [newDebate, ...prevDebates]); 
       setNewDebateContent(""); 
       setError(null); 
@@ -49,7 +59,7 @@ function HubDetail() {
       setError("Failed to create debate. Please try again.");
     }
   };
-
+  
   return (
     <Container>
       {loading ? (
@@ -98,7 +108,7 @@ function HubDetail() {
                   <Card className="m-2 d-flex flex-row align-items-start"> {/* Flexbox for horizontal alignment */}
                     <Col xs="auto">
                       <Image 
-                        src={profileImage} alt="Profile" 
+                        src={debate.author.profileImage} alt="Profile" 
                         roundedCircle 
                         width={40} 
                         height={40} 
