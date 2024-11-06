@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults"; 
 import CreateForum from "./CreateForum";
 import Asset from "../../components/Asset";
@@ -32,20 +31,31 @@ const ForumsPage = () => {
 
   return (
     <div>
-      <h1>Forum - Monthly Quest</h1>
-      <h2>📅 Topic of the Month: "The Music of Final Fantasy – Timeless Tunes or Just Nostalgia?" 🎶</h2>
+      {/* Background Image Section */}
+      <div>
+        <img
+          src="https://res.cloudinary.com/dvcs5hl0c/image/upload/v1730888472/music_fxan5b.jpg"
+          alt="Gaming Background"
+          style={{ maxWidth: '100%', borderRadius: '8px' }}
+        />
+      </div>
+      <h2 className="text-center font-weight-bold text-uppercase my-5">Forum - Monthly Quest</h2>
+      <h3 className="text-center my-5">Topic of the Month: "The Music of Final Fantasy – Timeless Tunes or Just Nostalgia?" 🎶</h3>
+      
       <p>
         Few gaming franchises have soundtracks as iconic as Final Fantasy. From Nobuo Uematsu’s original compositions in the early games 
         to the sweeping orchestrations in later installments, Final Fantasy music has captivated generations of gamers. This month, let’s 
         explore what makes the Final Fantasy soundtracks so special. Are they timeless masterpieces that transcend gaming, or simply beloved 
         because of nostalgia?
       </p>
+      <div className="bg-white p-4 my-4 rounded shadow-sm">
       <section>
-        <h3>🔍 Discussion Point: Timeless Tunes vs. Nostalgia</h3>
-        <p>Is the music of Final Fantasy truly timeless, or is its appeal largely due to the nostalgia it evokes? Consider these angles:</p>
+        <h4 className=" font-weight-bold my-5 text-center">🔍 Discussion Point: Timeless Tunes vs. Nostalgia</h4>
+        
+        <h5 className ="text-center mb-5 text-center">Is the music of Final Fantasy truly timeless, or is its appeal largely due to the nostalgia it evokes?</h5>
         
         <div>
-          <h4>Musical Mastery or Emotional Memories?</h4>
+        <h5 className=" font-weight-bold my-2 ">Musical Mastery or Emotional Memories?</h5>
           <p>
             Some argue that the music in Final Fantasy games, especially from composers like Nobuo Uematsu, rivals classical compositions. 
             Tracks like "One-Winged Angel" (Final Fantasy VII) and "To Zanarkand" (Final Fantasy X) have even made their way into concert halls. 
@@ -54,7 +64,7 @@ const ForumsPage = () => {
         </div>
 
         <div>
-          <h4>Consistency in Quality Across the Series</h4>
+        <h5 className=" font-weight-bold my-2">Consistency in Quality Across the Series</h5>
           <p>
             How has Final Fantasy maintained a high standard of music across so many titles and composers? Each soundtrack captures a unique 
             atmosphere that shapes the game’s world. Which games, in your opinion, have the most memorable soundtracks?
@@ -62,19 +72,22 @@ const ForumsPage = () => {
         </div>
 
         <div>
-          <h4>Music as Storytelling</h4>
+          <h5 className=" font-weight-bold my-2">Music as Storytelling</h5>
           <p>
             Final Fantasy’s music often conveys the mood and story more powerfully than visuals or dialogue. How has the music enhanced the 
             storytelling of the series? Can music alone bring out emotions, or does it need the context of gameplay?
           </p>
         </div>
       </section>
+      </div>
 
+      <div className="bg-white p-4 my-4 rounded shadow-sm">
       <section>
-        <h3>🎧 Further Exploration:</h3>
+      <h4 className="text-center font-weight-bold my-5">🎧 Further Exploration</h4>
+        
         
         <div>
-          <h4>Listen:</h4>
+        <h5 className=" font-weight-bold my-2">Listen</h5>
           <p>
             The album *Distant Worlds* features Final Fantasy music performed by a live orchestra. Listening outside the game may reveal 
             how timeless (or nostalgic) the music truly feels.
@@ -82,7 +95,7 @@ const ForumsPage = () => {
         </div>
 
         <div>
-          <h4>Game Suggestion:</h4>
+        <h5 className=" font-weight-bold my-2">Game Suggestion</h5>
           <p>
             Try *Final Fantasy VI* if you haven’t – it’s widely regarded as one of Uematsu’s best works, with a soundtrack that perfectly 
             complements its epic story.
@@ -90,20 +103,23 @@ const ForumsPage = () => {
         </div>
 
         <div>
-          <h4>Video Resource:</h4>
+        <h5 className=" font-weight-bold my-2">Video Resource</h5>
           <p>
             Watch *Final Fantasy: The Spirits Within*, a documentary about creating music for Final Fantasy VII, including an analysis of "One-Winged Angel."
           </p>
         </div>
       </section>
+    </div>
 
-      <h3>💬 Join the Discussion!</h3>
+      <h2 className="text-center font-weight-bold text-uppercase my-5">💬 Join the Discussion!</h2>
+      
+
 
       {forums.length > 0 ? (
         <ul>
           {forums.map((forum) => (
             <li key={forum.id}>
-              <Link to={`/forums/${forum.id}`}>{forum.name}</Link>
+              <h4>{forum.name}</h4>
               <p>{forum.description}</p>
             </li>
           ))}

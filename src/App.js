@@ -18,7 +18,6 @@ import NotFound from "./components/NotFound";
 import ForumPage from './pages/forum/ForumPage';
 import ForumsPage from './pages/forum/ForumsPage';
 import CreateForum from './pages/forum/CreateForum';
-import ForumThreadPage from './pages/forum/ForumThreadPage';
 import Messaging from './pages/messages/Messages';
 import GameLibrary from './pages/game_library/GameLibrary';
 import GameCollection from './pages/game_library/GameCollection';
@@ -71,7 +70,6 @@ function App() {
           <Route exact path="/forum" component={ForumsPage} />
           <Route exact path="/forum/create" component={CreateForum} />
           <Route exact path="/forum/:id" component={ForumPage} />
-          <Route exact path="/forum/:forumId/threads" component={ForumThreadPage} />
 
           {/* Game Library Routes */}
           <Route exact path="/game_library" component={GameLibrary} />
