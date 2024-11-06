@@ -39,7 +39,7 @@ const ForumsPage = () => {
     <div>
       <div>
         <img
-          src="https://res.cloudinary.com/dvcs5hl0c/image/upload/v1730848409/gamepad_j6jhei.jpg"
+          src="https://res.cloudinary.com/dvcs5hl0c/image/upload/v1730888472/music_fxan5b.jpg"
           alt="Gaming Background"
           style={{ maxWidth: '100%', borderRadius: '8px' }}
         />
