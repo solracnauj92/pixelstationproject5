@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Container, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Asset from "../../components/Asset";
 import { useProfileData } from "../../contexts/ProfileDataContext";
 import Profile from "./Profile";
@@ -10,14 +11,14 @@ const PopularProfiles = ({ mobile }) => {
 
   return (
     <Container
-      className={`${mobile && "d-lg-none text-center mb-3"}`} // Remove appStyles.Content
+      className={`${mobile && "d-lg-none text-center mb-3"}`}
       style={{
-        backgroundColor: "transparent", // Ensures no background color
-        padding: 0, // Remove any default padding from Container
+        backgroundColor: "transparent",
+        padding: 0,
       }}
     >
       {/* Individual Welcome Section */}
-      <Card className="rounded shadow-sm mb-5 p-4 bg-white border-0">
+      <Card className="rounded shadow-lg mb-5 p-4 bg-white border-0">
         <Card.Body className="text-center">
           <img
             src={logo}
@@ -35,7 +36,7 @@ const PopularProfiles = ({ mobile }) => {
       </Card>
 
       {/* Individual Top Gamers Section */}
-      <Card className="rounded shadow-sm p-4 bg-white border-0">
+      <Card className="rounded shadow-lg p-4 bg-white border-0 mb-5">
         <h2 className="text-center font-weight-bold text-uppercase mb-4">Top Gamers</h2>
 
         {popularProfiles.results.length ? (
@@ -56,7 +57,19 @@ const PopularProfiles = ({ mobile }) => {
           <Asset spinner />
         )}
       </Card>
-      
+
+      {/* Newsletter Subscription Section */}
+      <Card className="rounded shadow-lg p-4 bg-light border-0 text-center">
+        <Card.Body>
+          <h4 className="font-weight-bold mb-3">🎶 Stay Updated with Our Newsletter!</h4>
+          <Card.Text>
+            Upcoming Event: The official symphony concert world-tour <strong>Distant Worlds: Music from FINAL FANTASY</strong>. Subscribe now for the latest updates on concert dates, locations, and more exciting news!
+          </Card.Text>
+          <Button variant="success" as={Link} to="/newsletter" className="mt-3">
+            Subscribe to our Newsletter
+          </Button>
+        </Card.Body>
+      </Card>
     </Container>
   );
 };
