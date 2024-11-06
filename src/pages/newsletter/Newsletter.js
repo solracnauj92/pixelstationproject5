@@ -122,7 +122,7 @@ function Newsletter() {
             {/* Background Image Section */}
             <div className="mb-5">
                 <img
-                    src="https://res.cloudinary.com/dvcs5hl0c/image/upload/v1730888472/music_fxan5b.jpg"
+                    src="https://res.cloudinary.com/dvcs5hl0c/image/upload/v1730893500/NSwitch_UpcomingGames_November_GB_en_tako2j.jpg"
                     alt="Gaming Background"
                     className="img-fluid rounded"
                 />

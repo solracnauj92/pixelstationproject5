@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import { Form, Button, Alert } from "react-bootstrap";
 
+
 const CreateForum = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -16,7 +17,7 @@ const CreateForum = () => {
       await axiosReq.post("/forums/", { name, description });
       setSuccessMessage("Forum created successfully!");
       setTimeout(() => {
-        history.push("/forums");
+        history.push("/forum");
       }, 2000);
     } catch (err) {
       if (err.response && err.response.data) {

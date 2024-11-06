@@ -36,7 +36,7 @@
   .BlueOutline:hover,
   .Bright:hover {
     background-color: #2142b2;
-    color: #ffffff;
+    color: #000000;
   }
   
   .BlueOutline,
@@ -50,7 +50,7 @@
   .BlackOutline:hover {
     /* background-color: #242a3d;
     color: white; */
-    background-color: #242a3d;
+    background-color: #2d8fff;
     color: aliceblue;
   }
   

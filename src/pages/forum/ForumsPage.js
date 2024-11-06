@@ -34,7 +34,7 @@ const ForumsPage = () => {
       {/* Background Image Section */}
       <div>
         <img
-          src="https://res.cloudinary.com/dvcs5hl0c/image/upload/v1730888472/music_fxan5b.jpg"
+          src="https://res.cloudinary.com/dvcs5hl0c/image/upload/v1730848409/gamepad_j6jhei.jpg"
           alt="Gaming Background"
           style={{ maxWidth: '100%', borderRadius: '8px' }}
         />
