@@ -69,7 +69,7 @@ const GameCreateForm = ({ setGames }) => {
 
     return (
         <Container className={styles.container}>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} className="shadow-lg p-4 rounded-lg bg-white">
                 <Row>
                     <Col md={8}>
                         <Form.Group>
@@ -141,11 +141,11 @@ const GameCreateForm = ({ setGames }) => {
                         {loading ? (
                             <Spinner animation="border" />
                         ) : (
-                            <Button type="submit">Add Game</Button>
+                            <Button type="submit" className={`${btnStyles.Button} mt-3`}>Add Game</Button>
                         )}
 
                         {/* Show success message */}
-                        {success && <Alert variant="success">Game created successfully!</Alert>}
+                        {success && <Alert variant="success" className="mt-3">Game created successfully!</Alert>}
                     </Col>
 
                     <Col md={4}>
