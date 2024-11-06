@@ -1,45 +1,84 @@
-/* src/styles/Newsletter.module.css */
-.newsletter-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+/* Newsletter.module.css */
+
+.newsletterContainer {
     background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    padding: 2rem;
+    margin-top: 3rem;
     border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.newsletterContainer h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 1.5rem;
 }
 
-label {
+.form-group label {
     display: block;
     font-weight: bold;
-    margin-bottom: 5px;
+    color: #555;
+    margin-bottom: 0.5rem;
 }
 
-input[type="text"],
-input[type="email"] {
+.form-group input {
     width: 100%;
-    padding: 8px;
+    padding: 0.75rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 1rem;
 }
 
-button {
-    padding: 10px 15px;
+button[type="submit"] {
     background-color: #007bff;
     color: #fff;
+    padding: 0.75rem 1.5rem;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 1rem;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-button:hover {
+button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-p {
-    margin-top: 10px;
-    color: green;
+.message {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #28a745;
+}
+
+/* Testimonial Section */
+.contentSection {
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: #eaeaea;
+    border-radius: 8px;
+}
+
+.contentSection h3 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.TestimonialImage {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+}
+
+.contentSection p {
+    color: #555;
+    font-size: 1rem;
+    margin: 0.5rem 0;
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { axiosRes } from '../../api/axiosDefaults';  
+import { Container, Row, Col, Image, Button, Form } from 'react-bootstrap';
 import '../../styles/Newsletter.module.css';
 
 function Newsletter() {
@@ -64,34 +65,68 @@ function Newsletter() {
     };
 
     return (
-        <div className="newsletter-container">
-            <h1>Subscribe to Our Newsletter</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit" disabled={isLoading}>
-                    {isLoading ? 'Subscribing...' : 'Subscribe'}
-                </button>
-            </form>
-            {message && <p>{message}</p>}
+        <div className="container mt-5">
+            {/* Testimonial Section */}
+            <Container className="mt-3">
+                <Row className="text-center">
+                    <Col>
+                        <Image
+                            src="https://res.cloudinary.com/dvcs5hl0c/image/upload/v1729361504/media/images/gamer101_u8wv4s.jpg"
+                            roundedCircle
+                            className="mb-2"
+                        />
+                        <p><strong>Gamer101</strong></p>
+                        <p>"Subscribing to the PixelStation newsletter has been awesome! I get all the latest game news, event updates, and exclusive invites straight to my inbox. It’s a great way to stay connected!"</p>
+                    </Col>
+                    <Col>
+                        <Image
+                            src="https://res.cloudinary.com/dvcs5hl0c/image/upload/v1729288240/media/images/amandapika_i6imxx.jpg"
+                            roundedCircle
+                            className="mb-2"
+                        />
+                        <p><strong>AmandaPika</strong></p>
+                        <p>"Being part of the PixelStation community is amazing! The newsletter keeps me updated on events, tournaments, and new releases. It’s the perfect way to stay in the loop!"</p>
+                    </Col>
+                </Row>
+            </Container>
+
+            {/* Join Newsletter Section */}
+            <div className="bg-white p-4 my-4 rounded shadow-sm">
+                <h2 className="text-center font-weight-bold text-uppercase mb-4">Join Our Newsletter</h2>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group controlId="name">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="email">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
+                    <Button variant="primary" type="submit" disabled={isLoading}>
+                        {isLoading ? 'Subscribing...' : 'Join Now'}
+                    </Button>
+                </Form>
+                {message && <p className="mt-3">{message}</p>}
+            </div>
+
+            {/* Background Image Section */}
+            <div className="mb-5">
+                <img
+                    src="https://res.cloudinary.com/dvcs5hl0c/image/upload/v1730888472/music_fxan5b.jpg"
+                    alt="Gaming Background"
+                    className="img-fluid rounded"
+                />
+            </div>
         </div>
     );
 }
