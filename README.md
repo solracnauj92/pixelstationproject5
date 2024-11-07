@@ -264,7 +264,18 @@ JavaScript validation was performed using [JSHint](https://jshint.com/). Screens
 
 CSS validation was performed using the W3C CSS Validator to verify code quality across all stylesheets. Screenshots are included for each CSS file, showing validation results to confirm compliance or highlight any errors. This process ensures that the CSS is optimized and free from errors, contributing to a consistent and visually appealing user interface.
 
-## Responsiveness 
+# Responsiveness and Lighthouse Performance
+
+To ensure that **Pixiel Station** is fully responsive across various devices and platforms, I tested the site on Chrome, Edge, and Opera browsers using both desktop and mobile devices. Due to the large file sizes of the screenshots, I have placed them in a separate folder within the project. These screenshots show how the website performs on different devices and browsers, verifying that the layout is responsive and provides a consistent experience for all users.
+
+You can view the **Responsiveness Screenshots** and **Lighthouse Performance Reports** in the [Documentation folder](https://github.com/solracnauj92/pixelstationproject5/tree/main/Documentation/testinglighthouse).
+
+### Lighthouse Performance
+
+For performance testing, I used **Google Lighthouse** via Chrome Developer Tools to evaluate the website's performance, accessibility, SEO, and best practices. Each page was assessed, and reports were generated to ensure optimal performance. The app's goal is to be not only functional but fast and accessible to all users. 
+
+Full Lighthouse reports and related screenshots are available in the [Documentation section](https://github.com/solracnauj92/pixelstationproject5/tree/main/Documentation/testinglighthouse) for further review.
+
 
 ## Technology Stack and Development Environment
 
