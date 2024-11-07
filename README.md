@@ -215,13 +215,14 @@ Looking at the final product, it’s rewarding to see how the project evolved fr
 # Branding 
 
 ## Logo:
-![Logo](src/assets/logoblack.jpg) 
+![Logo](Documentation/images/logopicture.jpg) 
 
 
-The logo features a joystick, symbolising the retro gaming experience.
+TThe logo incorporates a joystick, representing the nostalgic retro gaming experience. The logo was redesigned to enhance clarity and visibility, ensuring the page name is easily readable. 
+The original design featured a smaller font that was less legible, so the updated version uses a larger, clearer font for better user experience and a more intuitive UI 
 
 ## Colours 
-![colours](src/assets/colours.PNG) 
+![colours](Documentation/images/colours.PNG) 
 
 
 Research carefully and chosen the classic colours used for gaming.
@@ -232,7 +233,16 @@ Research carefully and chosen the classic colours used for gaming.
 
 ## Profile Icons (Users)
 
-![usericons](src/assets/usericons.png)
+![usericons](Documentation/images/usericons.png)
+
+## Images for Website
+
+![duogaming](Documentation/images/duogaming.jpg) 
+![familygaming](Documentation/images/familygaming.jpg) 
+![friends](Documentation/images/friends.jpg) 
+![gampad](Documentation/images/gamepad.jpg) 
+![tumbsup](Documentation/images/tumbsup.jpg) 
+
 
 ---
 # Testings
