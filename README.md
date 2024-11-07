@@ -177,9 +177,11 @@ Pixiel Station is designed to appeal to a variety of gaming enthusiasts. The key
 Pixiel Station provides a platform that serves all of these audiences, creating a dynamic and engaging environment for gamers of every type.
 
 ---
-# Kanban - Agile - User Stories
+# Kanban Agile Workflow
 
-The development of the Pixel Station project followed a clear set of user stories organized through a GitHub Kanban board. The user stories were tracked by their status across three columns: **To Do**, **In Progress**, and **Done**. Below is a summary of the completed user stories along with their respective statuses:
+In this project, the **Kanban** method was used to manage the development workflow. Kanban is a visual tool that enables the team to focus on work items in progress while optimizing efficiency and flow. The workflow is broken down into columns such as "To Do," "In Progress," and "Done," which allows the team to prioritize tasks and manage work effectively. This method was chosen to maintain a clear overview of the current and upcoming tasks, ensuring that no task is overlooked and that the project progresses smoothly.
+
+The Kanban board was used to organize user stories, bugs, and features. By tracking the status of tasks, we were able to identify bottlenecks and adjust priorities quickly. This visual approach helped ensure that the project stayed on track and aligned with deadlines.
 
 ### To Do (Not Started)
 - User Notifications
@@ -366,6 +368,162 @@ Research carefully and chosen the classic colours used for gaming.
 ![gampad](Documentation/images/gamepad.jpg) 
 ![tumbsup](Documentation/images/tumbsup.jpg) 
 
+
+---
+# Current User Context and Authentication Flow
+
+The **CurrentUserContext** manages the state of the current user, providing a way to share the user's data across the application. It leverages React's Context API to provide and set the current user’s state. Here's a breakdown of its functionality:
+
+### Key Components:
+- **CurrentUserContext**: Holds the current user's information.
+- **SetCurrentUserContext**: A context for updating the current user’s state.
+- **useCurrentUser**: A custom hook to access the current user data.
+- **useSetCurrentUser**: A custom hook to update the current user data.
+
+### Responsibilities of the `CurrentUserProvider`:
+1. **Fetch Current User's Data**: It fetches the current user's data upon component mount (via `axiosRes` and the `/dj-rest-auth/user/` API endpoint).
+2. **Token Management**: 
+   - Automatically triggers a refresh request when the token is close to expiring.
+   - Redirects to the sign-in page if the refresh fails (indicating session expiration or user logout).
+
+This system ensures seamless token management and user authentication, keeping the user session active without interruptions.
+
+---
+
+# Profile Data Context and User Follow/Unfollow
+
+The **ProfileDataContext** manages the state of profile data, including the current user's profile and popular profiles. It also provides the ability to follow and unfollow users, updating the UI in real-time.
+
+### Key Components:
+- **ProfileDataContext**: Stores profile data, such as the current user's profile and popular profiles.
+- **SetProfileDataContext**: Provides functions to modify the profile data state, including follow/unfollow actions.
+- **useProfileData**: A custom hook to access profile data.
+- **useSetProfileData**: A custom hook to update profile data and handle follow/unfollow actions.
+
+### Key Actions and Flow:
+1. **Follow a Profile**: Sends a POST request to the `/followers/` endpoint to establish a new follow relationship.
+2. **Unfollow a Profile**: Sends a DELETE request to remove the follow relationship.
+3. **Fetching Popular Profiles**: On mount, it fetches a list of popular profiles based on follower count.
+
+This system allows users to interact with profiles by following and unfollowing others, and the profile data is immediately reflected across the app.
+
+---
+
+# Profile Page Component
+
+The **ProfilePage** component displays a user's profile information, posts, and interactions such as following/unfollowing other users.
+
+### Key Features:
+- **Profile Information**: Displays the user's profile image, bio, follower count, following count, and post count.
+- **Follow/Unfollow**: Allows users to follow or unfollow other users based on the current user's relationship with the profile.
+- **Profile Posts**: Displays the posts made by the user, with infinite scrolling to load more posts.
+- **Popular Profiles**: Displays a list of popular profiles in a sidebar, which can also be followed/unfollowed.
+- **Profile Editing**: Users can edit their profile information if they own the profile.
+
+### Data Flow:
+1. **Fetching Profile Data**: The component fetches profile data and posts using `axiosReq` upon mount.
+2. **Follow/Unfollow Logic**: `handleFollow` and `handleUnfollow` manage the follow relationship and update the UI accordingly.
+3. **Infinite Scroll for Posts**: Uses `react-infinite-scroll-component` to load more posts as the user scrolls.
+
+This component allows users to interact with profiles, follow/unfollow users, and view their posts.
+
+---
+
+# Post Page Component
+
+The **PostPage** component displays a single post along with its associated comments. Users can engage with the post by commenting, and more comments are dynamically loaded as the user scrolls.
+
+### Key Features:
+- **Post Details**: Displays the main content of the post, along with author details and other metadata.
+- **Commenting Functionality**: Authenticated users can leave comments on the post. The comments are dynamically loaded below the post.
+- **Infinite Scroll for Comments**: Loads more comments automatically as the user scrolls.
+- **Popular Profiles Sidebar**: Displays popular profiles in the sidebar for additional user interaction.
+
+### Data Flow:
+1. **Fetching Post and Comments**: Both the post and its comments are fetched using `axiosReq` when the component mounts.
+2. **Creating Comments**: Authenticated users can submit comments that are added dynamically to the list.
+3. **Infinite Scroll for Comments**: The component uses `InfiniteScroll` to load more comments as the user scrolls.
+
+### Conditional Rendering:
+- Authenticated users see a comment input form.
+- Comments are displayed in an infinite scroll list.
+- Users are prompted to leave the first comment if no comments exist.
+
+This component enables users to engage with posts by commenting and interacting with others' comments.
+
+---
+
+# Newsletter Component
+
+The **Newsletter** component allows users to subscribe to a newsletter by entering their name and email address. It ensures that only authenticated users can subscribe and displays user testimonials to increase engagement.
+
+### Key Features:
+- **Subscription Form**: Allows users to enter their name and email to subscribe to the newsletter.
+- **Authentication Check**: Ensures that only authenticated users can subscribe to the newsletter.
+- **Error Handling**: Provides error messages for missing fields, duplicate emails, or unauthenticated users.
+- **Loading State**: Displays a loading message during subscription processing.
+- **User Testimonials**: Displays testimonials from existing subscribers to encourage engagement.
+- **Background Image**: A visually appealing background image enhances the design of the newsletter section.
+
+### Data Flow:
+1. **Authentication Check**: Verifies if the user is authenticated before allowing subscription.
+2. **Form Submission**: Upon submission, the user's data is validated, and if valid, a POST request is sent to subscribe them to the newsletter.
+3. **Error Handling**: Displays appropriate error messages based on subscription issues.
+
+This component provides a subscription form while ensuring users are authenticated and engaged through testimonials and attractive visuals.
+
+---
+
+# HubList Component
+
+The **HubList** component displays a list of available debate hubs where users can join discussions on various topics. It uses infinite scrolling to load more hubs as the user scrolls.
+
+### Key Features:
+- **Infinite Scroll**: Loads more hubs automatically as the user scrolls to the bottom.
+- **API Integration**: Fetches hubs data from the `/debatehub/hubs/` endpoint and manages pagination with the `next` URL.
+- **Responsive Design**: Hubs are displayed in a responsive grid format.
+- **Loading State**: Displays a spinner while hubs are being fetched.
+- **Error Handling**: Logs errors to the console if there’s an issue with the API request.
+
+### Data Flow:
+1. **Fetching Hubs**: Initially fetches hubs data via GET request to `/debatehub/hubs/`.
+2. **Pagination**: As the user scrolls, the `next` URL is used to load more hubs.
+3. **Displaying Hubs**: Each hub’s name, description, and creation date are displayed in a card.
+
+### Conditional Rendering:
+- Displays a list of hubs if available. Otherwise, shows a "No hubs available" message.
+- A loading spinner is shown while hubs are being fetched.
+
+This component allows users to explore available debate hubs and join discussions on different topics.
+
+---
+
+# Comment Component
+
+The **Comment** component displays individual comments on a post. It allows users to edit or delete their comments if they are the owner.
+
+### Key Features:
+- **Editable Comments**: Users can edit their comments if they are the owner.
+- **Delete Comment**: Users can delete their comments, which updates the post and comment lists accordingly.
+- **Avatar and Profile Link**: Displays the owner's avatar and links to their profile.
+- **Comment Information**: Displays the owner's username and the comment’s last updated date.
+
+### Data Flow:
+1. **Delete Comment**: Deletes the comment from the server and updates the post and comments UI.
+2. **Edit Comment**: Displays a form to edit the comment when the owner selects to edit.
+3. **Conditional Rendering**: 
+   - Edit and delete options are visible only to the comment owner.
+   - Edit form is shown when the user selects to edit the comment.
+
+### Components Used:
+- **Avatar**: Displays the profile image of the comment owner.
+- **MoreDropdown**: Provides the options to edit or delete the comment (only visible if the user is the owner).
+- **CommentEditForm**: Form to edit the content of the comment.
+
+### Error Handling:
+- Errors during comment deletion or editing are not explicitly handled but could be improved in the future.
+
+This component allows users to manage their comments by editing, deleting, and viewing associated profile information.
 
 ---
 # Testings
