@@ -222,6 +222,43 @@ CSS validation was performed using the W3C CSS Validator to verify code quality 
 
 ## Responsiveness 
 
+## Technology Stack and Development Environment
+
+### Frontend Technologies
+
+- **React**:  
+  The frontend of Pixiel Station is built using React, a powerful JavaScript library for building user interfaces. React enables the creation of dynamic, responsive, and interactive components that enhance the overall user experience. It was used to handle interactive features such as the newsletter signup, user profiles, game library, and dynamic content updates.
+
+- **CSS**:  
+  The styling of the website has been handled using a combination of custom CSS and frameworks like Bootstrap. CSS ensures that the website is visually appealing, consistent, and responsive across different devices and screen sizes. Specific design patterns and animations were used to enhance the visual experience.
+
+- **Bootstrap**:  
+  Bootstrap was utilized to streamline the design and layout process. It helped make the website responsive and ensured that various UI components (like buttons, modals, forms, and navigation menus) work seamlessly across different screen sizes. Customizations were made to fit the design requirements of the site.
+
+### Development Environment Issue
+
+While developing the project, I encountered an issue with the Node.js environment that led to some challenges. Here's a summary of the issue and how I handled it:
+
+- **Issue**:  
+  Although the development server typically starts with the `npm start` command, at times it fails to work properly. To resolve this, I was prompted to install **Node.js version 18 (v18)**, and later **v16** to make the project work. This issue started occurring after I was attempting to fix a problem where the database was being forgotten after entering user details.
+
+- **Cause**:  
+  I found that in order to get things working, I had to install **Node.js v18** before **v16**, as **v16** was the version the project was ultimately functioning with. However, this process caused my dependencies to break and become inconsistent. The environment issue was never resolved.
+
+- **Fix**:  
+  The core issue was related to a new database link, rather than the development environment itself. The new link allowed the project to persist user data as expected. Unfortunately, despite efforts to resolve the environment issue, I was unable to fix the underlying problem with the Node.js versions and dependencies.
+
+- **Resolution Advice**:  
+  After consulting with my tutors, I was advised to keep the development environment as-is to avoid further complications with dependencies and the project setup. I have documented this issue here for transparency, as the project is still functional with **Node.js v16**, even though the environment setup is not ideal.
+
+### Next Steps
+
+If you encounter the same issue or need to replicate the environment:
+
+1. Install **Node.js v18**.
+2. Install **Node.js v16** afterward (the project works with this version).
+3. If issues persist, follow the advice to keep the environment unchanged and refer to this explanation for troubleshooting.
+
 # References 
 
 The following resources were instrumental in gathering information, assets, and tools for building and enhancing Pixiel Station:
