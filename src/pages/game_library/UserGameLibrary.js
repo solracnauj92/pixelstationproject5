@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useCurrentUser } from "../../contexts/CurrentUserContext"; 
-import { axiosReq } from "../../api/axiosDefaults"; 
-import { Container, Alert, Card, Spinner } from "react-bootstrap"; 
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { axiosReq } from "../../api/axiosDefaults";
+import { Container, Alert, Card, Spinner } from "react-bootstrap";
 import styles from "../../styles/UserGameLibrary.module.css"; // Ensure this import is present
 
 const UserGameLibrary = () => {

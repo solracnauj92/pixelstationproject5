@@ -51,11 +51,11 @@ function HubList() {
       </div>
 
       <h2 className="text-center font-weight-bold text-uppercase mt-5">Debate Hub</h2>
-      <h5 className="text-center my-5">Debate Hub is a space where passionate individuals come together to discuss and share their thoughts on various topics. 
+      <h5 className="text-center my-5">Debate Hub is a space where passionate individuals come together to discuss and share their thoughts on various topics.
         Each "room" represents a unique debate, and inside, you can join others in exchanging opinions, debating different viewpoints, and expanding your knowledge.
-       <br>
-       </br> 
-       <br></br>Click on any of the hubs below to enter a conversation and start sharing your insights. Whether you agree, disagree, or simply want to learn more, your voice matters here!</h5>
+        <br>
+        </br>
+        <br></br>Click on any of the hubs below to enter a conversation and start sharing your insights. Whether you agree, disagree, or simply want to learn more, your voice matters here!</h5>
       <InfiniteScroll
         dataLength={hubs.length} // Length of the hub array
         next={loadMoreHubs} // Function to call for loading more

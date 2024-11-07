@@ -5,7 +5,7 @@ import { Spinner, Alert, Button } from 'react-bootstrap'; // Import Bootstrap co
 import styles from '../../styles/GameDetail.module.css';
 
 const GameDetail = () => {
-    const { gameId } = useParams(); 
+    const { gameId } = useParams();
     const history = useHistory(); // To navigate back
     const [game, setGame] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ const GameDetail = () => {
     useEffect(() => {
         const fetchGame = async () => {
             try {
-                const response = await axios.get(`/game_library/games/${gameId}/`); 
+                const response = await axios.get(`/game_library/games/${gameId}/`);
                 setGame(response.data);
             } catch (err) {
                 setError('Failed to fetch game details. Please try again later.'); // More user-friendly error message

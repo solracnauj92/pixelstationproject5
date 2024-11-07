@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Container, Spinner, Alert } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component"; // Import InfiniteScroll component
-import GameList from "./GameList"; 
+import GameList from "./GameList";
 import GameCreateForm from "./GameCreateForm";
 import { axiosReq } from "../../api/axiosDefaults";
 import styles from "../../styles/GameLibraryPage.module.css"; // Importing your CSS module
 
 const GameLibraryPage = () => {
     const [games, setGames] = useState({ results: [] }); // Adjusted for pagination
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     // Fetch initial games
@@ -21,12 +21,12 @@ const GameLibraryPage = () => {
                 console.error("Error fetching games:", err);
                 setError("Failed to fetch games. Please try again.");
             } finally {
-                setLoading(false); 
+                setLoading(false);
             }
         };
 
         fetchGames();
-    }, []); 
+    }, []);
 
     // Function to handle adding a new game
     const handleAddGame = async (newGame) => {
@@ -81,10 +81,10 @@ const GameLibraryPage = () => {
 
             {/* Add InfiniteScroll for infinite loading */}
             <InfiniteScroll
-                dataLength={games.results.length} 
+                dataLength={games.results.length}
                 next={fetchMoreData} // Fetch more data when scrolled to bottom
-                hasMore={!!games.next} 
-                loader={<Spinner animation="border" />} 
+                hasMore={!!games.next}
+                loader={<Spinner animation="border" />}
             >
                 <h2 className="text-center font-weight-bold text-uppercase my-5">Game Library</h2>
                 <GameList games={games.results} /> {/* Render the list of games */}

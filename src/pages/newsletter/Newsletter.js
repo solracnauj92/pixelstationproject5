@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { axiosRes } from '../../api/axiosDefaults';  
+import { axiosRes } from '../../api/axiosDefaults';
 import { Container, Row, Col, Image, Button, Form } from 'react-bootstrap';
 import '../../styles/Newsletter.module.css';
 
@@ -7,14 +7,14 @@ function Newsletter() {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
-    const [isUserAuthenticated, setIsUserAuthenticated] = useState(false); 
-    const [isLoading, setIsLoading] = useState(false);  
+    const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchCurrentUser = async () => {
             try {
-                await axiosRes.get('/dj-rest-auth/user/'); 
-                setIsUserAuthenticated(true); 
+                await axiosRes.get('/dj-rest-auth/user/');
+                setIsUserAuthenticated(true);
             } catch (error) {
                 if (error.response) {
                     console.error("Error response:", error.response.data);
@@ -41,13 +41,13 @@ function Newsletter() {
             return;
         }
 
-        setIsLoading(true);  
+        setIsLoading(true);
         try {
-            const response = await axiosRes.post('/newsletter/subscriptions/', { email, name }); 
+            const response = await axiosRes.post('/newsletter/subscriptions/', { email, name });
             if (response.status === 201) {
                 setMessage(`🎉 You've successfully subscribed to our newsletter! 🎉 \n\n Stay tuned for the latest updates and news from PixelStation!`);
-                setEmail(''); 
-                setName(''); 
+                setEmail('');
+                setName('');
             }
         } catch (error) {
             if (error.response) {
@@ -60,7 +60,7 @@ function Newsletter() {
                 setMessage('An error occurred. Please try again.');
             }
         } finally {
-            setIsLoading(false);  
+            setIsLoading(false);
         }
     };
 

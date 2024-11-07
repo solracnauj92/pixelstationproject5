@@ -5,7 +5,7 @@ import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import { Link, useHistory } from "react-router-dom";
-import styles from "../../styles/SignInForm.module.css"; 
+import styles from "../../styles/SignInForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { useRedirect } from "../../hooks/useRedirect";
@@ -25,25 +25,25 @@ function SignInForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
+
         try {
             const response = await axios.post("/dj-rest-auth/login/", signInData);
             console.log("Login response:", response.data); // Log the entire response to verify structure
-    
+
             // Update to match the response keys (access_token and refresh_token)
             const { access_token, refresh_token, user } = response.data;
-    
+
             if (!access_token || !refresh_token) {
                 throw new Error("Missing tokens in response");
             }
-    
+
             // Store the tokens in local storage
             localStorage.setItem("token", access_token); // Store the access token
             localStorage.setItem("refresh_token", refresh_token); // Store the refresh token
-    
+
             // Set the current user if available in response
             setCurrentUser(user);
-    
+
             // Redirect or navigate as necessary
             history.goBack();
         } catch (err) {

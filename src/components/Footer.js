@@ -23,7 +23,7 @@ function Footer() {
                 </a>
             </div>
             <div className="newsletter-link mb-2">
-                <Link to="/newsletter/">Subscribe to our Newsletter</Link> 
+                <Link to="/newsletter/">Subscribe to our Newsletter</Link>
             </div>
             &copy; {new Date().getFullYear()} Pixel Station. All rights reserved.
         </footer>

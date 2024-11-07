@@ -36,7 +36,7 @@ function HubDetail() {
         content: newDebateContent,
       });
       setDebates((prevDebates) => [newDebate, ...prevDebates]);
-      setNewDebateContent("");  
+      setNewDebateContent("");
     } catch (err) {
       console.error("Error creating debate:", err);
     }
@@ -63,7 +63,7 @@ function HubDetail() {
               <hr />
             </>
           )}
-          
+
           {/* Debate Creation Form */}
           <Form onSubmit={handleCreateDebate}>
             <Form.Group controlId="debateContent">
@@ -80,7 +80,7 @@ function HubDetail() {
           </Form>
 
           <hr />
-          
+
           {/* Debate List */}
           <h2>Debates</h2>
           {debates.length ? (

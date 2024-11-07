@@ -113,7 +113,7 @@ function HubDetail() {
           )}
 
           <hr />
-          
+
           <h3 className="text-center font-weight-bold text-uppercase mt-5">Opinions on the Topic</h3>
           {debates.results.length ? (
             <InfiniteScroll

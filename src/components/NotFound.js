@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../styles/NotFound.module.css';
 
 const NotFound = () => {
-  const notFoundImageUrl = 'https://res.cloudinary.com/dvcs5hl0c/image/upload/v1729378737/gameover_zai5jf.png'; 
+  const notFoundImageUrl = 'https://res.cloudinary.com/dvcs5hl0c/image/upload/v1729378737/gameover_zai5jf.png';
 
   return (
     <div className={styles.container}>

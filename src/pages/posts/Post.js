@@ -97,15 +97,15 @@ const Post = (props) => {
             <span>{updated_at}</span>
             {is_owner && postPage && (
 
-<MoreDropdown
+              <MoreDropdown
 
-  handleEdit={handleEdit}
+                handleEdit={handleEdit}
 
-  handleDelete={handleDelete}
+                handleDelete={handleDelete}
 
-/>
+              />
 
-)}
+            )}
           </div>
         </Media>
       </Card.Body>

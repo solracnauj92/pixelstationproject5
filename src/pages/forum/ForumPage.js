@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Forum from './Forum'; 
-import CreateForum from './CreateForum'; 
+import Forum from './Forum';
+import CreateForum from './CreateForum';
 import { axiosRes } from "../../api/axiosDefaults";
 
 const ForumPage = () => {
@@ -22,7 +22,7 @@ const ForumPage = () => {
     return (
         <div>
             <h1>Forums</h1>
-            <CreateForum setForums={setForums} /> 
+            <CreateForum setForums={setForums} />
             {forums.length ? (
                 <Forum forums={forums} />
             ) : (
