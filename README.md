@@ -177,6 +177,44 @@ Pixiel Station is designed to appeal to a variety of gaming enthusiasts. The key
 Pixiel Station provides a platform that serves all of these audiences, creating a dynamic and engaging environment for gamers of every type.
 
 ---
+# Kanban - Agile - User Stories
+
+The development of the Pixel Station project followed a clear set of user stories organized through a GitHub Kanban board. The user stories were tracked by their status across three columns: **To Do**, **In Progress**, and **Done**. Below is a summary of the completed user stories along with their respective statuses:
+
+### To Do (Not Started)
+- User Notifications
+- Privacy Settings
+- Rating on Games
+- Messaging Functionality
+
+### Done (Completed)
+- User Registration and Sign In
+- Game Library
+- Debate Hub
+- Newsletter
+- Forum
+- Search Functionality
+- Like and Unlike Functionality
+- Infinite Scroll
+- Commenting on Posts
+- Creating and Managing Posts
+- User Profile Management
+- Site Navigation
+- Feed and Timeline
+- Followers and Following Lists
+- Following and Unfollowing Users
+
+### User Story Tracking Image
+
+You can see a visual representation of the user stories' progression and their current status in the following image:
+
+![User Stories Tracking](Documentation/images/userstories.png)
+
+---
+
+This board helped manage the project's tasks efficiently, ensuring the features were completed on time. User stories were broken down into tasks and prioritized to ensure the essential features were delivered first, and non-critical features could be worked on later.
+
+-----
 # Wireframe and Project Evolution
 
 Initially, I planned the Pixiel Station project with two main features: a **forum** and a **game library**, along with a **messaging** feature. I created wireframes using **Canva** to map out the layout and features.
