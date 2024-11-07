@@ -201,6 +201,22 @@ Research carefully and chosen the classic colours used for gaming.
 ![usericons](src/assets/usericons.png)
 
 ---
-# Testing 
+## Testing
+
+Comprehensive testing has been conducted for all React JavaScript and CSS files in the Pixiel Station frontend. Screenshots document the results, indicating whether each file has errors or is error-free. Given the number of files involved, these screenshots are stored separately in the project repository for better organization.
+
+You can view the testing screenshots in the following directory:
+[Testing Images](https://github.com/solracnauj92/pixelstationproject5/tree/main/Documentation/testingimages)
+
+Each screenshot provides a clear record of the testing status for individual files.
+
+### JavaScript Validation
+
+JavaScript validation was performed using [JSHint](https://jshint.com/). Screenshots capture the results of JSHint validation for each JavaScript file, showing any detected issues or confirming that the file is error-free. This validation process helps ensure high code quality by identifying potential issues and enforcing JavaScript best practices.
+
+### CSS Validation
+
+CSS validation was performed using the W3C CSS Validator to verify code quality across all stylesheets. Screenshots are included for each CSS file, showing validation results to confirm compliance or highlight any errors. This process ensures that the CSS is optimized and free from errors, contributing to a consistent and visually appealing user interface.
+
 
 
