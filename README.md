@@ -303,6 +303,89 @@ If you encounter the same issue or need to replicate the environment:
 2. Install **Node.js v16** afterward (the project works with this version).
 3. If issues persist, follow the advice to keep the environment unchanged and refer to this explanation for troubleshooting.
 
+### Bugs and Fixes
+
+1. **Profile Edit Bug**  
+   - **Issue**: Users were unable to edit their profiles, and attempts to update profiles resulted in errors.  
+   - **Fix**: The issue was traced to incorrect database routing and missing field configurations. After reconfiguring the backend database settings, the profile edit feature became functional again.
+
+2. **Login Issues after Profile Edit Fix**  
+   - **Issue**: After fixing the profile edit bug, the login functionality stopped working, resulting in an error.  
+   - **Fix**: The issue was resolved by adjusting the login route and ensuring proper session management in both the frontend (React) and backend (Django).
+
+3. **Filter Not Appearing on Game Library**  
+   - **Issue**: The filter functionality on the game library page wasn't appearing as expected.  
+   - **Fix**: The issue was caused by incorrect binding of filter components in React. By properly linking the filter state to the UI, the issue was fixed, and the filter now appears and functions correctly.
+
+4. **CORS Issues**  
+   - **Issue**: Cross-Origin Resource Sharing (CORS) issues were preventing the frontend React app from communicating with the Django backend.  
+   - **Fix**: The CORS settings were adjusted in the Django backend by configuring the `django-cors-headers` middleware to allow requests from the frontend domain.
+
+5. **Routing Issues in React**  
+   - **Issue**: Incorrect routing caused several pages to not load as expected, especially after user login or navigating between different app sections.  
+   - **Fix**: After troubleshooting the routes, the issue was resolved by correcting path mappings and ensuring each route was properly linked to its corresponding component in React.
+
+6. **Node and Babel Configuration Issues**  
+   - **Issue**: The app had issues with Babel configuration, causing some React components to fail to compile correctly.  
+   - **Fix**: Updated the `.babelrc` configuration to include necessary presets and ensured that the correct version of Node.js was being used (Node 16).
+
+7. **Slow Loading Times**  
+   - **Issue**: The website was taking a long time to load, especially on the game library and profile pages.  
+   - **Fix**: Optimized frontend React components for better performance, reduced unnecessary re-renders, and ensured proper lazy loading of components. Additionally, backend performance was enhanced by optimizing database queries.
+
+8. **Database Not Functional at Start**  
+   - **Issue**: The backend database was not functional during the initial development stages, preventing data from being saved or retrieved properly.  
+   - **Fix**: After troubleshooting the database connection and reconfiguring database settings, the issue was resolved by resetting the database URL and ensuring proper connectivity.
+
+9. **Profile Page Stopped Working**  
+   - **Issue**: After fixing previous bugs, the profile page stopped loading or displaying correctly, causing users to be unable to view or edit their profile information.  
+   - **Fix**: This was resolved by revisiting the frontend and backend routing for the profile page, ensuring it was correctly linked and data was being passed between React and Django components.
+
+10. **Client Origin Errors**  
+   - **Issue**: The app was unable to correctly handle requests from the frontend due to mismatched origins between the React app and the Django backend.  
+   - **Fix**: This was resolved by configuring the correct CORS settings and making sure both frontend and backend were aligned in terms of allowed origins.
+
+## No Fixed Bugs
+
+The following features are currently non-functional and likely require further investigation of routing, code logic, or configurations:
+
+1. **Forum Threads and Replies**  
+   - **Issue**: Threads and replies in the Forum app are not functioning as expected. The issue is likely related to incorrect routing or model configuration, which is preventing the dynamic generation of threads and replies.
+
+2. **Debate Hub Responses**  
+   - **Issue**: Responses within the Debate Hub are not appearing correctly on the frontend. This may be due to routing issues or improper view configurations preventing the correct display of responses.
+
+3. **Game Library Collection**  
+   - **Issue**: The Game Library collection feature, which allows users to group and manage games, is currently non-functional. The app is not fetching game data correctly, possibly due to issues in routing or data serialization.
+
+4. **Messaging**  
+   - **Issue**: The messaging feature is entirely non-functional. Additionally, it has caused issues on the profile page, where the `currentUser` data is not loading correctly, affecting related features on the profile page.
+
+These issues were challenging to debug fully within the project timeframe, and additional fixes and updates are planned for future releases. Due to time constraints and the complexity of some issues, these features were not completed as intended. Additionally, there was some overriding of Bootstrap components, which further complicated UI consistency across the project.
+
+
+### Future Features & Fixes
+
+The following features are planned to be fixed or added in future updates:
+
+1. **Forum Threads and Replies Fix**  
+   - **Planned Fix**: Investigate routing and model configurations to ensure that threads and replies are dynamically generated and displayed correctly.
+
+2. **Debate Hub Responses Fix**  
+   - **Planned Fix**: Resolve routing and view configuration issues to properly display responses within the Debate Hub, with a focus on thread-like functionality.
+
+3. **Game Library Collection Fix**  
+   - **Planned Fix**: Rework data fetching and serialization in the Game Library to ensure that game collections are properly loaded and displayed for users.
+
+4. **Messaging Functionality**  
+   - **Planned Fix**: Resolve issues with the `currentUser` data not loading correctly, and fully implement the messaging feature for reliable communication between users.
+
+5. **UI Consistency & Bootstrap Fixes**  
+   - **Planned Fix**: Resolve Bootstrap overriding issues to achieve consistent and responsive UI components across all pages.
+
+By addressing these issues, I aim to bring the application closer to the initial vision while improving the overall user experience.
+
+
 # References 
 
 The following resources were instrumental in gathering information, assets, and tools for building and enhancing Pixiel Station:
