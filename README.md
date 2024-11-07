@@ -210,6 +210,91 @@ The Messaging app posed significant challenges, particularly in endpoint connect
 
 Looking at the final product, it’s rewarding to see how the project evolved from a basic **forum and game library** to a more dynamic **hub** for gaming content and community interaction. This will continue to develop as new features are added.
 
+## Features 
+
+Pixiel Station offers various interactive and dynamic features designed to create an engaging platform for gaming enthusiasts. Below is a breakdown of the main features of the website, along with the images showcasing each of them:
+
+### 1. User Registration and Login
+**Feature**: Users can register and log in to their accounts, allowing personalized access to the community features.
+
+**Explanation**: The **Sign Up** and **Sign In** pages offer a simple and secure authentication process for new and returning users. Upon login, users are directed to the homepage, where they can interact with content.
+
+![Sign In](Documentation/images/signin.png)
+![Sign Up](Documentation/images/signup.png)
+
+---
+
+### 2. Feed and Content Interaction
+**Feature**: The **Feed** displays posts from users that can be liked and commented on, enabling community interaction.
+
+**Explanation**: The feed offers a real-time view of content, where users can engage by liking posts and commenting on them. The feed encourages social interaction and content sharing within the platform.
+
+![Feed](Documentation/images/feed.png)
+![Comment and Like](Documentation/images/commentlike.png)
+
+---
+
+### 3. Debate Hub
+**Feature**: The **Debate Hub** allows users to engage in discussions around various gaming topics rooms.
+
+**Explanation**: The Debate Hub serves as a platform for in-depth room debates and discussions on gaming-related subjects. Users can post their debate replies, helping create a vibrant community for thoughtful discourse.
+
+![Debate Hub](Documentation/images/debatehub.png)
+![Debate Hub](Documentation/images/debatehubs.png)
+![Debate](Documentation/images/debate.png)
+
+---
+
+### 4. Forum and Replies
+**Feature**: Users can post threads and engage in replies in the **Forum**.
+
+**Explanation**: The **Forum** feature enables users to post questions, share ideas, or discuss topics with others. The **Forum Reply** system allows users to respond to the forum of the month for example, fostering engagement within the community.
+
+![Forum](Documentation/images/forum.png)
+![Forum Reply](Documentation/images/fourmreply.png)
+![Reply](Documentation/images/reply.png)
+
+---
+
+### 5. Game Library
+**Feature**: The **Game Library** lets users add and manage their game collections.
+
+**Explanation**: Users can browse, add, and manage their games in the **Game Library**.
+
+![Game Add](Documentation/images/gameadd.png)
+![Game Library](Documentation/images/gamelibrary.png)
+![Games](Documentation/images/games.png)
+
+---
+
+### 6. Post and Content Creation
+**Feature**: Users can create posts with titles and content, allowing them to share news, updates, or personal thoughts with the community.
+
+**Explanation**: The **Post** feature allows users to create and share content on the platform, which can then be interacted with by other users through likes and comments. Posts can cover a wide variety of topics, offering community engagement.
+
+![Post](Documentation/images/post.png)
+![Comment and Like](Documentation/images/commentlike.png)
+
+
+---
+
+### 7. Stay Updated with Our Newsletter
+**Feature**: The **Newsletter** feature allows users to subscribe to receive updates about community events, new posts, and feature releases.
+
+**Explanation**: The **Newsletter** feature helps keep users connected to the platform by sending them updates about important news, events, and gaming trends. This ensures that users are always informed about the latest happenings within Pixiel Station.
+
+![Newsletter](Documentation/images/newsletter.png)
+
+---
+
+### 8. User Profile Management
+**Feature**: Users can view and edit their profiles to personalize their experience on Pixiel Station.
+
+**Explanation**: Each user has a profile page that displays their information and activity on the platform. Users can customize their profile details and track their interactions, including posts, likes, and replies.
+
+![User Profile](Documentation/images/profilepage.png)
+
+---
 
 
 # Branding 
