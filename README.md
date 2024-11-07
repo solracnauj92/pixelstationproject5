@@ -177,6 +177,40 @@ Pixiel Station is designed to appeal to a variety of gaming enthusiasts. The key
 Pixiel Station provides a platform that serves all of these audiences, creating a dynamic and engaging environment for gamers of every type.
 
 ---
+# Wireframe and Project Evolution
+
+Initially, I planned the Pixiel Station project with two main features: a **forum** and a **game library**, along with a **messaging** feature. I created wireframes using **Canva** to map out the layout and features.
+
+![Wireframe](Documentation/images/desktop_wireframe (2).jpg)
+![Wireframe](Documentation/images/desktop_wireframe (3).jpg)
+![Wireframe](Documentation/images/desktop_wireframe.jpg)
+![Wireframe](Documentation/images/mobile_wireframe.jpg)
+![Wireframe](Documentation/images/tab_wireframe..jpg)
+
+As development progressed, I expanded the idea into a more comprehensive **hub**. While the final site is close to the initial concept, key features were adjusted or omitted to prioritize functionality and meet deadlines. For example:
+## Key Features
+
+### 1. Post, Like, Follow, and User Profile Apps
+These apps provide Pixiel Station's core social interaction features, allowing users to create posts, like content, follow other users, and manage their profiles. Built based on the Code Institute’s walkthrough project, they include basic social functionalities essential for user engagement and connection.
+
+### 2. Game Library App
+The Game Library app was designed to offer a catalog where users could add games and manage personal collections. Currently, users can add games and view the game library, but the feature to create personal collections was not completed within the project timeline. The app provides a functional, community-accessible library, with future updates planned to enhance personalization.
+
+### 3. Forum App
+Initially, the Forum app was planned to have a standard thread-and-reply structure for in-depth discussions. Due to time constraints and a learning curve with Django and React, the forum design was simplified to allow users to create a forum topic with a title and description, appearing as a direct-response format on the frontend. While functional, this diverges from the original vision, with plans for a full thread structure in future updates.
+
+### 4. Debate Hub App
+Similar to the Forum app, the Debate Hub was envisioned to support nested discussions within each debate topic. The current implementation allows users to view a list of debate topics and participate directly. Although the nested reply structure was postponed, users can still engage in discussions within each hub topic. Future updates will introduce the intended thread-and-reply model.
+
+### 5. Newsletter App
+The Newsletter app allows users to subscribe to community updates. This app was implemented fully as intended, enabling community connection without requiring major adjustments.
+
+### 6. Messaging App (Not Functional)
+The Messaging app posed significant challenges, particularly in endpoint connections, and remained non-functional at the project's close. Despite dedicated troubleshooting efforts, limited support options made resolving these issues difficult. In the future, I plan to reattempt this feature, potentially by following additional tutorials or seeking further guidance to implement a reliable messaging service.
+
+Looking at the final product, it’s rewarding to see how the project evolved from a basic **forum and game library** to a more dynamic **hub** for gaming content and community interaction. This will continue to develop as new features are added.
+
+
 
 # Branding 
 
