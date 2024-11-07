@@ -687,6 +687,11 @@ The following resources were instrumental in gathering information, assets, and 
 - [EA Games Library](https://www.ea.com/en-gb/games/library) – Used as a reference for popular game titles and content.
 - [Steam Store](https://store.steampowered.com/) – Source for game descriptions, images, and metadata in the game library.
 - [Nintendo What's New](https://www.nintendo.com/us/whatsnew/?srsltid=AfmBOopcrQhhNfaRDCK7YQZF1PlyIXzB4PqdN79x3_0neil7ehjSTI5h) – Source for the latest gaming news, images, and updates for keeping the site current.
+- [IGN](https://www.ign.com/) – Source for the latest gaming news, reviews, and updates on new game releases.
+- [GOG](https://www.gog.com/) – A platform for DRM-free digital games, useful for references related to game libraries.
+- [Giant Bomb](https://www.giantbomb.com/) – Provides in-depth game reviews, video content, and user discussions on gaming-related topics.
+- [Metacritic](https://www.metacritic.com/game) – Aggregates game review scores, allowing users to get quick insight into the overall reception of a title.
+- [Epic Games Store](https://www.epicgames.com/store/en-US/) – Provides a wide variety of free and paid games along with user reviews and ratings.
 
 ### Event Listings
 
@@ -704,6 +709,8 @@ The following resources were instrumental in gathering information, assets, and 
   - [React Forms Tutorial (FreeCodeCamp YouTube)](https://www.youtube.com/watch?v=CT-72lTXdPg) – FreeCodeCamp tutorial for building simple and effective React forms.
   - [React Newsletter Signup Form (YouTube)](https://www.youtube.com/watch?v=gHFZur10nK4) – Tutorial for building a responsive newsletter signup form with React.
   - [React Complete Course Playlist (YouTube)](https://www.youtube.com/watch?v=DLX62G4lc44&list=PLWKjhJtqVAbkArDMazoARtNz1aMwNWmvC) – Comprehensive guide for learning React, covering essential components, state, and hooks.
+  [React Router](https://reactrouter.com/) – Essential for handling routing within a React application, helping users navigate between different sections of the app.
+
 - **Django and Backend Development**:
   - [Django REST Framework Documentation](https://www.django-rest-framework.org/) – Main documentation for implementing and managing Django REST APIs.
   - [Code Institute DRF API GitHub Repository](https://github.com/Code-Institute-Solutions/drf-api) – Backend source code reference.
@@ -719,17 +726,43 @@ The following resources were instrumental in gathering information, assets, and 
   - [React Infinite Scroll Component on npm](https://www.npmjs.com/package/react-infinite-scroll-component) – Used to implement infinite scrolling features.
   - [DifferChecker](https://www.differchecker.com/) – Tool for checking differences between code versions and ensuring consistency.
   - [Stack Overflow](https://stackoverflow.com/) – Provided solutions and advice for debugging and implementing React and JavaScript features.
+  - [W3C Validator](https://validator.w3.org/) – A tool to validate the HTML and CSS of your website to ensure that it adheres to web standards.
+  - [Jest](https://jestjs.io/) – A popular testing framework for JavaScript applications, commonly used for testing React components.
+  - [ESLint](https://eslint.org/) – A tool to identify and fix problems in JavaScript code to improve code quality and consistency.
 
 ### Tutorials and Guides
 
 - [React Tutorial for Beginners (YouTube)](https://www.youtube.com/watch?v=SqcY0GlETPk&t=163s) – Video tutorial for building React components and managing state.
 - **Code Institute Walkthrough Tutorials** – Video tutorials covering backend and frontend development that provided structure and guidance throughout the project.
 - **ChatGPT** – Assisted with troubleshooting code errors, clarifying development concepts, and generating placeholder text for site content. ChatGPT also provided guidance on complex functionality.
+
 ### Design and Visual Assets
 
 - [Dribbble - Profile Page Inspiration](https://dribbble.com/tags/profile-page) – Used for inspiration on profile page designs.
 - [Canva](https://www.canva.com/) – Tool for creating images, logos, and other design assets for the site.
 
+### Development Environment and Deployment
+
+This project was developed using **Gitpod** for both frontend and backend development. Below is an overview of the technologies and services used in this project:
+
+#### 1. **Gitpod** – Cloud-Based Development Environment
+- **Gitpod** was used as the primary development environment for both the frontend (React) and backend (Django).
+- It provides an integrated workspace that allows seamless development, testing, and deployment workflows without having to worry about local setup configurations.
+- Gitpod is an online IDE that connects directly to your GitHub repository, making it easy to clone, develop, and commit code from anywhere.
+
+#### 2. **Backend – Django**
+- The backend of this project is built using **Django** with **Django REST Framework** (DRF) to handle the API.
+- Django provides a robust, secure, and scalable framework to manage the data models, authentication, and server-side logic.
+- **Django REST Framework (DRF)** was used to build the APIs for handling CRUD operations and interacting with the frontend.
+
+#### 3. **Frontend – React**
+- The frontend is built using **React**, a popular JavaScript library for building user interfaces.
+- React allows for a dynamic, component-based UI, making it ideal for building interactive web applications.
+- The frontend communicates with the backend via **Axios** to fetch and display data.
+
+#### 4. **GitHub and Gitpod Integration**
+- All source code is stored and managed using **GitHub**.
+- **Gitpod** is integrated with GitHub, allowing you to easily clone and develop the project directly from GitHub repositories. Changes are committed and pushed back to GitHub, making it easy to collaborate and track version history.
 
 ## PostgreSQL Database
 
@@ -892,6 +925,7 @@ I would like to extend my heartfelt gratitude to the following individuals and t
 - **Other Supportive Individuals**: 
     - Family and friends who offered encouragement.
     - The community resources available through forums and tutorials that helped me solve challenges.
+    - My Mentor Mo who has guided me at the start point of the project 
 
 
 
