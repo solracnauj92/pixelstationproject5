@@ -7,6 +7,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { CurrentUserProvider } from "./contexts/CurrentUserContext";
 import { ProfileDataProvider } from "./contexts/ProfileDataContext";
 
+import axios from "axios"; // ✅ NEW
+axios.defaults.withCredentials = true; // ✅ SEND COOKIES
+axios.defaults.baseURL = "https://pixelstationproject5-api-1a9dadf46f0b.herokuapp.com"; // ✅ API root
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>
