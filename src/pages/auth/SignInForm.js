@@ -31,18 +31,9 @@ function SignInForm() {
             console.log("Login response:", response.data); // Log the entire response to verify structure
 
             // Update to match the response keys (access_token and refresh_token)
-            const { access_token, refresh_token, user } = response.data;
-
-            if (!access_token || !refresh_token) {
-                throw new Error("Missing tokens in response");
-            }
-
-            // Store the tokens in local storage
-            localStorage.setItem("token", access_token); // Store the access token
-            localStorage.setItem("refresh_token", refresh_token); // Store the refresh token
-
-            // Set the current user if available in response
+            const { user } = response.data;
             setCurrentUser(user);
+
 
             // Redirect or navigate as necessary
             history.goBack();
