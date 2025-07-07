@@ -34,7 +34,10 @@ export const CurrentUserProvider = ({ children }) => {
   useEffect(() => {
     const requestInterceptor = axiosReq.interceptors.request.use(
       async (config) => {
-        if (shouldRefreshToken() && document.cookie.includes("my-refresh-token")) {
+        if (
+          shouldRefreshToken() &&
+          document.cookie.includes("my-refresh-token")
+        ) {
           try {
             await axios.post("/dj-rest-auth/token/refresh/");
           } catch (err) {
@@ -44,6 +47,8 @@ export const CurrentUserProvider = ({ children }) => {
             });
             removeTokenTimestamp();
           }
+        } else {
+          console.log("No refresh token found. Skipping token refresh.");
         }
         return config;
       },
@@ -53,10 +58,13 @@ export const CurrentUserProvider = ({ children }) => {
     const responseInterceptor = axiosRes.interceptors.response.use(
       (response) => response,
       async (err) => {
-        if (err.response?.status === 401 && document.cookie.includes("my-refresh-token")) {
+        if (
+          err.response?.status === 401 &&
+          document.cookie.includes("my-refresh-token")
+        ) {
           try {
             await axios.post("/dj-rest-auth/token/refresh/");
-            return axios(err.config); // retry request
+            return axios(err.config);
           } catch (refreshErr) {
             setCurrentUser((prev) => {
               if (prev) history.push("/signin");
@@ -64,12 +72,13 @@ export const CurrentUserProvider = ({ children }) => {
             });
             removeTokenTimestamp();
           }
+        } else {
+          console.log("Unauthorized and no refresh token present.");
         }
         return Promise.reject(err);
       }
     );
 
-    // Cleanup interceptors on unmount
     return () => {
       axiosReq.interceptors.request.eject(requestInterceptor);
       axiosRes.interceptors.response.eject(responseInterceptor);
